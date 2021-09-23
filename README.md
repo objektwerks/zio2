@@ -1,6 +1,6 @@
 ZIO 2
 -----
->ZIO 2 feature tests.
+>ZIO 2 feature tests. **Note:** ZIO 2 is an M3 release. So this project is a WIP.
 
 Test
 ----
