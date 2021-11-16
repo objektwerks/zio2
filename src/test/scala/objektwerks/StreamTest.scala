@@ -11,15 +11,15 @@ object StreamTest extends ZioTest {
     },
 
     test("fold") {
-      assertM( Stream(1, 2, 3).fold(0)(_ + _) )( equalTo(6) )
+      assertM( Stream(1, 2, 3).runFold(0)(_ + _) )( equalTo(6) )
     },
 
     test("map > fold") {
-      assertM( Stream(1, 2, 3).map(_ * 2).fold(0)(_ + _) )( equalTo(12) )
+      assertM( Stream(1, 2, 3).map(_ * 2).runFold(0)(_ + _) )( equalTo(12) )
     },
 
     test("merge > fold") {
-      assertM( Stream(1, 2, 3).merge(Stream(4, 5, 6)).fold(0)(_ + _) )( equalTo(21) )
+      assertM( Stream(1, 2, 3).merge(Stream(4, 5, 6)).runFold(0)(_ + _) )( equalTo(21) )
     }
   )
 }
