@@ -4,7 +4,7 @@ import zio.Task
 import zio.test.Assertion.isTrue
 import zio.test._
 
-object FilesTest extends ZioTest {
+object FilesTest extends ZioTest:
   import Files._
 
   def spec: Spec[Environment, TestFailure[Nothing], TestSuccess] = suite("files.test")(
@@ -13,4 +13,3 @@ object FilesTest extends ZioTest {
       assert( runtime.unsafeRun( content ).nonEmpty )( isTrue )
     }
   )
-}
