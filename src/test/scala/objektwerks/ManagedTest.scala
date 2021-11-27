@@ -1,10 +1,10 @@
 package objektwerks
 
-import zio.test.Assertion.isTrue
-import zio.test._
-import zio.{Managed, Task, ZManaged}
-
 import scala.io.BufferedSource
+
+import zio.{Managed, Task, ZManaged}
+import zio.test._
+import zio.test.Assertion.isTrue
 
 object ManagedTest extends ZioTest:
   import Resources._
