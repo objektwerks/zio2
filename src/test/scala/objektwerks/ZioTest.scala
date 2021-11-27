@@ -1,8 +1,7 @@
 package objektwerks
 
-import zio.test._
 import zio.{Runtime, ZEnv}
+import zio.test._
 
-trait ZioTest extends DefaultRunnableSpec {
+trait ZioTest extends DefaultRunnableSpec:
   protected val runtime: Runtime[ZEnv] = Runtime.default
-}
