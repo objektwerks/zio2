@@ -4,7 +4,7 @@ import zio.Chunk
 import zio.test.Assertion.equalTo
 import zio.test._
 
-object ChunkTest extends ZioTest {
+object ChunkTest extends ZioTest:
   private val chunk = Chunk(1, 2, 3)
 
   def spec: Spec[Environment, TestFailure[Nothing], TestSuccess] = suite("chunk.test")(
@@ -36,4 +36,3 @@ object ChunkTest extends ZioTest {
       assert( chunk.takeWhile(_ % 2 != 0) )( equalTo( Chunk(1) ) )
     }
   )
-}
