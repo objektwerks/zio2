@@ -1,8 +1,8 @@
 package objektwerks
 
-import zio.test.Assertion.isTrue
-import zio.test._
 import zio.{Task, ZIO}
+import zio.test._
+import zio.test.Assertion.isTrue
 
 object ErrorTest extends ZioTest:
   import Files._
