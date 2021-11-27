@@ -4,7 +4,7 @@ import zio.Ref
 import zio.test.Assertion.equalTo
 import zio.test._
 
-object RefTest extends ZioTest {
+object RefTest extends ZioTest:
   def spec: Spec[Environment, TestFailure[Nothing], TestSuccess] = suite("ref.test")(
     test("ref") {
       for {
@@ -15,4 +15,3 @@ object RefTest extends ZioTest {
       } yield assert( result )( equalTo(9) )
     }
   )
-}
