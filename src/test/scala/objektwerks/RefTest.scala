@@ -1,8 +1,8 @@
 package objektwerks
 
 import zio.Ref
-import zio.test.Assertion.equalTo
 import zio.test._
+import zio.test.Assertion.equalTo
 
 object RefTest extends ZioTest:
   def spec: Spec[Environment, TestFailure[Nothing], TestSuccess] = suite("ref.test")(
