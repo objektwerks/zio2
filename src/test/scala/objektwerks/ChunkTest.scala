@@ -1,8 +1,8 @@
 package objektwerks
 
 import zio.Chunk
-import zio.test.Assertion.equalTo
 import zio.test._
+import zio.test.Assertion.equalTo
 
 object ChunkTest extends ZioTest:
   private val chunk = Chunk(1, 2, 3)
