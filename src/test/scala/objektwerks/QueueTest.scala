@@ -4,7 +4,7 @@ import zio.Queue
 import zio.test.Assertion.equalTo
 import zio.test._
 
-object QueueTest extends ZioTest {
+object QueueTest extends ZioTest:
   def spec: Spec[Environment, TestFailure[Nothing], TestSuccess] = suite("queue.test")(
     test("queue") {
       for {
@@ -14,4 +14,3 @@ object QueueTest extends ZioTest {
       } yield assert( result )( equalTo(3) )
     }
   )
-}
