@@ -6,7 +6,7 @@ import zio.{Managed, Task, ZManaged}
 
 import scala.io.BufferedSource
 
-object ManagedTest extends ZioTest {
+object ManagedTest extends ZioTest:
   import Resources._
 
   def spec: Spec[Environment, TestFailure[Nothing], TestSuccess] = suite("managed.test")(
@@ -17,4 +17,3 @@ object ManagedTest extends ZioTest {
       assert( runtime.unsafeRun( task ).nonEmpty )( isTrue )
     }
   )
-}
