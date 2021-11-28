@@ -1,8 +1,8 @@
 package objektwerks
 
-import zio.{Task, ZIO}
-
 import scala.io.{BufferedSource, Codec, Source}
+
+import zio.{Task, ZIO}
 
 object Resources {
   def resource(file: String): Task[BufferedSource] = ZIO.attempt(Source.fromFile(file, Codec.UTF8.name))
