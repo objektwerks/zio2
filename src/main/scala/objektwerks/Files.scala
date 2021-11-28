@@ -1,8 +1,8 @@
 package objektwerks
 
-import zio.{Task, ZIO}
-
 import scala.io.{BufferedSource, Codec, Source}
+
+import zio.{Task, ZIO}
 
 object Files {
   def open(file: String): Task[String] =
