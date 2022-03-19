@@ -2,7 +2,8 @@ package objektwerks
 
 import scala.io.BufferedSource
 
-import zio.{Managed, Task, ZManaged}
+import zio.Task
+import zio.managed._
 import zio.test._
 import zio.test.Assertion.isTrue
 
