@@ -1,6 +1,6 @@
 ZIO 2
 -----
->ZIO 2.0.0-M6-2 feature tests.
+>ZIO 2 feature tests.
 
 Test
 ----
