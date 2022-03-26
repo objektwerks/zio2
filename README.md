@@ -1,6 +1,6 @@
 ZIO 2
 -----
->ZIO 2 feature tests.
+>ZIO 2 feature tests. This project is closed.
 1. zio = 13
 2. zlayer = 33
 3. ziverge = 47
@@ -11,7 +11,3 @@ ZIO 2
 Test
 ----
 1. sbt clean test
-
-Resources
----------
-1. ZIO - https://zio.dev
