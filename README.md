@@ -1,6 +1,6 @@
 ZIO 2
 -----
->ZIO 2 feature tests ( zio = 13, zlayer = 33, ziverge = 47, dream11 = 23, scope = 23, scoped = 26 ).
+>ZIO 2 feature tests ( zio13, zlayer33, ziverge47, dream1123, scope23, scoped26 ).
 
 Note
 ----
