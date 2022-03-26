@@ -6,6 +6,7 @@ ZIO 2
 3. ziverge = 47
 4. dream11 = 23
 5. scope = 23
+6. scoped = 26
 
 Test
 ----
