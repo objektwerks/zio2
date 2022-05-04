@@ -3,7 +3,7 @@ organization := "objektwerks"
 version := "0.1-SNAPSHOT"
 scalaVersion := "3.1.2"
 libraryDependencies ++= {
-  val zioVersion = "2.0.0-RC5"
+  val zioVersion = "2.0.0-RC6"
   Seq(
     "dev.zio" %% "zio" % zioVersion,
     "dev.zio" %% "zio-managed" % zioVersion,
