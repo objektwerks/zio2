@@ -4,7 +4,7 @@ import zio.json.{DeriveJsonDecoder, DeriveJsonEncoder, JsonDecoder, JsonEncoder}
 
 sealed trait Event
 
-final case class Tripled(value: Int) extends Event
+final case class Added(z: Int) extends Event
 
 object Event:
   given decoder: JsonDecoder[Event] = DeriveJsonDecoder.gen[Event]

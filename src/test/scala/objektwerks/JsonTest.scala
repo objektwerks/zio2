@@ -15,8 +15,8 @@ object JsonTest extends ZIOSpecDefault:
     test("event") {
       import Event.given
 
-      val event: Event = Tripled(3)
+      val event: Event = Added(2)
       val eventJson = event.toJson
-      assertTrue( event == eventJson.fromJson[Event].getOrElse( Tripled(-1) ) )
+      assertTrue( event == eventJson.fromJson[Event].getOrElse( Added(-1) ) )
     }
   )
