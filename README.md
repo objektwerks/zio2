@@ -15,4 +15,4 @@ Run
 1. sbt clean run
 >Multiple main classes detected. Select one to run:
 1. objektwerks.ConsoleApp
-2. objektwerks.HttpApp ( curl get -v http://localhost:7272/now | curl post -d "name=Fred Flintstone" -v http://localhost:7272/greeting )
+2. objektwerks.HttpApp ( curl -v http://localhost:7272/now | curl -d "name=Fred Flintstone" -v http://localhost:7272/greeting )
