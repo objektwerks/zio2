@@ -4,7 +4,7 @@ import scala.io.{BufferedSource, Codec, Source}
 
 import zio.{Task, ZIO}
 
-object Files {
+object Files:
   def open(path: String): Task[String] =
     ZIO.scoped {
       ZIO.acquireReleaseWith(
@@ -15,4 +15,3 @@ object Files {
   private def read(source: BufferedSource): Task[String] = ZIO.attemptBlocking(source.mkString)
 
   private def close(source: BufferedSource): Task[Unit] = ZIO.attempt(source.close)
-}
