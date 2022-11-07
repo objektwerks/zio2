@@ -12,7 +12,7 @@ object Files {
       )(file => close(file).orDie) { source => read(source) }
     }
 
-  def read(source: BufferedSource): Task[String] = ZIO.attemptBlocking(source.mkString)
+  private def read(source: BufferedSource): Task[String] = ZIO.attemptBlocking(source.mkString)
 
-  def close(source: BufferedSource): Task[Unit] = ZIO.attempt(source.close)
+  private def close(source: BufferedSource): Task[Unit] = ZIO.attempt(source.close)
 }
