@@ -15,6 +15,4 @@ object Files {
   def read(source: BufferedSource): Task[String] = ZIO.attemptBlocking(source.mkString)
 
   def close(source: BufferedSource): Task[Unit] = ZIO.attempt(source.close)
-
-  def file(file: String): Task[String] = open(file)
 }
