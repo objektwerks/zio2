@@ -11,7 +11,7 @@ object HttpServer extends ZIOAppDefault:
 
   val router = Http.collectZIO[Request] {
     case Method.GET -> !! / "now" => ZIO.succeed( Response.text(Instant.now.toString()) )
-    case request @ Method.POST -> !! / "greeting" => request.body.asString.map { name => Response.text(s"Greetings, $name!") }
+    case request @ Method.POST -> !! / "greeting" => request.body.asString.map { name => Response.text(s"\nGreetings, $name!\n") }
   }
 
   val server = for {
