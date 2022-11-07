@@ -10,12 +10,12 @@ import zhttp.service.Server
 object HttpServer extends ZIOAppDefault:
   val port = 7272
 
-  val router = Http.collect[Request] {
-    case Method.GET -> !! / "now" => Response.text(Instant.now.toString())
+  val router = Http.collectZIO[Request] {
+    case Method.GET -> !! / "now" => ZIO.succeed( Response.text(Instant.now.toString()) )
   }
 
   val server = for {
-    _ <- Console.printLine(s"Http server started at http://localhost:$port")
+    _ <- Console.printLine(s"Http server running at http://localhost:$port")
     _ <- Server.start(port, router)
   } yield()
 
