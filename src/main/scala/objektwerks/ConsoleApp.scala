@@ -1,7 +1,7 @@
 package objektwerks
 
-import zio.ZIOAppDefault
 import zio.Console._
+import zio.ZIOAppDefault
 
 object ConsoleApp extends ZIOAppDefault:
   def run =
