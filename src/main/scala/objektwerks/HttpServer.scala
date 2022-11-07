@@ -2,7 +2,7 @@ package objektwerks
 
 import java.time.Instant
 
-import zio._
+import zio.*
 import zhttp.http.*
 import zhttp.http.Http
 import zhttp.service.Server
@@ -10,7 +10,7 @@ import zhttp.service.Server
 object HttpServer extends ZIOAppDefault:
   val port = 7272
 
-  val router: Http[Any, Nothing, Request, Response] = Http.collect[Request] {
+  val router = Http.collect[Request] {
     case Method.GET -> !! / "now" => Response.text(Instant.now.toString())
   }
 
