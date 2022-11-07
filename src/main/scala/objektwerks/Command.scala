@@ -4,7 +4,7 @@ import zio.json.{DeriveJsonDecoder, DeriveJsonEncoder, JsonDecoder, JsonEncoder}
 
 sealed trait Command
 
-final case class Triple(value: Int) extends Command
+final case class Add(x: Int, y: Int) extends Command
 
 object Command:
   given decoder: JsonDecoder[Command] = DeriveJsonDecoder.gen[Command]

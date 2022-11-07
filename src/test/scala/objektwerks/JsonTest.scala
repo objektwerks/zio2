@@ -8,9 +8,9 @@ object JsonTest extends ZIOSpecDefault:
     test("command") {
       import Command.given
 
-      val command: Command = Triple(1)
+      val command: Command = Add(1, 1)
       val commandJson = command.toJson
-      assertTrue( command == commandJson.fromJson[Command].getOrElse( Triple(-1) ) )
+      assertTrue( command == commandJson.fromJson[Command].getOrElse( Add(0, 0) ) )
     },
     test("event") {
       import Event.given
