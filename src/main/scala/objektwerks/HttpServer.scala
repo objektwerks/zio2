@@ -7,7 +7,7 @@ import zhttp.http.*
 import zhttp.http.Http
 import zhttp.service.Server
 
-object HttpApp extends ZIOAppDefault:
+object HttpServer extends ZIOAppDefault:
   val port = 7272
 
   val router: Http[Any, Nothing, Request, Response] = Http.collect[Request] {
