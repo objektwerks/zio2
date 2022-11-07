@@ -2,9 +2,8 @@ package objektwerks
 
 import java.time.Instant
 
-import zio.*
-import zhttp.http.*
-import zhttp.http.Http
+import zio.{ Console, ZIO, ZIOAppDefault }
+import zhttp.http.{ !!, /, ->, Http, Method, Request, Response }
 import zhttp.service.Server
 
 object HttpServer extends ZIOAppDefault:

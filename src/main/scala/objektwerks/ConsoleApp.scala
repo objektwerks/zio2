@@ -1,6 +1,6 @@
 package objektwerks
 
-import zio.Console._
+import zio.Console.*
 import zio.ZIOAppDefault
 
 object ConsoleApp extends ZIOAppDefault:
