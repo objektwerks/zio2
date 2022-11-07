@@ -5,10 +5,10 @@ import scala.io.{BufferedSource, Codec, Source}
 import zio.{Task, ZIO}
 
 object Files {
-  def open(file: String): Task[String] =
+  def open(path: String): Task[String] =
     ZIO.scoped {
       ZIO.acquireReleaseWith(
-        ZIO.attemptBlocking(Source.fromFile(file))
+        ZIO.attemptBlocking(Source.fromFile(path))
       )(file => close(file).orDie) { source => read(source) }
     }
 
