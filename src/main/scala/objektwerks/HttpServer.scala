@@ -15,7 +15,7 @@ object HttpServer extends ZIOAppDefault:
   }
 
   val server = for {
-    _ <- Console.printLine(s"Http server running at http://localhost:$port")
+    _ <- Console.printLine(s"HttpServer running at http://localhost:$port")
     _ <- Server.start(port, router)
   } yield()
 
