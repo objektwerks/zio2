@@ -5,7 +5,7 @@ import scala.io.{BufferedSource, Codec, Source}
 import zio.{Task, ZIO}
 
 object Files {
-  def open(file: String): Task[String] =
+  def open(file: String): ZIO[Any, Exception, String] =
     ZIO
       .attempt(Source.fromFile(file, Codec.UTF8.name))
       .acquireReleaseWith(close(_).ignore)(source => read(source))
