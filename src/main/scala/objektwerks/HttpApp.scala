@@ -12,4 +12,4 @@ object HttpApp extends ZIOAppDefault:
     case Method.GET -> !! / "now" => Response.text(Instant.now.toString())
   }
 
-  override def run = Server.start(7272, router)
+  override def run = Server.start(port = 7272, http = router)
