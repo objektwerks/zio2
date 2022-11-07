@@ -1,6 +1,6 @@
 package objektwerks
 
-import zio.test.*
+import zio.test.{ assertTrue, ZIOSpecDefault }
 
 object FilesTest extends ZIOSpecDefault:
   def spec = suite("file")(
