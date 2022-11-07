@@ -10,7 +10,7 @@ object JsonTest extends ZIOSpecDefault:
 
       val command = Triple(1)
       val commandJson = command.toJson
-      assertTrue( command == commandJson.fromJson[Command].getOrElse( Triple(-1) ) )
+      assertTrue( command == commandJson.fromJson[Command] )
     },
     test("event") {
 

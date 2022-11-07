@@ -7,5 +7,5 @@ sealed trait Command
 final case class Triple(value: Int) extends Command
 
 object Triple:
-  given decoder: JsonDecoder[Triple] = DeriveJsonDecoder.gen[Triple]
-  given encoder: JsonEncoder[Triple] = DeriveJsonEncoder.gen[Triple]
+  given decoder: JsonDecoder[Command] = DeriveJsonDecoder.gen[Command]
+  given encoder: JsonEncoder[Command] = DeriveJsonEncoder.gen[Command]
