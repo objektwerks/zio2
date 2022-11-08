@@ -1,6 +1,6 @@
 ZIO 2
 -----
->ZIO 2 feature tests.
+>ZIO 2 feature tests. Not too many, though, I'm afraid. ;)
 
 Build
 -----
