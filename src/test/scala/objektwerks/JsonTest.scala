@@ -10,7 +10,7 @@ object JsonTest extends ZIOSpecDefault:
   def spec = suite("json")(
     test("command") {
       val command: Command = Add(1, 1)
-      val commandJson = command.toJson
+      val commandJson = command.toJson  // {"Add":{"x":1,"y":1}}
       assertTrue( command == commandJson.fromJson[Command].getOrElse( Add(0, 0) ) )
     },
     test("event") {
@@ -20,7 +20,7 @@ object JsonTest extends ZIOSpecDefault:
     },
     test("sub command") {
       val multiply = Multiply(1, 2)
-      val multiplyJson = multiply.toJson
+      val multiplyJson = multiply.toJson  // {"x":1,"y":2}
       assertTrue( multiply == multiplyJson.fromJson[Multiply].getOrElse( Multiply(0, 0) ) )
     },
     test("sub event") {
