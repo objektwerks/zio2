@@ -16,6 +16,16 @@ object JsonTest extends ZIOSpecDefault:
     test("event") {
       val event: Event = Added(2)
       val eventJson = event.toJson
-      assertTrue( event == eventJson.fromJson[Event].getOrElse( Added(-1) ) )
+      assertTrue( event == eventJson.fromJson[Event].getOrElse( Added(0) ) )
+    },
+    test("sub command") {
+      val multiply = Multiply(1, 2)
+      val multiplyJson = multiply.toJson
+      assertTrue( multiply == multiplyJson.fromJson[Multiply].getOrElse( Multiply(0, 0) ) )
+    },
+    test("sub event") {
+      val multiplied = Muliplied(2)
+      val multipliedJson = multiplied.toJson
+      assertTrue( multiplied == multipliedJson.fromJson[Muliplied].getOrElse( Muliplied(0) ) )
     }
   )
