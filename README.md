@@ -25,3 +25,6 @@ Curl
 3. curl --header "Content-Type: application/json"
         --request POST
         --data '{"Add":{"x":1,"y":1}}' http://localhost:7272/command
+4. curl --header "Content-Type: application/json"
+        --request POST
+        --data '{"Multiple":{"x":1,"y":2}}' http://localhost:7272/command
