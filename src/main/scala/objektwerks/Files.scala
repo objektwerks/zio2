@@ -9,7 +9,7 @@ object Files:
     ZIO.scoped {
       ZIO.acquireReleaseWith(
         ZIO.attemptBlocking(Source.fromFile(path))
-      )(file => close(file).orDie) { source => read(source) }
+      )(source => close(source).orDie) { source => read(source) }
     }
 
   private def read(source: BufferedSource): Task[String] = ZIO.attemptBlocking(source.mkString)
