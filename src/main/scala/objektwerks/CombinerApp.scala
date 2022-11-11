@@ -6,8 +6,6 @@ import zio.{Task, ZIO, ZIOAppDefault}
 /*
 NOTE: ZIO boilerplate not required for this app. Only Combiner class below is required.
 
-package objektwerks
-
 import zio.{Task, URLayer, ZIO, ZLayer}
 
 trait Combiner:
