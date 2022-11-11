@@ -1,7 +1,10 @@
 package objektwerks
 
 import zio.Console.{printLine, readLine}
-import zio.{Task, ZIOAppDefault}
+import zio.{Task, ZIO, ZIOAppDefault}
+
+class Combiner:
+  def combine(a: String, b: String): Task[String] = ZIO.attempt(s"$a$b")
 
 object CombinerApp extends ZIOAppDefault:
   def app(combiner: Combiner): Task[Unit] =
@@ -14,4 +17,4 @@ object CombinerApp extends ZIOAppDefault:
       _ <- printLine(c)
     } yield ()
 
-  def run = app(CombinerLive())
+  def run = app(Combiner())
