@@ -14,8 +14,9 @@ Run
 ---
 1. sbt clean run
 >Multiple main classes detected. Select one to run:
-1. objektwerks.ConsoleApp
-2. objektwerks.HttpServer
+1. objektwerks.CombinerApp
+2. objektwerks.ConsoleApp
+3. objektwerks.HttpServer
 
 Curl
 ----
