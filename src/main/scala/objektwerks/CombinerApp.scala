@@ -4,7 +4,7 @@ import zio.Console.{printLine, readLine}
 import zio.{Task, ZIO, ZIOAppDefault}
 
 /*
-NOTE: Boilerplate not required for app. Only Combiner is required.
+NOTE: ZIO boilerplate not required for this app. Only Combiner class below is required.
 
 package objektwerks
 
