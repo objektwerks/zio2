@@ -4,8 +4,7 @@ import zio.Console.{printLine, readLine}
 import zio.{Task, ZIO, ZIOAppDefault}
 
 /*
-NOTE: Boilerplate not required for app.
-      Only Combiner is required.
+NOTE: Boilerplate not required for app. Only Combiner is required.
 
 package objektwerks
 
@@ -15,7 +14,7 @@ trait Combiner:
   def combine(a: String, b: String): Task[String]
 
 class CombinerLive extends Combiner:
-  override def combine(a: String, b: String): Task[String] = ZIO.attempt(s"$a$b")
+  override def combine(a: String, b: String): Task[String] = ZIO.attempt(a + b)
 
 object Combiner:
   def combine(a: String, b: String): ZIO[Combiner, Nothing, Task[String]] = ZIO.serviceWith[Combiner](_.combine(a, b))
@@ -25,7 +24,7 @@ object CombinerLive:
 */
 
 class Combiner:
-  def combine(a: String, b: String): Task[String] = ZIO.attempt(s"$a$b")
+  def combine(a: String, b: String): Task[String] = ZIO.attempt(a + b)
 
 object CombinerApp extends ZIOAppDefault:
   def app(combiner: Combiner): Task[Unit] =
