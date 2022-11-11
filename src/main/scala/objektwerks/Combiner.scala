@@ -3,13 +3,13 @@ package objektwerks
 import zio.{Task, URLayer, ZIO, ZLayer}
 
 trait Combiner:
-  def combine(x: String, y: String): Task[String]
+  def combine(a: String, b: String): Task[String]
 
 object Combiner:
-  def add(x: String, y: String): ZIO[Combiner, Nothing, Task[String]] = ZIO.serviceWith[Combiner](_.combine(x, y))
+  def combine(a: String, b: String): ZIO[Combiner, Nothing, Task[String]] = ZIO.serviceWith[Combiner](_.combine(a, b))
 
 class CombinerLive extends Combiner:
-  override def combine(x: String, y: String): Task[String] = ZIO.attempt(x + y)
+  override def combine(a: String, b: String): Task[String] = ZIO.attempt(s"$a $b")
 
 object CombinerLive:
   val layer: URLayer[Any, Combiner] = ZLayer.succeed(CombinerLive())
