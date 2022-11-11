@@ -17,6 +17,8 @@ object Files:
     ZIO.acquireRelease(acquire(name))(release(_))
 
   def read(path: String): ZIO[Scope, IOException, List[String]] =
-    source(path).flatMap { source =>
-      ZIO.attemptBlockingIO(source.getLines().toList)
+    ZIO.scoped {
+      source(path).flatMap { source =>
+        ZIO.attemptBlockingIO(source.getLines().toList)
+      }
     }
