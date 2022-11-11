@@ -1,17 +1,22 @@
 package objektwerks
 
+import java.io.IOException
+
 import scala.io.{BufferedSource, Codec, Source}
 
-import zio.{Task, ZIO}
+import zio.{Scope, Task, ZIO}
 
 object Files:
-  def open(path: String): Task[String] =
-    ZIO.scoped {
-      ZIO.acquireReleaseWith(
-        ZIO.attemptBlocking(Source.fromFile(path))
-      )(source => close(source).orDie) { source => read(source) }
+  private def acquire(path: => String): ZIO[Any, IOException, Source] =
+    ZIO.attemptBlockingIO(Source.fromFile(path))
+
+  private def release(source: => Source): ZIO[Any, Nothing, Unit] =
+    ZIO.succeedBlocking(source.close())
+
+  private def source(name: => String): ZIO[Scope, IOException, Source] =
+    ZIO.acquireRelease(acquire(name))(release(_))
+
+  def read(path: String): ZIO[Scope, IOException, List[String]] =
+    source(path).flatMap { source =>
+      ZIO.attemptBlockingIO(source.getLines().toList)
     }
-
-  private def read(source: BufferedSource): Task[String] = ZIO.attempt(source.mkString)
-
-  private def close(source: BufferedSource): Task[Unit] = ZIO.attempt(source.close)
