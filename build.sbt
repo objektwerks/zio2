@@ -14,5 +14,3 @@ libraryDependencies ++= {
     "dev.zio" %% "zio-test-sbt" % zioVersion % Test
   )
 }
-parallelExecution := false
-testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
