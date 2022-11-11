@@ -1,6 +1,6 @@
 package objektwerks
 
-import zio.{Task, ZIO}
+import zio.{Task, URLayer, ZIO, ZLayer}
 
 trait Service:
   def add(x: Int, y: Int): Task[Int]
@@ -13,3 +13,6 @@ object Service:
 class ServiceLive extends Service:
   override def add(x: Int, y: Int): Task[Int] = ZIO.attempt(x + y)
   override def multiply(x: Int, y: Int): Task[Int] = ZIO.attempt(x * y)
+
+object ServiceLive:
+  val layer: URLayer[Any, Service] = ZLayer.succeed(ServiceLive())
