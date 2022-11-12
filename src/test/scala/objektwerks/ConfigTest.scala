@@ -3,9 +3,9 @@ package objektwerks
 import com.typesafe.config.ConfigFactory
 
 import zio.ZIO
-import zio.config.*
-import zio.config.typesafe.*
+import zio.config.read
 import zio.config.magnolia.descriptor
+import zio.config.typesafe.TypesafeConfigSource
 import zio.test.{assertTrue, ZIOSpecDefault}
 
 case class Conf(value: String, number: Int)
