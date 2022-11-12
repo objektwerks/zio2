@@ -18,9 +18,9 @@ object CombinerLive:
 object CombinerApp extends ZIOAppDefault:
   def app(combiner: Combiner): Task[Unit] =
     for {
-      _ <- printLine("Enter a string:")
+      _ <- printLine("Enter a string value:")
       a <- readLine
-      _ <- printLine("Enter another string:")
+      _ <- printLine("Enter another string value:")
       b <- readLine
       c <- combiner.combine(a, b)
       _ <- printLine(c)
