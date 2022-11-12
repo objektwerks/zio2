@@ -10,7 +10,7 @@ import zio.test.{assertTrue, ZIOSpecDefault}
 
 case class Conf(string: String, integer: Int)
 
-object ConfTest extends ZIOSpecDefault:
+object ConfigTest extends ZIOSpecDefault:
   def spec = suite("files")(
     test("conf") {
       val source = TypesafeConfigSource.fromTypesafeConfig( ZIO.attempt( ConfigFactory.load("test.conf") ) )
