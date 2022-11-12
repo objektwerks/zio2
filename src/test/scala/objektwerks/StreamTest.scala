@@ -10,6 +10,9 @@ object StreamTest extends ZIOSpecDefault:
     test("map") {
       ZStream(1, 2, 3).map( i => i * 2).run(ZSink.sum).map( result => assertTrue( result == 12 ) )
     },
+    test("filter") {
+      ZStream(1, 2, 3).filter( i => i % 2 == 0).run(ZSink.sum).map( result => assertTrue( result == 2 ) )
+    },
     test("fold") {
       ZStream(1, 2, 3).runFold(0)(_ + _).map( result => assertTrue( result == 6 ) )
     },
