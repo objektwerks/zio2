@@ -5,7 +5,8 @@ ZIO 2
 2. config
 3. http
 4. resources
-5. test
+5. streams
+6. test
 
 Build
 -----
