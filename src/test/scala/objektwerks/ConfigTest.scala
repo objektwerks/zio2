@@ -8,7 +8,7 @@ import zio.config.magnolia.descriptor
 import zio.config.typesafe.TypesafeConfigSource
 import zio.test.{assertTrue, ZIOSpecDefault}
 
-case class Conf(string: String, integer: Int)
+case class Conf(value: String, number: Int)
 
 object ConfigTest extends ZIOSpecDefault:
   def spec = suite("files")(
@@ -16,8 +16,8 @@ object ConfigTest extends ZIOSpecDefault:
       val source = TypesafeConfigSource.fromTypesafeConfig( ZIO.attempt( ConfigFactory.load("test.conf") ) )
       val zconf = read( descriptor[Conf].from(source) )
       zconf.map { conf => 
-        assertTrue(conf.string == "string")
-        assertTrue(conf.integer == 1)
+        assertTrue(conf.value == "value")
+        assertTrue(conf.number == 1)
       }
     }
   )
