@@ -8,7 +8,7 @@ object StreamTest extends ZIOSpecDefault:
   def spec = suite("streams")(
     test("map") {
       ZStream(1, 2, 3)
-      .map( i => i * 2)
+      .map( i => i * 2 )
       .run(ZSink.sum)
       .map( result => assertTrue( result == 12 ) )
     },
@@ -30,7 +30,7 @@ object StreamTest extends ZIOSpecDefault:
     },
     test("chunk") {
       ZStream
-      .fromChunks( Chunk(1, 2, 3), Chunk(4, 5, 6), Chunk(7, 8, 9))
+      .fromChunks( Chunk(1, 2, 3), Chunk(4, 5, 6), Chunk(7, 8, 9) )
       .mapChunks( chunk => chunk.filter( i => i % 2 != 0) )
       .run(ZSink.sum)
       .map( result => assertTrue( result == 25 ) )
