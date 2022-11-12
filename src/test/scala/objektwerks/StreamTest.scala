@@ -2,10 +2,8 @@ package objektwerks
 
 import zio.test.ZIOSpecDefault
 
-import zio.Chunk
-import zio.stream.ZStream
+import zio.stream.{ZSink, ZStream}
 import zio.test.{assertTrue, ZIOSpecDefault}
-import zio.stream.ZSink
 
 object StreamTest extends ZIOSpecDefault:
   def spec = suite("streams")(
