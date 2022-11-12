@@ -13,9 +13,8 @@ case class Conf(value: String, number: Int)
 object ConfigTest extends ZIOSpecDefault:
   def spec = suite("config")(
     test("conf") {
-      val config = ConfigFactory.load("test.conf")
-      println(config.getObject("Conf"))
-      val source = TypesafeConfigSource.fromTypesafeConfig( ZIO.attempt( ConfigFactory.load("test.conf").getObject("Conf").toConfig ) )
+      val config = ConfigFactory.load("test.conf").getObject("Conf").toConfig
+      val source = TypesafeConfigSource.fromTypesafeConfig( ZIO.attempt(config) )
       val zconf = read( descriptor[Conf].from(source) )
       for {
         conf <- zconf
