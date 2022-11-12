@@ -2,6 +2,7 @@ package objektwerks
 
 import com.typesafe.config.ConfigFactory
 
+import zio.ZIO
 import zio.config.*
 import zio.config.magnolia.descriptor
 import zio.config.typesafe.TypesafeConfigSource
@@ -12,12 +13,11 @@ case class Conf(string: String, integer: Int)
 object ConfTest extends ZIOSpecDefault:
   def spec = suite("files")(
     test("conf") {
-      for {
-        source <- TypesafeConfigSource.fromTypesafeConfig(ConfigFactory.load("./test.conf"))
-        conf   <- read( descriptor[Conf] from source )
-      } yield {
+      val source = TypesafeConfigSource.fromTypesafeConfig( ZIO.attempt( ConfigFactory.load("test.conf") ) )
+      val zconf = read( descriptor[Conf].from(source) )
+      zconf.map { conf => 
         assertTrue(conf.string == "string")
-        assertTrue(conf.integer = 1)
+        assertTrue(conf.integer == 1)
       }
     }
   )
