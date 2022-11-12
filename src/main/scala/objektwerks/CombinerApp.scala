@@ -23,7 +23,7 @@ object CombinerApp extends ZIOAppDefault:
       _ <- printLine("Enter another string value:")
       b <- readLine
       c <- combiner.combine(a, b)
-      _ <- printLine(c)
+      _ <- printLine(s"Both values combined: $c")
     } yield ()
 
   // Note, ZIO boilerplate is not required. Only CombinerLive is required.
