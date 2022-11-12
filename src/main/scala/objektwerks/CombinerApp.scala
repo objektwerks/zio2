@@ -1,10 +1,7 @@
 package objektwerks
 
 import zio.Console.{printLine, readLine}
-import zio.{Task, ZIO, ZIOAppDefault}
-
-
-import zio.{Task, URLayer, ZIO, ZLayer}
+import zio.{Task, URLayer, ZIO, ZIOAppDefault, ZLayer}
 
 trait Combiner:
   def combine(a: String, b: String): Task[String]
