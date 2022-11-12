@@ -1,6 +1,11 @@
 ZIO 2
 -----
->ZIO 2 feature tests. Not too many, though, I'm afraid. ;)
+>ZIO 2 features tested:
+1. logging
+2. config
+3. http
+4. resources
+5. test
 
 Build
 -----
