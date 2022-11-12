@@ -3,8 +3,6 @@ package objektwerks
 import zio.Console.{printLine, readLine}
 import zio.{Task, ZIO, ZIOAppDefault}
 
-/*
-NOTE: ZIO boilerplate not required for this app. Only Combiner class below is required.
 
 import zio.{Task, URLayer, ZIO, ZLayer}
 
@@ -19,10 +17,6 @@ object Combiner:
 
 object CombinerLive:
   val layer: URLayer[Any, Combiner] = ZLayer.succeed(CombinerLive())
-*/
-
-class Combiner:
-  def combine(a: String, b: String): Task[String] = ZIO.attempt(a + b)
 
 object CombinerApp extends ZIOAppDefault:
   def app(combiner: Combiner): Task[Unit] =
@@ -35,4 +29,5 @@ object CombinerApp extends ZIOAppDefault:
       _ <- printLine(c)
     } yield ()
 
-  def run = app(Combiner())
+  // Note, ZIO boilerplate is not required. Only CombinerLive is required.
+  def run = app(CombinerLive())
