@@ -1,7 +1,8 @@
 package objektwerks
 
 import zio.Chunk
-import zio.stream.{ZSink, ZStream}
+import zio.Console.printLine
+import zio.stream.{ZPipeline, ZSink, ZStream}
 import zio.test.{assertTrue, ZIOSpecDefault}
 
 object StreamTest extends ZIOSpecDefault:
@@ -34,5 +35,18 @@ object StreamTest extends ZIOSpecDefault:
       .mapChunks( chunk => chunk.filter( i => i % 2 != 0) )
       .run(ZSink.sum)
       .map( result => assertTrue( result == 25 ) )
+    },
+    test("pipeline") {
+      val strings = ZStream("1", "2", "3", "4", "5", "6")
+
+      val toIntPipeLine = ZPipeline.map[String, Int](string => string.toInt)
+      val filterOddPipeLine = ZPipeline.filter[Int](int => int % 2 != 0)
+      val pipeline = toIntPipeLine >>> filterOddPipeLine
+
+      strings
+      .via(pipeline)
+      .tap(i => printLine(i))
+      .run((ZSink.sum))
+      .map( result => assertTrue( result == 9 ) )
     }
   )
