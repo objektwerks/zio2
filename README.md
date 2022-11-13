@@ -1,8 +1,8 @@
 ZIO 2
 -----
 >ZIO 2 features tested:
-1. logging
-2. config
+1. config
+2. loggings
 3. http
 4. resources
 5. streams
