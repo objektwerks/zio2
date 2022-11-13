@@ -6,7 +6,10 @@ ZIO 2
 3. http
 4. resources
 5. streams
-6. test
+6. fiber ref
+7. ref
+8. queue
+9. test
 
 Build
 -----
