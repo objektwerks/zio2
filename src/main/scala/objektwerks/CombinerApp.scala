@@ -1,7 +1,7 @@
 package objektwerks
 
 import zio.Console.{printLine, readLine}
-import zio.{Task, ZIO, ZIOAppDefault, ZLayer}
+import zio.{Scope, Task, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
 
 class Combiner:
   def combine(a: String, b: String): Task[String] = ZIO.attempt(a + b)
@@ -10,7 +10,7 @@ object Combiner:
   val layer: ZLayer[Any, Nothing, Combiner] = ZLayer.succeed(Combiner())
 
 object CombinerApp extends ZIOAppDefault:
-  def app(combiner: Combiner): Task[Unit] =
+  def app(combiner: Combiner): ZIO[Any, Throwable, Unit] =
     for {
       _ <- printLine("Enter a string value:")
       a <- readLine
@@ -20,5 +20,9 @@ object CombinerApp extends ZIOAppDefault:
       _ <- printLine(s"Both values combined: $c")
     } yield ()
 
-  // Note, Combiner ZLayer not used.
-  def run = app(Combiner())
+  override def run: ZIO[Environment & (ZIOAppArgs & Scope ), Any, Any] =
+    ZLayer
+      .make[Combiner]( Combiner.layer )
+      .build
+      .map( env => env.get[Combiner] )
+      .flatMap(app)
