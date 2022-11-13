@@ -22,7 +22,7 @@ object CombinerApp extends ZIOAppDefault:
 
   override def run: ZIO[Environment & (ZIOAppArgs & Scope ), Any, Any] =
     ZLayer
-      .make[Combiner]( Combiner.layer )
+      .make[Combiner](Combiner.layer)
       .build
       .map( env => env.get[Combiner] )
       .flatMap(app)
