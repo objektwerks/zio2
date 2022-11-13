@@ -1,6 +1,6 @@
 ZIO 2
 -----
->ZIO 2 features tested:
+>Features tested:
 1. config
 2. fiber
 3. fiber ref
