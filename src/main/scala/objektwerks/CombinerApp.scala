@@ -1,19 +1,13 @@
 package objektwerks
 
 import zio.Console.{printLine, readLine}
-import zio.{Task, URLayer, ZIO, ZIOAppDefault, ZLayer}
+import zio.{Task, ZIO, ZIOAppDefault, ZLayer}
 
-trait Combiner:
-  def combine(a: String, b: String): Task[String]
-
-class CombinerLive extends Combiner:
-  override def combine(a: String, b: String): Task[String] = ZIO.attempt(a + b)
+class Combiner:
+  def combine(a: String, b: String): Task[String] = ZIO.attempt(a + b)
 
 object Combiner:
-  def combine(a: String, b: String): ZIO[Combiner, Nothing, Task[String]] = ZIO.serviceWith[Combiner](_.combine(a, b))
-
-object CombinerLive:
-  val layer: URLayer[Any, Combiner] = ZLayer.succeed(CombinerLive())
+  val layer: ZLayer[Any, Nothing, Combiner] = ZLayer.succeed(Combiner())
 
 object CombinerApp extends ZIOAppDefault:
   def app(combiner: Combiner): Task[Unit] =
@@ -26,5 +20,5 @@ object CombinerApp extends ZIOAppDefault:
       _ <- printLine(s"Both values combined: $c")
     } yield ()
 
-  // Note, ZIO boilerplate is not required. Only CombinerLive is required.
-  def run = app(CombinerLive())
+  // Note, Combiner ZLayer not used.
+  def run = app(Combiner())
