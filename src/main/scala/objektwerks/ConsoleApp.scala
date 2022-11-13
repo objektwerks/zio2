@@ -5,8 +5,8 @@ import zio.{Scope, ZIO, ZIOAppArgs, ZIOAppDefault}
 
 object ConsoleApp extends ZIOAppDefault:
   def run: ZIO[Environment & (ZIOAppArgs & Scope ), Any, Any] =
-    for {
+    for
       _    <- printLine("Greetings! What is your name?")
       name <- readLine
       _    <- printLine(s"Welcome, ${name}!")
-    } yield ()
+    yield ()
