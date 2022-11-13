@@ -3,7 +3,7 @@ package objektwerks
 import zio.FiberRef
 import zio.test.{assertTrue, ZIOSpecDefault}
 
-object FiberRefTest extends ZIOSpecDefault {
+object FiberRefTest extends ZIOSpecDefault:
   def spec = suite("fiber.ref")(
     test("fiber.ref") {
       for
@@ -14,4 +14,3 @@ object FiberRefTest extends ZIOSpecDefault {
       yield assertTrue(result == 2)
     }
   )
-}
