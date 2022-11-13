@@ -20,9 +20,7 @@ object CombinerApp extends ZIOAppDefault:
       _ <- printLine(s"Both values combined: $c")
     } yield ()
 
-  override def run: ZIO[Environment & (ZIOAppArgs & Scope ), Any, Any] =
-    ZLayer
-      .make[Combiner](Combiner.layer)
-      .build
-      .map( env => env.get[Combiner] )
-      .flatMap(app)
+  override def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] =
+    ZIO
+      .serviceWithZIO[Combiner](app)
+      .provide(Combiner.layer)
