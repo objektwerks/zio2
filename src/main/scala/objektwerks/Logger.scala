@@ -26,6 +26,6 @@ object LoggerLive:
 class Log:
   def log(message: String): UIO[Unit] = Console.printLine(message).orDie
 
-// Service ZLayer, No Acessor Method
+// Service ZLayer, No Accessor Method
 object Log:
   val layer: ZLayer[Any, Nothing, Log] = ZLayer.succeed(Log())
