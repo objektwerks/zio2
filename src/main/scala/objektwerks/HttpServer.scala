@@ -2,11 +2,11 @@ package objektwerks
 
 import java.time.Instant
 
-import zio.{ Console, Scope, ZIO, ZIOAppArgs, ZIOAppDefault }
-import zhttp.http.{ !!, /, ->, Http, Method, Request, Response }
+import zio.{Console, Scope, ZIO, ZIOAppArgs, ZIOAppDefault}
+import zhttp.http.{!!, /, ->, Http, Method, Request, Response}
 import zhttp.service.Server
 
-import zio.json.{ DecoderOps, EncoderOps }
+import zio.json.{DecoderOps, EncoderOps}
 
 import Command.given
 import Event.given
