@@ -7,15 +7,15 @@ import zio.{Console, UIO, URIO, ZIO, ZLayer}
 
 // Service Trait
 trait Logger:
-  def log(line: String): UIO[Unit]
+  def log(message: String): UIO[Unit]
 
 // Service Accessor Method
 object Logger:
-  def log(line: String): URIO[Logger, Unit] = ZIO.serviceWith[Logger](_.log(line))
+  def log(message: String): URIO[Logger, Unit] = ZIO.serviceWith[Logger](_.log(message))
 
 // Service Implementor
 class LoggerLive extends Logger:
-  override def log(line: String): UIO[Unit] = Console.printLine(line).orDie
+  override def log(message: String): UIO[Unit] = Console.printLine(message).orDie
 
 // Service ZLayer
 object LoggerLive:
