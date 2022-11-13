@@ -2,7 +2,7 @@ package objektwerks
 
 import java.time.Instant
 
-import zio.{ Console, ZIO, ZIOAppDefault }
+import zio.{ Console, Scope, ZIO, ZIOAppArgs, ZIOAppDefault }
 import zhttp.http.{ !!, /, ->, Http, Method, Request, Response }
 import zhttp.service.Server
 
@@ -31,4 +31,4 @@ object HttpServer extends ZIOAppDefault:
     _ <- Server.start(port, router)
   } yield()
 
-  override def run = server
+  override def run: ZIO[Environment & (ZIOAppArgs & Scope ), Any, Any] = server
