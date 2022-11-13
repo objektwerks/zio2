@@ -2,7 +2,7 @@ package objektwerks
 
 import zio.{Console, UIO, URIO, ZIO, ZLayer}
 
-// Official ZIO Service Pattern
+// 1. Official ZIO Service Pattern
 
 // Service Trait
 trait Logger:
@@ -20,7 +20,7 @@ class LoggerLive extends Logger:
 object LoggerLive:
   val layer: ZLayer[Any, Nothing, LoggerLive] = ZLayer.succeed(LoggerLive())
 
-// Only a Service Implementor and ZLayer is required, though.
+// 2. Simple ZIO Service Pattern
  
 // Service Implementor, No Trait
 class Log:
