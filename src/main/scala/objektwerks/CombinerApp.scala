@@ -18,7 +18,7 @@ object CombinerApp extends ZIOAppDefault:
       b <- readLine
       c <- combiner.combine(a, b)
       _ <- printLine(s"Both values combined: $c")
-    yield ()
+    yield()
 
   override def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] =
     ZIO
