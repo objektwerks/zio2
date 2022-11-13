@@ -2,14 +2,15 @@ ZIO 2
 -----
 >ZIO 2 features tested:
 1. config
-2. loggings
-3. http
-4. resources
-5. streams
-6. fiber ref
+2. fiber
+3. fiber ref
+4. http
+5. json
+6. queue
 7. ref
-8. queue
-9. test
+8. resources
+9. streams
+10. test
 
 Build
 -----
