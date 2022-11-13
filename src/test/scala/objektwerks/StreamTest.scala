@@ -52,7 +52,7 @@ object StreamTest extends ZIOSpecDefault:
       val invalidStream = ZStream(1, 2, 3) ++ ZStream.fail("Invalid Stream!") ++ ZStream(4, 5, 6)
       val validStream = ZStream(1, 2, 3, 4, 5, 6)
       invalidStream  // ZStream(1, 2, 3) is included below!
-      .orElse(validStream)
+      .orElse(validStream) // .catchAllCause(_ => validStream) produces same result.
       .tap(i => printLine(i))
       .run((ZSink.sum))
       .tap(i => printLine(i)) // ZStream(1, 2, 3) + ZStream(1, 2, 3, 4, 5, 6) = 27
