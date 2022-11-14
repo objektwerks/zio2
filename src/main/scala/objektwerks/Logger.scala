@@ -30,7 +30,7 @@ class Log:
 object Log:
   val layer: ZLayer[Any, Nothing, Log] = ZLayer.succeed(Log())
 
-// 3. Root Service
+// 3. Root ZIO Service Pattern
 
 // Service Implementor, No Trait
 class LogHolder(logger: Logger, log: Log):
