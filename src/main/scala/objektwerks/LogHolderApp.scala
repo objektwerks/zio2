@@ -50,6 +50,7 @@ object LogHolder:
       yield LogHolder(logger, log)
     }
 
+// App
 object LogHolderApp extends ZIOAppDefault:
   def app(logHolder: LogHolder): ZIO[Any, Throwable, Unit] =
     for
