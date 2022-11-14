@@ -35,10 +35,10 @@ object Log:
 // Service Implementor, No Trait
 class LogHolder(logger: Logger, log: Log):
   def logAll: ZIO[Any, Nothing, Unit] =
-    for {
+    for
       _ <- logger.log("*** LogHolder -> Logger log message!")
       _ <- log.log("*** LogHolder -> Log log message!")
-    } yield ()
+    yield ()
 
 // Service ZLayer, No Accessor Method
 object LogHolder:
