@@ -38,7 +38,7 @@ class LogHolder(logger: Logger, log: Log):
     for
       _ <- logger.log("*** LogHolder -> Logger log message!")
       _ <- log.log("*** LogHolder -> Log log message!")
-    yield ()
+    yield()
 
 // Service ZLayer, No Accessor Method
 object LogHolder:
@@ -50,7 +50,7 @@ object LogHolder:
       yield LogHolder(logger, log)
     }
 
-object LoggerLogApp extends ZIOAppDefault:
+object LogHolderApp extends ZIOAppDefault:
   def app(logHolder: LogHolder): ZIO[Any, Throwable, Unit] =
     for
       _ <- logHolder.logAll
