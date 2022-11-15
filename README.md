@@ -27,7 +27,7 @@ Run
 1. objektwerks.CombinerApp
 2. objektwerks.ConsoleApp
 3. objektwerks.HttpServer
-4. objektwerks.LogHolderApp
+4. objektwerks.LoggerApp
 
 Curl
 ----
