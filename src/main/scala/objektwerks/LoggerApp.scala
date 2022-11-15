@@ -11,18 +11,19 @@ object Logger:
   def log(message: String): URIO[Logger, Unit] = ZIO.serviceWith[Logger](_.log(message))
 
 // Service Implementor
-class LoggerLive extends Logger:
+class DefaultLogger extends Logger:
   override def log(message: String): UIO[Unit] = Console.printLine(message).orDie
 
 // Service ZLayer
-object LoggerLive:
-  val layer: ZLayer[Any, Nothing, LoggerLive] = ZLayer.succeed(LoggerLive())
+object DefaultLogger:
+  val layer: ZLayer[Any, Nothing, DefaultLogger] = ZLayer.succeed(DefaultLogger())
 
 // App
 object LoggerApp extends ZIOAppDefault:
   def app: ZIO[Logger, Throwable, Unit] =
     for
-      _ <- Logger.log("*** Logger message!")
+      logger <- ZIO.service[Logger]
+      _      <- logger.log("*** Logger message!")
     yield()
 
-  override def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] = app.provide(LoggerLive.layer)
+  override def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] = app.provide(DefaultLogger.layer)
