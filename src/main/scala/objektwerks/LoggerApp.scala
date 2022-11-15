@@ -22,7 +22,7 @@ object LoggerLive:
 object LoggerApp extends ZIOAppDefault:
   def app: ZIO[Logger, Throwable, Unit] =
     for
-      _ <- Logger.log("Logger message!")
+      _ <- Logger.log("*** Logger message!")
     yield()
 
   override def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] = app.provide(LoggerLive.layer)
