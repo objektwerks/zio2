@@ -1,15 +1,15 @@
 package objektwerks
 
-import zio.{Console, IO, Scope, UIO, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
+import zio.{Console, Scope, UIO, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
 import java.io.IOException
 
 // Service Trait
 trait Logger:
-  def log(message: String): IO[IOException, Unit]
+  def log(message: String): UIO[Unit]
 
 // Service Implementor
 class DefaultLogger extends Logger:
-  override def log(message: String): IO[IOException, Unit] = Console.printLine(message)
+  override def log(message: String): UIO[Unit] = Console.printLine(message).orDie
 
 // Service ZLayer, No Accessor Method
 object DefaultLogger:
