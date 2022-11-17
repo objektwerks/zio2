@@ -22,8 +22,5 @@ case class MyIO[A](unsafeRun: () => A) {
     MyIO(() => f(unsafeRun()).unsafeRun())
 }
 
-MyIO(() => {
-  1
-}).map(result => assert(result == 1))
-
-MyIO(() => System.currentTimeMillis()).map(result => assert(result > 0))
+MyIO(() => 1 ).unsafeRun()
+MyIO(() => System.currentTimeMillis()).unsafeRun()
