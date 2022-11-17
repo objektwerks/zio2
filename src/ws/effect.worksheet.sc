@@ -1,8 +1,8 @@
 /*
-  Effect properties:
-  - the type signature describes what KIND of computation it will perform
-  - the type signature describes the type of VALUE that it will produce
-  - if side effects are required, construction must be separate from the EXECUTION
+  Effect Properties
+  - Type signature describes what kind of computation it will perform.
+  - Type signature describes the type of value that it will produce.
+  - If side effects are required, construction must be separate from the execution.
 */
 
 // Effect
