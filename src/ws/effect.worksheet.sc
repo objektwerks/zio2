@@ -22,8 +22,8 @@ case class MyIO[A](unsafeRun: () => A) {
     MyIO(() => f(unsafeRun()).unsafeRun())
 }
 
-val myIOSideEffect: MyIO[Int] = MyIO(() => {
-  println("MyIO is producing an effect ...")
+MyIO(() => {
   1
-})
-myIOSideEffect.map(result => assert(result == 1))
+}).map(result => assert(result == 1))
+
+MyIO(() => System.currentTimeMillis()).map(result => assert(result > 0))
