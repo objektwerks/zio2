@@ -25,14 +25,14 @@ IO(() => 1).unsafeRun()
 IO(() => System.currentTimeMillis()).unsafeRun()
 
 // Effect Monad
-case class MIO[R, +E, +A](unsafeRun: R => Either[E, A]):
+case class MIO[-R, +E, +A](unsafeRun: R => Either[E, A]):
   def map[B](f: A => B): MIO[R, E, B] =
     MIO(r => unsafeRun(r) match
       case Right(value) => Right(f(value))
       case Left(error) => Left(error)
     )
 
-  def flatMap[E1 >: E, B](f: A => MIO[R, E1, B]): MIO[R, E1, B] =
+  def flatMap[R1 <: R, E1 >: E, B](f: A => MIO[R1, E1, B]): MIO[R1, E1, B] =
     MIO(r => unsafeRun(r) match
       case Right(value) => f(value).unsafeRun(r)
       case Left(error) => Left(error)
