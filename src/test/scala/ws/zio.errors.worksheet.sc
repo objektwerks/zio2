@@ -24,4 +24,14 @@ ZIO
 
 ZIO
   .fromOption( Some(1) )
-  .mapBoth(error => throw new Exception("No value!"), value => assert(value == 1))
+  .mapBoth(
+    error => throw new Exception("No value!"),
+    value => assert(value == 1)
+  )
+
+ZIO
+  .attempt( 1 / 0 )
+  .foldZIO(
+    error => ZIO.fail("Invalid Value"),
+    value => ZIO.succeed(value)
+  )
