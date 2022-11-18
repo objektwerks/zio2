@@ -37,5 +37,10 @@ object ErrorsTest extends ZIOSpecDefault:
       ZIO
         .fromEither( Right(1) )
         .mapAttempt(value => assertTrue(value == 1))
+    },
+    test("fromOption") {
+      ZIO
+        .fromOption( Some(1) )
+        .map(value => assertTrue(value == 1))
     }
   )
