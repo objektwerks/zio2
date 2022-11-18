@@ -1,4 +1,4 @@
-import zio.{Exit, IO, RIO, Runtime, Task, Trace, UIO, URIO, ZIO}
+import zio.{IO, RIO, Runtime, Task, UIO, URIO, ZIO}
 
 // Type Aliases
 val uio: UIO[Int] = ZIO.succeed(1)
