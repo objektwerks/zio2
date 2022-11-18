@@ -32,7 +32,7 @@ case class MIO[R, E, A](unsafeRun: R => Either[E, A]):
       case Left(error) => Left(error)
     )
 
-  def flatMap[B](f: A => MIO[R, E, B]): MIO[E, E, B] =
+  def flatMap[B](f: A => MIO[R, E, B]): MIO[R, E, B] =
     MIO(r => unsafeRun(r) match
       case Right(value) => f(value).unsafeRun(r)
       case Left(error) => Left(error)
