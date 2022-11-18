@@ -1,7 +1,9 @@
 package objektwerks
 
-import zio.test.{assertTrue, ZIOSpecDefault}
 import java.io.IOException
+
+import zio.ZIO
+import zio.test.{assertTrue, ZIOSpecDefault}
 
 object ErrorsTest extends ZIOSpecDefault:
   def spec = suite("errors")(
