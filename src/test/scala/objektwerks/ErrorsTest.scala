@@ -29,8 +29,14 @@ object ErrorsTest extends ZIOSpecDefault:
     },
     test("fromTry") {
       ZIO
-        .fromTry( Try(1 / 0))
+        .fromTry( Try(1 / 0) )
         .catchAll(_ => ZIO.succeed(0))
         .map(value => assertTrue(value == 0))
+    },
+    test("fromEither") {
+      ZIO
+        .fromEither( Right(1) )
+        .isSuccess
+        .map(value => assertTrue(value))
     }
   )
