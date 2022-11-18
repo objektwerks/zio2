@@ -36,7 +36,6 @@ object ErrorsTest extends ZIOSpecDefault:
     test("fromEither") {
       ZIO
         .fromEither( Right(1) )
-        .isSuccess
-        .map(value => assertTrue(value))
+        .mapAttempt(value => assertTrue(value == 1))
     }
   )

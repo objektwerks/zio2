@@ -12,3 +12,7 @@ ZIO
   .fromTry( Try(1 / 0) )
   .catchAll(_ => ZIO.succeed(0))
   .map(value => assert(value == 0))
+
+ZIO
+  .fromEither( Right(1) )
+  .mapAttempt(value => assert(value == 1))
