@@ -12,18 +12,16 @@ def run(effect: ZIO[Any, Throwable, Boolean]): ZIO[Any, Throwable, Unit] =
   Runtime.default.run(effect).map(result => assert(result))
 
 // Effects
-val success = ZIO.succeed(1)
-val failure = ZIO.fail("failure")
-val suspend = ZIO.suspend(success)
-
 run(
-  success
+  ZIO
+    .succeed(1)
     .map(value => value + 1)
     .map(result => result == 2)
 )
 
 run(
-  success
+  ZIO
+    .succeed(1)
     .flatMap(value => ZIO.succeed(value + 1))
     .map(result => result == 2)
 )
