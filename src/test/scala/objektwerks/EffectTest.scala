@@ -16,5 +16,11 @@ object EffectTest extends ZIOSpecDefault:
         .succeed(1)
         .flatMap(value => ZIO.succeed(value + 1))
         .map(result => assertTrue(result == 2))
+    },
+    test("zip") {
+      ZIO
+        .succeed(1)
+        .zip(ZIO.succeed(1))
+        .map(tuple => assertTrue(tuple._1 + tuple._2 == 2))
     }
   )
