@@ -1,4 +1,8 @@
-import zio.{ZIO}
+import zio.{Task, UIO, ZIO}
+
+// Type Aliases
+val uio: UIO[Int] = ZIO.succeed(1)
+val task: Task[Int] = ZIO.succeed(1)
 
 // Effects
 val success = ZIO.succeed(1)
