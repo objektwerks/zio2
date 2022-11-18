@@ -16,3 +16,7 @@ ZIO
 ZIO
   .fromEither( Right(1) )
   .mapAttempt(value => assert(value == 1))
+
+ZIO
+  .fromOption( Some(1) )
+  .mapBoth(error => throw new Exception("No value!"), value => assert(value == 1))
