@@ -18,3 +18,8 @@ ZIO
   .zip(ZIO.succeed(1))
   .map(tuple => tuple._1 + tuple._2 == 2)
 
+ZIO
+  .succeed(1)
+  .zipWith(ZIO.succeed(1))(_ + _)
+  .map(result => result == 2)
+
