@@ -7,7 +7,7 @@ import zio.ZIO
   Defects = runtime exceptions
 */
 
-// ZIO fail doesn't work in a ZIO test.
+// ZIO fail doesn't seem to work in a ZIO test.
 ZIO
   .fail(new Exception("Test Error"))
   .mapError(error => error.getMessage())
