@@ -35,3 +35,10 @@ ZIO
     error => ZIO.fail("Invalid Value"),
     value => ZIO.succeed(value)
   )
+
+ZIO
+  .attempt( 1 / 0 )
+  .foldCauseZIO(
+    cause => ZIO.succeed(cause.defects.toString),
+    value => ZIO.succeed(value)
+  )
