@@ -39,8 +39,3 @@ run(
     .zipWith(ZIO.succeed(1))(_ + _)
     .map(result => result == 2)
 )
-
-ZIO
-  .fail(new Exception("Test Error"))
-  .mapError(error => error.getMessage())
-  .mapError(error => assert(error == "Test Error"))
