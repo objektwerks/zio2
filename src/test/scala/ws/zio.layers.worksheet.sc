@@ -27,3 +27,11 @@ class UserSubscription(emailService: EmailService, userDatabase: UserDatabase):
       _ <- emailService.email(user)
       _ <- userDatabase.add(user)
     yield()
+
+// Constructor Dependency Injection
+val subscriptionService = ZIO.succeed(
+  UserSubscription(
+    EmailService(),
+    UserDatabase(ConnectionPool( 4 ))
+  )
+)
