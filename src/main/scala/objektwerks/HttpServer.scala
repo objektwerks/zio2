@@ -30,6 +30,6 @@ object HttpServer extends ZIOAppDefault:
     for
       _ <- ZIO.log(s"HttpServer running at http://localhost:$port")
       _ <- Server.start(port, router)
-    yield()
+    yield ()
 
   override def run: ZIO[Environment & (ZIOAppArgs & Scope ), Any, Any] = server
