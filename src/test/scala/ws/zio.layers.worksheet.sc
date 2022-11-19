@@ -2,7 +2,12 @@ import zio.{Task, ZIO}
 
 case class User(name: String, email: String)
 
-class ConnectionPool(number: Int)
+case class Connection():
+  def run(query: String): Task[Unit] = ???
+
+class ConnectionPool(number: Int):
+  def connect: Task[Connection] = ???
+
 class UserDatabase(connectionPool: ConnectionPool):
   def add(user: User): Task[Unit] = ???
 
