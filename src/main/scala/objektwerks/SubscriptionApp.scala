@@ -39,7 +39,7 @@ object SubscriptionService:
   )
 
 object SubscriptionApp extends ZIOAppDefault:
-  val app =
+  val app: ZIO[SubscriptionService, Throwable, Unit] =
     for
       service <- ZIO.service[SubscriptionService]
       _       <- service.subscribe( User("Fred Flintstone", "fred.flintstone@rock.com") )
