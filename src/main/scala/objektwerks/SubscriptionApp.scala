@@ -17,7 +17,7 @@ class Database(connectionPool: ConnectionPool):
     for
       connection <- connectionPool.connect
       _          <- connection.run(s"add $user")
-    yield()
+    yield ()
 
 class EmailService:
   def email(user: User): Task[Unit] =
@@ -28,7 +28,7 @@ class SubscriptionService(emailService: EmailService, database: Database):
     for
       _ <- emailService.email(user)
       _ <- database.add(user)
-    yield()
+    yield ()
 
 object SubscriptionService:
   def layer: ZLayer[Any, Nothing, SubscriptionService] = ZLayer.succeed(
@@ -46,4 +46,4 @@ object SubscriptionApp extends ZIOAppDefault:
       _       <- service.subscribe( User("Barney Rubble", "barney.rubble@rock.com") )
     yield ()
 
-  override def run = app.provide( SubscriptionService.layer )
+  override def run = app.provide(SubscriptionService.layer)
