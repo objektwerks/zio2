@@ -6,10 +6,14 @@ case class Connection():
   def run(query: String): Task[Unit] = ???
 
 class ConnectionPool(number: Int):
-  def connect: Task[Connection] = ???
+  def connect: Task[Connection] = ZIO.succeed(Connection())
 
 class UserDatabase(connectionPool: ConnectionPool):
-  def add(user: User): Task[Unit] = ???
+  def add(user: User): Task[Unit] =
+    for
+      connection <- connectionPool.connect
+      _          <- connection.run(s"add $user")
+    yield()
 
 class EmailService:
   def email(user: User): Task[Unit] = ZIO.succeed(s"You're subscribed! Welcome, ${user.name}!").unit
