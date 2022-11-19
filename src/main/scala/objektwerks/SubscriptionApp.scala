@@ -39,16 +39,11 @@ object SubscriptionService:
   )
 
 object SubscriptionApp extends ZIOAppDefault:
-  def subscribe(user: User): ZIO[SubscriptionService, Throwable, Unit] =
-    for
-      service <- ZIO.service[SubscriptionService]
-      _       <- service.subscribe(user)
-    yield ()
-
   val app =
     for
-      _ <- subscribe( User("Fred Flintstone", "fred.flintstone@rock.com") )
-      _ <- subscribe( User("Barney Rubble", "barney.rubble@rock.com") )
+      service <- ZIO.service[SubscriptionService]
+      _ <- service.subscribe( User("Fred Flintstone", "fred.flintstone@rock.com") )
+      _ <- service.subscribe( User("Barney Rubble", "barney.rubble@rock.com") )
     yield ()
 
   override def run = app.provide( SubscriptionService.layer )
