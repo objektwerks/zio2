@@ -3,7 +3,8 @@ import zio.{Task, ZIO}
 case class User(name: String, email: String)
 
 case class Connection():
-  def run(query: String): Task[Unit] = ???
+  def run(query: String): Task[Unit] =
+    ZIO.succeed(println(s"Executing query: $query"))
 
 class ConnectionPool(number: Int):
   def connect: Task[Connection] =
@@ -17,7 +18,8 @@ class UserDatabase(connectionPool: ConnectionPool):
     yield()
 
 class EmailService:
-  def email(user: User): Task[Unit] = ZIO.succeed(s"You're subscribed! Welcome, ${user.name}!").unit
+  def email(user: User): Task[Unit] =
+    ZIO.succeed(s"You're subscribed! Welcome, ${user.name}!").unit
 
 class UserSubscription(emailService: EmailService, userDatabase: UserDatabase):
   def subscribe(user: User): Task[Unit] =
