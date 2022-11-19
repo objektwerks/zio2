@@ -28,6 +28,7 @@ Run
 2. objektwerks.ConsoleApp
 3. objektwerks.HttpServer
 4. objektwerks.LoggerApp
+5. objektwerks.SubscriptionApp
 
 Curl
 ----
