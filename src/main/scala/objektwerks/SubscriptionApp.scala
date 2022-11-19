@@ -30,14 +30,15 @@ class SubscriptionService(emailService: EmailService, database: Database):
       _ <- database.add(user)
     yield()
 
-object SubscriptionApp extends ZIOAppDefault:
-  val subscriptionServiceLayer = ZLayer.succeed(
+object SubscriptionService:
+  def layer = ZLayer.succeed(
     SubscriptionService(
       EmailService(),
       Database(ConnectionPool( 4 ))
     )
   )
 
+object SubscriptionApp extends ZIOAppDefault:
   def subscribe(user: User): ZIO[SubscriptionService, Throwable, Unit] =
     for
       service <- ZIO.service[SubscriptionService]
@@ -50,4 +51,4 @@ object SubscriptionApp extends ZIOAppDefault:
       _ <- subscribe( User("Barney Rubble", "barney.rubble@rock.com") )
     yield ()
 
-  override def run = app.provide( subscriptionServiceLayer )
+  override def run = app.provide( SubscriptionService.layer )
