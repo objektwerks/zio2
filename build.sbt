@@ -17,4 +17,3 @@ libraryDependencies ++= {
     "dev.zio" %% "zio-test-sbt" % zioVersion % Test
   )
 }
-parallelExecution := false
