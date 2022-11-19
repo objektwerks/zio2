@@ -1,4 +1,4 @@
-import zio.{Task, ZIO}
+import zio.{Runtime, Task, ZIO}
 
 case class User(name: String, email: String)
 
@@ -28,10 +28,11 @@ class UserSubscription(emailService: EmailService, userDatabase: UserDatabase):
       _ <- userDatabase.add(user)
     yield()
 
-// Constructor Dependency Injection
-val subscriptionService = ZIO.succeed(
-  UserSubscription(
-    EmailService(),
-    UserDatabase(ConnectionPool( 4 ))
+Runtime.default.run(
+  ZIO.succeed(
+    UserSubscription(
+      EmailService(),
+      UserDatabase(ConnectionPool( 4 ))
+    ).subscribe(User("Fred Flintstone", "fred.flintstone@rock.com"))
   )
 )
