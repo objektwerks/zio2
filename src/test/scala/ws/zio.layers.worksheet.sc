@@ -12,7 +12,7 @@ class UserDatabase(connectionPool: ConnectionPool):
   def add(user: User): Task[Unit] = ???
 
 class EmailService:
-  def email(user: User): Task[Unit] = ???
+  def email(user: User): Task[Unit] = ZIO.succeed(s"You're subscribed! Welcome, ${user.name}")
 
 class UserSubscription(emailService: EmailService, userDatabase: UserDatabase):
   def subscribe(user: User): Task[Unit] =
