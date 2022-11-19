@@ -9,4 +9,4 @@ object ConsoleApp extends ZIOAppDefault:
       _    <- printLine("*** Greetings! What is your name?")
       name <- readLine
       _    <- printLine(s"*** Welcome, ${name}!")
-    yield()
+    yield ()
