@@ -15,4 +15,8 @@ class EmailService:
   def email(user: User): Task[Unit] = ???
 
 class UserSubscription(emailService: EmailService, userDatabase: UserDatabase):
-  def subscribe(user: User): Task[Unit] = ???
+  def subscribe(user: User): Task[Unit] =
+    for
+      _ <- emailService.email(user)
+      _ <- userDatabase.add(user)
+    yield()
