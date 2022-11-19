@@ -6,7 +6,8 @@ case class Connection():
   def run(query: String): Task[Unit] = ???
 
 class ConnectionPool(number: Int):
-  def connect: Task[Connection] = ZIO.succeed(Connection())
+  def connect: Task[Connection] =
+    ZIO.succeed(println("Acquired connection.")) *> ZIO.succeed(Connection())
 
 class UserDatabase(connectionPool: ConnectionPool):
   def add(user: User): Task[Unit] =
