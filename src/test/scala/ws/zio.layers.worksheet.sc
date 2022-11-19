@@ -10,7 +10,7 @@ class ConnectionPool(number: Int):
   def connect: Task[Connection] =
     ZIO.succeed(println("Acquired connection.")) *> ZIO.succeed(Connection())
 
-class UserDatabase(connectionPool: ConnectionPool):
+class Database(connectionPool: ConnectionPool):
   def add(user: User): Task[Unit] =
     for
       connection <- connectionPool.connect
@@ -21,23 +21,28 @@ class EmailService:
   def email(user: User): Task[Unit] =
     ZIO.succeed(println(s"You're subscribed! Welcome, ${user.name}!")).unit
 
-class UserSubscription(emailService: EmailService, userDatabase: UserDatabase):
+class SubscriptionService(emailService: EmailService, database: Database):
   def subscribe(user: User): Task[Unit] =
     for
       _ <- emailService.email(user)
-      _ <- userDatabase.add(user)
+      _ <- database.add(user)
     yield()
 
-val subscriberService = ZIO.succeed(
-  UserSubscription(
+val subscriptionService = ZIO.succeed(
+  SubscriptionService(
     EmailService(),
-    UserDatabase(ConnectionPool( 4 ))
+    Database(ConnectionPool( 4 ))
   )
 )
 
-Runtime.default.run(
+def subscribe(user: User): ZIO[SubscriptionService, Throwable, Unit] =
   for
-    service <- subscriberService
-    _       <- service.subscribe(User("Fred Flintstone", "fred.flintstone@rock.com"))
-  yield()
-)
+    service <- ZIO.service[SubscriptionService]
+    _       <- service.subscribe(user)
+  yield ()
+
+val app =
+  for
+    _ <- subscribe( User("Fred Flintstone", "fred.flintstone@rock.com") )
+    _ <- subscribe( User("Fred Flintstone", "fred.flintstone@rock.com") )
+  yield ()
