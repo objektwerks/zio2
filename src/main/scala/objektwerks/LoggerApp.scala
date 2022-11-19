@@ -21,6 +21,6 @@ object LoggerApp extends ZIOAppDefault:
     for
       logger <- ZIO.service[Logger]
       _      <- logger.log("*** Logger message!")
-    yield()
+    yield ()
 
   override def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] = app.provide(DefaultLogger.layer)
