@@ -26,8 +26,7 @@ object DatabaseService:
   def layer: ZLayer[ConnectionPool, Nothing, DatabaseService] = ZLayer.fromFunction(apply)
 
 class EmailService:
-  def email(user: User): Task[Unit] =
-    ZIO.succeed(println(s"You're subscribed! Welcome, ${user.name}!")).unit
+  def email(user: User): Task[Unit] = ZIO.succeed(println(s"You're subscribed! Welcome, ${user.name}!")).unit
 
 object EmailService:
   def apply(): EmailService = new EmailService()
