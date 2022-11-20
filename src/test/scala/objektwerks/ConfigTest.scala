@@ -16,8 +16,7 @@ object ConfigTest extends ZIOSpecDefault:
       val config = ConfigFactory.load("test.conf").getObject("Conf").toConfig // bug!!!
       val source = TypesafeConfigSource.fromTypesafeConfig( ZIO.attempt(config) )
       read( descriptor[Conf].from(source) ).map { conf =>
-        assertTrue(conf.value == "value")
-        assertTrue(conf.number == 1)
+        assertTrue(conf.value == "value") && assertTrue(conf.number == 1)
       }
     }
   )
