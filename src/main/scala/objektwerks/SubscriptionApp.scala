@@ -43,8 +43,7 @@ class SubscriptionService(emailService: EmailService, database: DatabaseService)
     yield ()
 
 object SubscriptionService:
-  def apply(emailService: EmailService,
-            databaseService: DatabaseService): SubscriptionService = new SubscriptionService(emailService, databaseService)
+  def apply(emailService: EmailService, databaseService: DatabaseService): SubscriptionService = new SubscriptionService(emailService, databaseService)
   def layer: ZLayer[EmailService & DatabaseService, Nothing, SubscriptionService] = ZLayer.fromFunction(apply)
 
 object SubscriptionApp extends ZIOAppDefault:
