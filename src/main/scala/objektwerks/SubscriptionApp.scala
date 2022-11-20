@@ -33,7 +33,7 @@ class EmailService:
 
 object EmailService:
   def apply(): EmailService = new EmailService()
-  def layer = ZLayer.succeed(apply())
+  def layer: ZLayer[Any, Nothing, EmailService] = ZLayer.succeed(apply())
 
 class SubscriptionService(emailService: EmailService, database: DatabaseService):
   def subscribe(user: User): Task[Unit] =
