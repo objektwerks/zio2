@@ -35,7 +35,7 @@ object SubscriptionService:
     ZLayer.succeed(
       SubscriptionService(
         EmailService(),
-        DatabaseService(ConnectionPool(4))
+        DatabaseService(ConnectionPool(2))
       )
     )
 
