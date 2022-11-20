@@ -12,27 +12,18 @@ class ConnectionPool(number: Int):
   def connect: Task[Connection] =
     ZIO.succeed(println("Acquired connection.")) *> ZIO.succeed(Connection())
 
-object ConnectionPool:
-  def layer: ZLayer[Any, Nothing, ConnectionPool] = ZLayer.succeed(ConnectionPool(4))
-
-class Database(connectionPool: ConnectionPool):
+class DatabaseService(connectionPool: ConnectionPool):
   def add(user: User): Task[Unit] =
     for
       connection <- connectionPool.connect
       _          <- connection.run(s"add $user")
     yield ()
 
-object Database:
-  def layer: ZLayer[Any, Nothing, Database] = ZLayer.succeed(Database(ConnectionPool(4)))
-
 class EmailService:
   def email(user: User): Task[Unit] =
     ZIO.succeed(println(s"You're subscribed! Welcome, ${user.name}!")).unit
 
-object EmailService:
-  def layer: ZLayer[Any, Nothing, EmailService] = ZLayer.succeed(EmailService())
-
-class SubscriptionService(emailService: EmailService, database: Database):
+class SubscriptionService(emailService: EmailService, database: DatabaseService):
   def subscribe(user: User): Task[Unit] =
     for
       _ <- emailService.email(user)
@@ -40,7 +31,13 @@ class SubscriptionService(emailService: EmailService, database: Database):
     yield ()
 
 object SubscriptionService:
-  def layer: ZLayer[Any, Nothing, SubscriptionService] = ZLayer.succeed(SubscriptionService())
+  def layer: ZLayer[Any, Nothing, SubscriptionService] =
+    ZLayer.succeed(
+      SubscriptionService(
+        EmailService(),
+        DatabaseService(ConnectionPool(4))
+      )
+    )
 
 object SubscriptionApp extends ZIOAppDefault:
   val app: ZIO[SubscriptionService, Throwable, Unit] =
