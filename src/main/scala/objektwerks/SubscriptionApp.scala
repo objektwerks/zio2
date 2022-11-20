@@ -12,6 +12,9 @@ class ConnectionPool(number: Int):
   def connect: Task[Connection] =
     ZIO.succeed(println("Acquired connection.")) *> ZIO.succeed(Connection())
 
+object ConnectionPool:
+  def layer = ZLayer.succeed(ConnectionPool(4))
+
 class Database(connectionPool: ConnectionPool):
   def add(user: User): Task[Unit] =
     for
