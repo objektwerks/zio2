@@ -1,11 +1,12 @@
 package objektwerks
 
-import zio.ZIO
+import zio.{Exit, ZIO}
 import zio.test.{assertTrue, ZIOSpecDefault}
+import zio.test.TestFailure.Assertion
 
 object FiberTest extends ZIOSpecDefault:
   def spec = suite("fiber")(
-    test("fiber") {
+    test("fiber join") {
       for
         helloFiber <- ZIO.succeed("Hello, ").fork
         worldFiber <- ZIO.succeed("world!").fork
@@ -13,5 +14,16 @@ object FiberTest extends ZIOSpecDefault:
       yield
         val (hello, world) = tuple
         assertTrue(hello + world == "Hello, world!")
+    },
+    test("fiber await") {
+      for
+        helloFiber <- ZIO.succeed("Hello, ").fork
+        worldFiber <- ZIO.succeed("world!").fork
+        result     <- (helloFiber zip worldFiber).await
+      yield result match
+        case Exit.Success(tuple) =>
+          val (hello, world) = tuple
+          assertTrue(hello + world == "Hello, world!")
+        case Exit.Failure(error) => assert(false, error.toString())
     }
   )
