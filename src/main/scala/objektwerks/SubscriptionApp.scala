@@ -5,12 +5,10 @@ import zio.{Runtime, Scope, Task, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
 case class User(name: String, email: String)
 
 case class Connection():
-  def run(query: String): Task[Unit] =
-    ZIO.succeed(println(s"Executing query: $query"))
+  def run(query: String): Task[Unit] = ZIO.succeed(println(s"Executing query: $query"))
 
 class ConnectionPool(number: Int):
-  def connect: Task[Connection] =
-    ZIO.succeed(println("Acquired connection.")) *> ZIO.succeed(Connection())
+  def connect: Task[Connection] = ZIO.succeed(println("Acquired connection.")) *> ZIO.succeed(Connection())
 
 object ConnectionPool:
   def apply(number: Int): ConnectionPool = new ConnectionPool(number)
@@ -43,13 +41,8 @@ class SubscriptionService(emailService: EmailService, database: DatabaseService)
     yield ()
 
 object SubscriptionService:
-  def layer: ZLayer[Any, Nothing, SubscriptionService] =
-    ZLayer.succeed(
-      SubscriptionService(
-        EmailService(),
-        DatabaseService(ConnectionPool(2))
-      )
-    )
+  def apply(emailService: EmailService, databaseService: DatabaseService): SubscriptionService = SubscriptionService(emailService, databaseService)
+  def layer: ZLayer[Any, Nothing, SubscriptionService] = ZLayer.fromFunction(apply)
 
 object SubscriptionApp extends ZIOAppDefault:
   val app: ZIO[SubscriptionService, Throwable, Unit] =
