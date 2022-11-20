@@ -34,7 +34,7 @@ object SubscriptionService:
   def layer: ZLayer[Any, Nothing, SubscriptionService] = ZLayer.succeed(
     SubscriptionService(
       EmailService(),
-      Database(ConnectionPool( 4 ))
+      Database(ConnectionPool(4))
     )
   )
 
