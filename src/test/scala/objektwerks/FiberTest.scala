@@ -24,5 +24,12 @@ object FiberTest extends ZIOSpecDefault:
           val (hello, world) = tuple
           assertTrue(hello + world == "Hello, world!")
         case Exit.Failure(cause) => assert(false, s"failed with $cause")
-    }
+    },
+    test("fiber orElse") {
+      for
+        failFiber    <- ZIO.fail(1).fork
+        succeedFiber <- ZIO.succeed(2).fork
+        value        <- (failFiber orElse succeedFiber).join
+      yield assertTrue(value == 2)
+    }    
   )
