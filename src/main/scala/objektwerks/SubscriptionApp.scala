@@ -27,7 +27,7 @@ class EmailService:
     ZIO.succeed(println(s"You're subscribed! Welcome, ${user.name}!")).unit
 
 object EmailService:
-  def layer = ZLayer.succeed(EmailService())
+  def layer: ZLayer[Any, Nothing, EmailService] = ZLayer.succeed(EmailService())
 
 class SubscriptionService(emailService: EmailService, database: Database):
   def subscribe(user: User): Task[Unit] =
