@@ -22,6 +22,9 @@ class Database(connectionPool: ConnectionPool):
       _          <- connection.run(s"add $user")
     yield ()
 
+object Database:
+  def layer = ZLayer.succeed(Database(ConnectionPool(4)))
+
 class EmailService:
   def email(user: User): Task[Unit] =
     ZIO.succeed(println(s"You're subscribed! Welcome, ${user.name}!")).unit
