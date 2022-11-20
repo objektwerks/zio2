@@ -2,7 +2,6 @@ package objektwerks
 
 import zio.{Exit, ZIO}
 import zio.test.{assertTrue, ZIOSpecDefault}
-import zio.test.TestFailure.Assertion
 
 object FiberTest extends ZIOSpecDefault:
   def spec = suite("fiber")(
