@@ -43,5 +43,14 @@ object ErrorsTest extends ZIOSpecDefault:
       ZIO
         .fromOption( Some(1) )
         .map(value => assertTrue(value == 1))
+    },
+    test("foldZIO") {
+      ZIO
+        .attempt( 1 / 0 )
+        .foldZIO(
+          error => ZIO.succeed(-1),
+          value => ZIO.succeed(value)
+        )
+        .map(value => assertTrue(value == -1))
     }
   )
