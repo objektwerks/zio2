@@ -2,7 +2,7 @@ package objektwerks
 
 import zio.{durationInt, Scope, ZIO, ZIOAppArgs, ZIOAppDefault}
 
-object ParallelismApp extends ZIOAppDefault:
+object ParApp extends ZIOAppDefault:
   val zioa = ZIO.succeed("zio a running...").debug *> ZIO.sleep(1.second)
   val ziob = ZIO.succeed("zio b running ...").debug *> ZIO.sleep(1.second)
   val effect = zioa.zipPar(ziob)
