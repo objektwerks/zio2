@@ -11,11 +11,11 @@ object InterruptApp extends ZIOAppDefault:
 
   val app =
     for
-      f <- effect.fork
-      _ <- ZIO.succeed("interrupting fiber...").debug
-      _ <- f.interrupt
-      _ <- ZIO.succeed("interrupted fiber!").debug
-      r <- f.join
-    yield r
+      fiber  <- effect.fork
+      _      <- ZIO.succeed("interrupting fiber...").debug
+      _      <- fiber.interrupt
+      _      <- ZIO.succeed("interrupted fiber!").debug
+      result <- fiber.join
+    yield result
 
   override def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] = app
