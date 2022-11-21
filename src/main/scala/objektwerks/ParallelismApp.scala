@@ -1,15 +1,11 @@
 package objektwerks
 
-import zio.{durationInt, Scope, Task, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
+import zio.{durationInt, Scope, ZIO, ZIOAppArgs, ZIOAppDefault}
 
 object ParallelismApp extends ZIOAppDefault:
-  val effect = {
-    ZIO.succeed("fiber 1 running...").debug
-    *> ZIO.sleep(1.second)
-    *> ZIO.succeed("fiber 2 running ...").debug
-    *> ZIO.sleep(1.second)
-    *> ZIO.succeed("fiber 1 and 2 completed!").debug
-  }.onInterrupt(ZIO.succeed("fiber 1 and/or 2 interrupted!").debug)
+  val fibera = ZIO.succeed("fiber a running...").debug *> ZIO.sleep(1.second)
+  val fiberb = ZIO.succeed("fiber b running ...").debug *> ZIO.sleep(1.second)
+  val effect = fibera.zipPar(fiberb)
 
   val app =
     for
