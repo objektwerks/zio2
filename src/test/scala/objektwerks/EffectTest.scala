@@ -1,6 +1,6 @@
 package objektwerks
 
-import zio.{ZIO}
+import zio.ZIO
 import zio.test.{assertTrue, ZIOSpecDefault}
 
 object EffectTest extends ZIOSpecDefault:
