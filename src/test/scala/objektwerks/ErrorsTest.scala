@@ -52,5 +52,14 @@ object ErrorsTest extends ZIOSpecDefault:
           value => ZIO.succeed(value)
         )
         .map(value => assertTrue(value == -1))
+    },
+    test("foldCause") {
+      ZIO
+        .attempt( 1 / 0 )
+        .foldCauseZIO(
+          cause => ZIO.succeed(-1),
+          value => ZIO.succeed(value)
+        )
+        .map(value => assertTrue(value == -1))
     }
   )
