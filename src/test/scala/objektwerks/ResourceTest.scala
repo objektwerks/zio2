@@ -10,7 +10,7 @@ case class Resource(url: String):
 object Resource:
   def apply(url: String): ZIO[Any, Nothing, Resource] = ZIO.succeed(new Resource(url))
 
-object ResourcesTest extends ZIOSpecDefault:
+object ResourceTest extends ZIOSpecDefault:
   def spec = suite("resources")(
     test("file") {
       Files.read("./LICENSE").map { lines =>
