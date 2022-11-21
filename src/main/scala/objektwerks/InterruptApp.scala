@@ -2,7 +2,7 @@ package objektwerks
 
 import zio.{durationInt, Scope, Task, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
 
-object FiberApp extends ZIOAppDefault:
+object InterruptApp extends ZIOAppDefault:
   val app =
     for
       f <- ZIO.succeed("fiber").fork
