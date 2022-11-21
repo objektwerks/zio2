@@ -23,12 +23,13 @@ Test
 Run
 ---
 1. sbt clean run
->Multiple main classes detected. Select one to run:
+Multiple main classes detected. Select one to run:
 1. objektwerks.CombinerApp
 2. objektwerks.ConsoleApp
 3. objektwerks.HttpServer
-4. objektwerks.LoggerApp
-5. objektwerks.SubscriptionApp
+4. objektwerks.InterruptApp
+5. objektwerks.LoggerApp
+6. objektwerks.SubscriptionApp
 
 Curl
 ----
