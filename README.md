@@ -29,7 +29,8 @@ Multiple main classes detected. Select one to run:
 3. objektwerks.HttpServer
 4. objektwerks.InterruptApp
 5. objektwerks.LoggerApp
-6. objektwerks.SubscriptionApp
+6. objektwerks.ParApp
+7. objektwerks.SubscriptionApp
 
 Curl
 ----
