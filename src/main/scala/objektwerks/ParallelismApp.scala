@@ -3,9 +3,9 @@ package objektwerks
 import zio.{durationInt, Scope, ZIO, ZIOAppArgs, ZIOAppDefault}
 
 object ParallelismApp extends ZIOAppDefault:
-  val fibera = ZIO.succeed("fiber a running...").debug *> ZIO.sleep(1.second)
-  val fiberb = ZIO.succeed("fiber b running ...").debug *> ZIO.sleep(1.second)
-  val effect = fibera.zipPar(fiberb)
+  val zioa = ZIO.succeed("zio a running...").debug *> ZIO.sleep(1.second)
+  val ziob = ZIO.succeed("zio b running ...").debug *> ZIO.sleep(1.second)
+  val effect = zioa.zipPar(ziob)
 
   val app =
     for
