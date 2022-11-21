@@ -1,3 +1,5 @@
+import zio.{IO, RIO, Runtime, Task, UIO, URIO, ZIO}
+
 /*
   Effect Properties
   - Type signature describes what kind of computation it will perform.
@@ -37,8 +39,6 @@ case class MIO[-R, +E, +A](unsafeRun: R => Either[E, A]):
       case Right(value) => f(value).unsafeRun(r)
       case Left(error) => Left(error)
     )
-
-import zio.{IO, RIO, Runtime, Task, UIO, URIO, ZIO}
 
 // Type Aliases
 val uio: UIO[Int] = ZIO.succeed(1)
