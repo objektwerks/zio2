@@ -2,9 +2,9 @@ package objektwerks
 
 import java.io.IOException
 
-import scala.io.{BufferedSource, Codec, Source}
+import scala.io.{BufferedSource, Source}
 
-import zio.{Scope, Task, ZIO}
+import zio.{Scope, ZIO}
 
 object Files:
   private def acquire(path: => String): ZIO[Any, IOException, Source] =
