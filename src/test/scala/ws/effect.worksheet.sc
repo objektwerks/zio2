@@ -1,3 +1,6 @@
+import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
+
 import zio.{IO, RIO, Runtime, Task, UIO, URIO, ZIO}
 
 /*
@@ -11,8 +14,6 @@ import zio.{IO, RIO, Runtime, Task, UIO, URIO, ZIO}
 val option: Option[Int] = Option(1)
 
 // Side Effect
-import scala.concurrent.Future
-import scala.concurrent.ExecutionContext.Implicits.global
 val future: Future[Int] = Future(1)
 
 // Effect Monad
