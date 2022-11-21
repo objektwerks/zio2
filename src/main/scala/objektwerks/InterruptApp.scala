@@ -1,6 +1,6 @@
 package objektwerks
 
-import zio.{durationInt, Scope, Task, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
+import zio.{durationInt, Scope, ZIO, ZIOAppArgs, ZIOAppDefault}
 
 object InterruptApp extends ZIOAppDefault:
   val effect = {
