@@ -11,7 +11,7 @@ object Resource:
   def apply(url: String): ZIO[Any, Nothing, Resource] = ZIO.succeed(new Resource(url))
 
 object ResourceTest extends ZIOSpecDefault:
-  def spec = suite("resources")(
+  def spec = suite("resource")(
     test("file") {
       Files.read("./LICENSE").map { lines =>
         assertTrue(lines.size == 48) && assertTrue(lines.mkString(" ").length() == 9124)
