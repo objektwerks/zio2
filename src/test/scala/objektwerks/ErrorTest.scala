@@ -7,7 +7,7 @@ import scala.util.Try
 import zio.ZIO
 import zio.test.{assertTrue, ZIOSpecDefault}
 
-object ErrorsTest extends ZIOSpecDefault:
+object ErrorTest extends ZIOSpecDefault:
   def spec = suite("errors")(
     test("catchAll") {
       Files
