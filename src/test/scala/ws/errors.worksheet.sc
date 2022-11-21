@@ -12,10 +12,3 @@ ZIO
   .fail(new Exception("Test Error"))
   .mapError(error => error.getMessage())
   .mapError(error => assert(error == "Test Error"))
-
-ZIO
-  .attempt( 1 / 0 )
-  .foldCauseZIO(
-    cause => ZIO.succeed(cause.defects.toString),
-    value => ZIO.succeed(value)
-  )
