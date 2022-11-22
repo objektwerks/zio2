@@ -1,8 +1,9 @@
 package objektwerks
 
-import zio.{Console, ZIO, ZLayer}
+import zio.{durationInt, Console, ZIO, ZLayer}
 import zio.test.{assertZIO, TestConsole, ZIOSpecDefault}
 import zio.test.Assertion.*
+import zio.test.TestAspect.*
 
 object DependencyTest extends ZIOSpecDefault:
   def spec = suite("dependency")(
@@ -20,5 +21,5 @@ object DependencyTest extends ZIOSpecDefault:
           _        <- Console.printLine(s"Combined value: $c")
         yield c
       )(containsString("abc123"))
-    }.provideLayer(Combiner.layer)
+    }.provideLayer(Combiner.layer) @@ timeout(3.seconds)
   )
