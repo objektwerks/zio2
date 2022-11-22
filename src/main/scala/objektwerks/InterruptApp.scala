@@ -3,13 +3,13 @@ package objektwerks
 import zio.{durationInt, Scope, ZIO, ZIOAppArgs, ZIOAppDefault}
 
 object InterruptApp extends ZIOAppDefault:
-  val effect = {
+  val effect: ZIO[Any, Nothing, String] = {
     ZIO.succeed("fiber running...").debug
     *> ZIO.sleep(1.second)
     *> ZIO.succeed("fiber completed!").debug
   }.onInterrupt(ZIO.succeed("fiber interrupted!").debug)
 
-  val app =
+  val app: ZIO[Any, Nothing, String] =
     for
       fiber  <- effect.fork
       _      <- ZIO.succeed("interrupting fiber...").debug
