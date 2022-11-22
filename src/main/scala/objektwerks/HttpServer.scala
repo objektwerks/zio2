@@ -14,7 +14,7 @@ import Event.given
 object HttpServer extends ZIOAppDefault:
   val port = 7272
 
-  val router = Http.collectZIO[Request] {
+  val router: Http[Any, Throwable, Request, Response] = Http.collectZIO[Request] {
     case Method.GET -> !! / "now" => ZIO.succeed( Response.text(Instant.now.toString()) )
     case request @ Method.POST -> !! / "greeting" => request.body.asString.map { name => Response.text(s"\nGreetings, $name!\n") }
     case request @ Method.POST -> !! / "command" => request.body.asString.map { json =>
@@ -26,7 +26,7 @@ object HttpServer extends ZIOAppDefault:
     }
   }
 
-  val server =
+  val server: ZIO[Any, Throwable, Unit] =
     for
       _ <- ZIO.log(s"HttpServer running at http://localhost:$port")
       _ <- Server.start(port, router)
