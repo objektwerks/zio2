@@ -3,7 +3,7 @@ package objektwerks
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
-import zio.{durationInt, Scope, ZIO, ZIOAppArgs, ZIOAppDefault}
+import zio.{Scope, ZIO, ZIOAppArgs, ZIOAppDefault}
 
 object AsyncApp extends ZIOAppDefault:
   val effect: ZIO[Any, Throwable, Int] = ZIO.fromFuture( Future(1 + 1) )
