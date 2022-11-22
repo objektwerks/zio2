@@ -1,15 +1,13 @@
 package objektwerks
 
 import zio.ZIO
-import zio.test.{assertTrue, ZIOSpecDefault}
+import zio.test.{assertTrue, assertZIO, ZIOSpecDefault}
+import zio.test.Assertion.*
 
 object EffectTest extends ZIOSpecDefault:
   def spec = suite("effect")(
     test("map") {
-      ZIO
-        .succeed(1)
-        .map(value => value + 1)
-        .map(result => assertTrue(result == 2))
+      assertZIO(ZIO.succeed(1).map(value => value + 1))(equalTo(2))
     },
     test("flatMap") {
       ZIO
