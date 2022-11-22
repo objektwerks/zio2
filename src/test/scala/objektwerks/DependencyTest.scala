@@ -10,5 +10,13 @@ object DependencyTest extends ZIOSpecDefault:
       assertZIO(
         ZIO.succeed(1)
       )(equalTo(1))
-    }.provideLayer(ZLayer.succeed(1))
+    }.provideLayer(ZLayer.succeed(1)),
+    test("combiner layer") {
+      assertZIO(
+        for
+          combiner <- ZIO.service[Combiner]
+          result   <- combiner.combine("abc", "123")
+        yield result
+      )(containsString("abc123"))
+    }.provideLayer(Combiner.layer)
   )
