@@ -1,6 +1,6 @@
 package objektwerks
 
-import zio.{durationInt, Random, Scope, ZIO, ZIOAppArgs, ZIOAppDefault}
+import zio.{Random, Schedule, Scope, ZIO, ZIOAppArgs, ZIOAppDefault}
 
 object ScheduleApp extends ZIOAppDefault:
   val effect = Random.nextBoolean.flatMap { isTrue =>
@@ -8,9 +8,6 @@ object ScheduleApp extends ZIOAppDefault:
     else ZIO.succeed("is false").debug *> ZIO.fail("failure")
   }
 
-  val app =
-    for
-      result  <- effect
-    yield result
+  val app = effect.retry(Schedule.recurs(5))
     
   override def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] = app
