@@ -10,10 +10,7 @@ object EffectTest extends ZIOSpecDefault:
       assertZIO(ZIO.succeed(1).map(value => value + 1))(equalTo(2))
     },
     test("flatMap") {
-      ZIO
-        .succeed(1)
-        .flatMap(value => ZIO.succeed(value + 1))
-        .map(result => assertTrue(result == 2))
+      assertZIO(ZIO.succeed(1).flatMap(value => ZIO.succeed(value + 1)))(equalTo(2))
     },
     test("zip") {
       ZIO
