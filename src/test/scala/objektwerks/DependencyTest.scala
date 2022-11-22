@@ -17,6 +17,7 @@ object DependencyTest extends ZIOSpecDefault:
           _        <- TestConsole.feedLines("123")
           b        <- Console.readLine
           c        <- combiner.combine(a, b)
+          _        <- Console.printLine(s"Combined value: $c")
         yield c
       )(containsString("abc123"))
     }.provideLayer(Combiner.layer)
