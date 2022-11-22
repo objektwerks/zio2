@@ -11,7 +11,7 @@ object DependencyTest extends ZIOSpecDefault:
         ZIO.succeed(1)
       )(equalTo(1))
     }.provideLayer(ZLayer.succeed(1)),
-    test("combiner layer") {
+    test("combiner provide layer") {
       assertZIO(
         for
           combiner <- ZIO.service[Combiner]
