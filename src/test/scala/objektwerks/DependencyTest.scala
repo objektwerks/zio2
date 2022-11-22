@@ -7,7 +7,7 @@ import zio.test.TestAspect.timeout
 
 object DependencyTest extends ZIOSpecDefault:
   def spec = suite("dependency")(
-    test("provide layer") {
+    test("provideLayer") {
       assertZIO(
         for
           combiner <- ZIO.service[Combiner]
