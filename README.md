@@ -24,13 +24,15 @@ Run
 ---
 1. sbt clean run
 Multiple main classes detected. Select one to run:
-1. objektwerks.CombinerApp
-2. objektwerks.ConsoleApp
-3. objektwerks.HttpServer
-4. objektwerks.InterruptApp
-5. objektwerks.LoggerApp
-6. objektwerks.ParApp
-7. objektwerks.SubscriptionApp
+1. objektwerks.AsyncApp
+2. objektwerks.CombinerApp
+3. objektwerks.ConsoleApp
+4. objektwerks.HttpServer
+5. objektwerks.InterruptApp
+6. objektwerks.LoggerApp
+7. objektwerks.ParApp
+8. objektwerks.ScheduleApp
+9. objektwerks.SubscriptionApp
 
 Curl
 ----
