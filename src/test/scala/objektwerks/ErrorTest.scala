@@ -3,7 +3,6 @@ package objektwerks
 import java.io.IOException
 
 import scala.concurrent.Future
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.util.Try
 
 import zio.ZIO
@@ -32,7 +31,9 @@ object ErrorTest extends ZIOSpecDefault:
     },
     test("fromFuture") {
       ZIO
-        .fromFuture( Future(1 / 0) )
+        .fromFuture { implicit ec =>
+          Future(1 / 0)
+        }
         .catchAll(_ => ZIO.succeed(0))
         .map(value => assertTrue(value == 0))
     },
