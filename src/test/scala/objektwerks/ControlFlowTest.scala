@@ -22,7 +22,6 @@ object ControlFlowTest extends ZIOSpecDefault:
 
   def increment(i: Int) = ZIO.iterate(1)(_ <= i)(n => ZIO.succeed(n + 1))
 
-
   def spec = suite("control flow")(
     test("if else") {
       assertZIO(
