@@ -2,10 +2,13 @@ package objektwerks
 
 import java.io.IOException
 
+import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.util.Try
 
 import zio.ZIO
 import zio.test.{assertTrue, ZIOSpecDefault}
+import scala.concurrent.Future
 
 object ErrorTest extends ZIOSpecDefault:
   def spec = suite("errors")(
@@ -27,6 +30,12 @@ object ErrorTest extends ZIOSpecDefault:
         .orElse( Files.read("./LICENSE") )
         .map(lines => assertTrue(lines.size == 48))
     },
+    test("fromFuture") {
+      ZIO
+        .fromFuture( Future(1 / 0) )
+        .catchAll(_ => ZIO.succeed(0))
+        .map(value => assertTrue(value == 0))
+    },
     test("fromTry") {
       ZIO
         .fromTry( Try(1 / 0) )
@@ -47,10 +56,10 @@ object ErrorTest extends ZIOSpecDefault:
       ZIO
         .attempt( 1 / 0 )
         .foldZIO(
-          error => ZIO.succeed(-1),
+          error => ZIO.succeed(0),
           value => ZIO.succeed(value)
         )
-        .map(value => assertTrue(value == -1))
+        .map(value => assertTrue(value == 0))
     },
     test("foldCause") {
       ZIO
