@@ -19,5 +19,12 @@ object RefTest extends ZIOSpecDefault:
         _       <- ref.getAndSet(2)
         result  <- ref.get
       yield assertTrue(result == 2)
+    },
+    test("update") {
+      for
+        ref     <- Ref.make(1)
+        _       <- ref.update(_ + 1)
+        result  <- ref.get
+      yield assertTrue(result == 2)
     }
   )
