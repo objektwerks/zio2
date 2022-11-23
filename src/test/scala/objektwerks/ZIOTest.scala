@@ -1,9 +1,8 @@
 package objektwerks
 
 import zio.ZIO
-import zio.test.{assertTrue, assertZIO, ZIOSpecDefault}
+import zio.test.{assertZIO, ZIOSpecDefault}
 import zio.test.Assertion.*
-import zio.ExitCode
 
 object ZIOTest extends ZIOSpecDefault:
   def spec = suite("effect")(
