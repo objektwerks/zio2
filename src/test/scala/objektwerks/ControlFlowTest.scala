@@ -18,9 +18,9 @@ object ControlFlowTest extends ZIOSpecDefault:
     ZIO.unless(value > 0)(ZIO.succeed(value))
 
   def toList(size: Int): ZIO[Any, Nothing, List[Int]] =
-    ZIO.loop(1)(_ <= size, _ + 1)(n => ZIO.succeed(n)).debug
+    ZIO.loop(1)(_ <= size, _ + 1)(n => ZIO.succeed(n))
 
-  def increment(i: Int) = ZIO.iterate(1)(_ <= i)(n => ZIO.succeed(n + 1)).debug
+  def increment(i: Int) = ZIO.iterate(1)(_ <= i)(n => ZIO.succeed(n + 1))
 
 
   def spec = suite("control flow")(
