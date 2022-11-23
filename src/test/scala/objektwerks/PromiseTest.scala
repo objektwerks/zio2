@@ -11,5 +11,12 @@ object PromiseTest extends ZIOSpecDefault:
         succeed <- promise.succeed(1)
         _       <- promise.await
       yield assertTrue(succeed)
+    },
+    test("fail") {
+      (for
+        promise <- Promise.make[Throwable, Int]
+        fail    <- promise.fail(new IllegalArgumentException("invalid arg"))
+        _       <- promise.await
+      yield assertTrue(fail == false)).catchAll(failure => assertTrue(failure.getMessage.nonEmpty))
     }
   )
