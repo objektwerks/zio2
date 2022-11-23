@@ -14,6 +14,9 @@ object ControlFlowTest extends ZIOSpecDefault:
   def whenGreaterThanZero(value: Int): ZIO[Any, Nothing, Option[Int]] =
     ZIO.when(value > 0)(ZIO.succeed(value))
 
+  def unlessGreaterThanZero(value: Int): ZIO[Any, Nothing, Option[Int]] =
+    ZIO.unless(value > 0)(ZIO.succeed(value))
+
   def spec = suite("control flow")(
     test("if") {
       assertZIO(
@@ -24,5 +27,10 @@ object ControlFlowTest extends ZIOSpecDefault:
       assertZIO(
         whenGreaterThanZero(1)
       )(isSome)
+    },
+    test("unless") {
+      assertZIO(
+        unlessGreaterThanZero(1)
+      )(isNone)
     }
   )
