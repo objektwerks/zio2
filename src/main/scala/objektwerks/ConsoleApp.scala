@@ -1,11 +1,13 @@
 package objektwerks
 
+import java.nio.file.Path
+
 import zio.Console.{printLine, readLine}
 import zio.{Runtime, Scope, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
-import zio.logging.{LogFormat, console}
+import zio.logging.{LogFormat, file}
 
 object ConsoleApp extends ZIOAppDefault:
-  override val bootstrap: ZLayer[ZIOAppArgs, Any, Environment] = Runtime.removeDefaultLoggers >>> console(LogFormat.default)
+  override val bootstrap: ZLayer[ZIOAppArgs, Any, Environment] = Runtime.removeDefaultLoggers >>> file(Path.of("./target/console.log"))
 
   def run: ZIO[Environment & (ZIOAppArgs & Scope ), Any, Any] =
     for
