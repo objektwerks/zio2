@@ -5,7 +5,7 @@ import zio.test.{assertTrue, ZIOSpecDefault}
 
 object RefTest extends ZIOSpecDefault:
   def spec = suite("ref")(
-    test("get > set") {
+    test("get > set > get") {
       for
         ref     <- Ref.make(1)
         initial <- ref.get
@@ -13,14 +13,14 @@ object RefTest extends ZIOSpecDefault:
         result  <- ref.get
       yield assertTrue(result == 2)
     },
-    test("getAndSet") {
+    test("getAndSet > get") {
       for
         ref    <- Ref.make(1)
         _      <- ref.getAndSet(2)
         result <- ref.get
       yield assertTrue(result == 2)
     },
-    test("update") {
+    test("update > get") {
       for
         ref    <- Ref.make(1)
         _      <- ref.update(_ + 1)
@@ -31,6 +31,12 @@ object RefTest extends ZIOSpecDefault:
       for
         ref    <- Ref.make(1)
         result <- ref.updateAndGet(_ + 1)
+      yield assertTrue(result == 2)
+    },
+    test("modify") {
+      for
+        ref    <- Ref.make(1)
+        result <- ref.modify(i => (i + 1, i))
       yield assertTrue(result == 2)
     }
   )
