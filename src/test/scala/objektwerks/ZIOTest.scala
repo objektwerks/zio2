@@ -4,7 +4,7 @@ import scala.concurrent.Future
 import scala.util.Try
 
 import zio.ZIO
-import zio.test.{assertTrue, assertZIO, ZIOSpecDefault}
+import zio.test.{assertZIO, ZIOSpecDefault}
 import zio.test.Assertion.*
 
 object ZIOTest extends ZIOSpecDefault:
@@ -43,27 +43,31 @@ object ZIOTest extends ZIOSpecDefault:
       )(equalTo(2))
     },
     test("fromTry") {
-      ZIO
-        .fromTry( Try(1 / 0) )
-        .map(value => assertTrue(value == 0))
+      assertZIO(
+        ZIO
+          .fromTry( Try(2 / 2) )
+      )(equalTo(1))
     },
     test("fromEither") {
-      ZIO
-        .fromEither( Right(1) )
-        .mapAttempt(value => assertTrue(value == 1))
+      assertZIO(
+        ZIO
+          .fromEither( Right(1) )
+      )(equalTo(1))
     },
     test("fromOption") {
-      ZIO
-        .fromOption( Some(1) )
-        .map(value => assertTrue(value == 1))
+      assertZIO(
+        ZIO
+          .fromOption( Some(1) )
+      )(equalTo(1))
     },
     test("foldZIO") {
-      ZIO
-        .attempt( 1 / 0 )
-        .foldZIO(
-          error => ZIO.succeed(0),
-          value => ZIO.succeed(value)
-        )
-        .map(value => assertTrue(value == 0))
+      assertZIO(
+        ZIO
+          .attempt( 1 / 1 )
+          .foldZIO(
+            error => ZIO.succeed(0),
+            value => ZIO.succeed(value)
+          )
+      )(equalTo(1))
     },
   )
