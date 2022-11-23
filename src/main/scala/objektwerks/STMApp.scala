@@ -1,8 +1,8 @@
 package objektwerks
 
-import zio.{ZIO, ZIOAppDefault}
+import zio.{Console, ZIO, ZIOAppDefault}
 
-import zio.{durationInt, Console, Scope, Semaphore, ZIO, ZIOAppArgs, ZIOAppDefault}
+import zio.{Console, Scope, ZIO, ZIOAppArgs, ZIOAppDefault}
 import zio.stm.{TRef, STM}
 
 object STMApp extends ZIOAppDefault:
@@ -18,10 +18,18 @@ object STMApp extends ZIOAppDefault:
       receiverBalance <- receiverAccount.get
     yield receiverBalance
 
-  val app: ZIO[Any, String, Int] = for
-    senderAccount   <- STM.atomically(TRef.make(1000))
-    receiverAccount <- STM.atomically(TRef.make(0))
-    receiverAmount  <- STM.atomically(transferMoney(senderAccount, receiverAccount, 500))
-  yield receiverAmount
+  def app(senderAccountBalance: Int,
+          receiverAccountBalance: Int,
+          transferAmount: Int): ZIO[Any, String, Int] =
+    for
+      _               <- ZIO.succeed(println(s"Sender account balance: $senderAccountBalance")).debug
+      _               <- ZIO.succeed(println(s"Receiver account balance: $receiverAccountBalance")).debug
+      _               <- ZIO.succeed(println(s"Transfer ammount: $transferAmount")).debug
+      senderAccount   <- STM.atomically(TRef.make(senderAccountBalance))
+      receiverAccount <- STM.atomically(TRef.make(receiverAccountBalance))
+      receiverAmount  <- STM.atomically(transferMoney(senderAccount, receiverAccount, transferAmount))
+      _               <- ZIO.succeed(println(s"Receiver account balance: $receiverAmount")).debug
+    yield receiverAmount
 
-  override def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] = app
+  override def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] =
+    app(senderAccountBalance = 1000, receiverAccountBalance = 0, transferAmount = 500)
