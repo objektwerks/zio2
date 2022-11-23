@@ -5,7 +5,7 @@ import zio.test.{assertTrue, assertZIO, ZIOSpecDefault}
 import zio.test.Assertion.*
 import zio.ExitCode
 
-object EffectTest extends ZIOSpecDefault:
+object ZIOTest extends ZIOSpecDefault:
   def spec = suite("effect")(
     test("map") {
       assertZIO(
