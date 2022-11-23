@@ -9,9 +9,9 @@ object ConsoleApp extends ZIOAppDefault:
 
   def run: ZIO[Environment & (ZIOAppArgs & Scope ), Any, Any] =
     for
-      _    <- ZIO.logInfo("Greetings! What is your name?")
+      _    <- ZIO.log("Greetings! What is your name?")
       _    <- printLine("*** Greetings! What is your name?")
       name <- readLine
-      _    <- ZIO.logInfo(s"Welcome, ${name}!")
+      _    <- ZIO.log(s"Welcome, ${name}!")
       _    <- printLine(s"*** Welcome, ${name}!")
     yield ()
