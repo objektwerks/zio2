@@ -1,7 +1,10 @@
 package objektwerks
 
+import scala.concurrent.Future
+import scala.util.Try
+
 import zio.ZIO
-import zio.test.{assertZIO, ZIOSpecDefault}
+import zio.test.{assertTrue, assertZIO, ZIOSpecDefault}
 import zio.test.Assertion.*
 
 object ZIOTest extends ZIOSpecDefault:
@@ -30,5 +33,37 @@ object ZIOTest extends ZIOSpecDefault:
       assertZIO(
         ZIO.succeed(1).map(value => value + 1).exit.map(exit => exit.isSuccess)
       )(isTrue)
+    },
+    test("fromFuture") {
+      assertZIO(
+        ZIO
+          .fromFuture { implicit ec =>
+            Future(1 * 2)
+          }
+      )(equalTo(2))
+    },
+    test("fromTry") {
+      ZIO
+        .fromTry( Try(1 / 0) )
+        .map(value => assertTrue(value == 0))
+    },
+    test("fromEither") {
+      ZIO
+        .fromEither( Right(1) )
+        .mapAttempt(value => assertTrue(value == 1))
+    },
+    test("fromOption") {
+      ZIO
+        .fromOption( Some(1) )
+        .map(value => assertTrue(value == 1))
+    },
+    test("foldZIO") {
+      ZIO
+        .attempt( 1 / 0 )
+        .foldZIO(
+          error => ZIO.succeed(0),
+          value => ZIO.succeed(value)
+        )
+        .map(value => assertTrue(value == 0))
     },
   )
