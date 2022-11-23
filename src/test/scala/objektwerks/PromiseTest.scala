@@ -5,7 +5,7 @@ import zio.test.{assertTrue, ZIOSpecDefault}
 
 object PromiseTest extends ZIOSpecDefault:
   def spec = suite("promise")(
-    test("promise") {
+    test("succeed") {
       for
         promise <- Promise.make[Throwable, Int]
         succeed <- promise.succeed(1)
