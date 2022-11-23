@@ -8,7 +8,7 @@ import zio.test.{assertZIO, ZIOSpecDefault}
 import zio.test.Assertion.*
 
 object ControlFlowTest extends ZIOSpecDefault:
-  def ifGreaterThanZero(value: Int): ZIO[Any, String, Int] =
+  def ifElseGreaterThanZero(value: Int): ZIO[Any, String, Int] =
     if (value > 0) ZIO.succeed(value) else ZIO.fail(s"Less than or equal to zero: $value")
 
   def whenGreaterThanZero(value: Int): ZIO[Any, Nothing, Option[Int]] =
@@ -18,9 +18,9 @@ object ControlFlowTest extends ZIOSpecDefault:
     ZIO.unless(value > 0)(ZIO.succeed(value))
 
   def spec = suite("control flow")(
-    test("if") {
+    test("if else") {
       assertZIO(
-        ifGreaterThanZero(1)
+        ifElseGreaterThanZero(1)
       )(equalTo(1))
     },
     test("when") {
