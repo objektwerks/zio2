@@ -20,7 +20,8 @@ object SemaphoreApp extends ZIOAppDefault:
   val app: ZIO[Any, IOException, Unit] = for
     semaphore <- Semaphore.make(permits = 1)
     tasks     <- ZIO.succeed(semaphoreTasks(semaphore))
-    _         <- ZIO.collectAllPar(tasks)
+    completed <- ZIO.collectAllPar(tasks)
+    _         <- Console.printLine(s"Number of tasks completed: ${completed.size}")
   yield ()
 
   override def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] = app
