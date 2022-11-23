@@ -34,9 +34,10 @@ Multiple main classes detected. Select one to run:
 4. objektwerks.InterruptApp
 5. objektwerks.LoggerApp
 6. objektwerks.ParApp
-7. objektwerks.ScheduleApp
-8. objektwerks.SemaphoreApp
-9. objektwerks.SubscriptionApp
+7. objektwerks.STMApp
+8. objektwerks.ScheduleApp
+9. objektwerks.SemaphoreApp
+10. objektwerks.SubscriptionApp
 
 Curl
 ----
