@@ -20,6 +20,9 @@ object ControlFlowTest extends ZIOSpecDefault:
   def toList(size: Int): ZIO[Any, Nothing, List[Int]] =
     ZIO.loop(1)(_ <= size, _ + 1)(n => ZIO.succeed(n)).debug
 
+  def increment(i: Int) = ZIO.iterate(1)(_ <= i)(n => ZIO.succeed(n + 1)).debug
+
+
   def spec = suite("control flow")(
     test("if else") {
       assertZIO(
@@ -40,5 +43,10 @@ object ControlFlowTest extends ZIOSpecDefault:
       assertZIO(
         toList(3)
       )(equalTo(List(1, 2, 3)))
+    },
+    test("iterate") {
+      assertZIO(
+        increment(3)
+      )(equalTo(4))
     }
   )
