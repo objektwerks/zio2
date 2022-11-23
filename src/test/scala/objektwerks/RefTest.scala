@@ -1,6 +1,6 @@
 package objektwerks
 
-import zio.Ref
+import zio.{FiberRef, Ref}
 import zio.test.{assertTrue, ZIOSpecDefault}
 
 object RefTest extends ZIOSpecDefault:
@@ -37,6 +37,12 @@ object RefTest extends ZIOSpecDefault:
       for
         ref    <- Ref.make(1)
         result <- ref.modify(i => (i + 1, i))
+      yield assertTrue(result == 2)
+    },
+    test("fiber ref > updateAndGet") {
+      for
+        fiberRef <- FiberRef.make(1)
+        result   <- fiberRef.updateAndGet(_ + 1)
       yield assertTrue(result == 2)
     }
   )
