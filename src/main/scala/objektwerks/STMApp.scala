@@ -22,13 +22,13 @@ object STMApp extends ZIOAppDefault:
           receiverAccountBalance: Int,
           transferAmount: Int): ZIO[Any, String, Int] =
     for
-      _               <- ZIO.succeed(println(s"Sender account balance: $senderAccountBalance")).debug
-      _               <- ZIO.succeed(println(s"Receiver account balance: $receiverAccountBalance")).debug
-      _               <- ZIO.succeed(println(s"Transfer ammount: $transferAmount")).debug
+      _               <- ZIO.succeed(println(s"Sender account balance: $senderAccountBalance"))
+      _               <- ZIO.succeed(println(s"Receiver account balance: $receiverAccountBalance"))
+      _               <- ZIO.succeed(println(s"Transfer ammount: $transferAmount"))
       senderAccount   <- STM.atomically(TRef.make(senderAccountBalance))
       receiverAccount <- STM.atomically(TRef.make(receiverAccountBalance))
       receiverAmount  <- STM.atomically(transferMoney(senderAccount, receiverAccount, transferAmount))
-      _               <- ZIO.succeed(println(s"Receiver account balance: $receiverAmount")).debug
+      _               <- ZIO.succeed(println(s"Receiver account balance: $receiverAmount"))
     yield receiverAmount
 
   override def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] =
