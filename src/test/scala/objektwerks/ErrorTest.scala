@@ -4,7 +4,6 @@ import java.io.IOException
 
 import zio.ZIO
 import zio.test.{assertTrue, ZIOSpecDefault}
-import scala.concurrent.Future
 
 object ErrorTest extends ZIOSpecDefault:
   def spec = suite("errors")(
