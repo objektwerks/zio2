@@ -3,14 +3,18 @@ ZIO 2
 >Features tested:
 1. config
 2. fiber
-3. fiber ref
-4. http
-5. json
-6. queue
-7. ref
-8. resources
-9. streams
-10. test
+3. http
+4. json
+5. queue
+6. interrupt
+7. zlayer
+8. logging
+9. promise
+10. ref / fiber ref
+11. resources
+12. streams
+13. schedule
+14. test
 
 Build
 -----
