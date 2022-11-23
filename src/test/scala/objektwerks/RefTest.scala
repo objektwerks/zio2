@@ -9,7 +9,7 @@ object RefTest extends ZIOSpecDefault:
       for
         ref     <- Ref.make(1)
         initial <- ref.get
-        _       <- ref.set(initial * 2)
+        _       <- ref.set(initial + 1)
         result  <- ref.get
       yield assertTrue(result == 2)
     }
