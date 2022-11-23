@@ -1,8 +1,6 @@
 package objektwerks
 
-import zio.{Console, ZIO, ZIOAppDefault}
-
-import zio.{Console, Scope, ZIO, ZIOAppArgs, ZIOAppDefault}
+import zio.{Scope, ZIO, ZIOAppArgs, ZIOAppDefault}
 import zio.stm.{TRef, STM}
 
 object STMApp extends ZIOAppDefault:
