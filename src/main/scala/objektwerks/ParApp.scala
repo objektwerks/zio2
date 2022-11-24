@@ -4,6 +4,7 @@ import zio.{durationInt, Scope, ZIO, ZIOAppArgs, ZIOAppDefault}
 
 object ParApp extends ZIOAppDefault:
   val zios: Seq[ZIO[Any, Nothing, Int]] = (1 to 1_000_000).map(i => ZIO.succeed(i))
+  
   val effect: ZIO[Any, Nothing, Int] = ZIO.reduceAllPar(ZIO.succeed(0), zios)(_ + _)
 
   val app: ZIO[Any, Nothing, Unit] =
