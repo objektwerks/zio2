@@ -3,9 +3,9 @@ package objektwerks
 import scala.concurrent.Future
 import scala.util.Try
 
-import zio.{Promise, ZIO}
+import zio.{Console, Promise, ZIO}
 import zio.Console.printLine
-import zio.test.{assertTrue, assertZIO, ZIOSpecDefault}
+import zio.test.{assertTrue, assertZIO, TestConsole, ZIOSpecDefault}
 import zio.test.Assertion.*
 
 object ZIOTest extends ZIOSpecDefault:
@@ -31,6 +31,15 @@ object ZIOTest extends ZIOSpecDefault:
           .zip(ZIO.succeed(1))
           .map(tuple => tuple._1 + tuple._2)
       )(equalTo(2))
+    },
+    test("zipRight") {
+      assertZIO(
+        for
+          a <- TestConsole.feedLines("abc").zipRight(Console.readLine)
+          b <- TestConsole.feedLines("123").zipRight(Console.readLine)
+          c <- ZIO.succeed(a + b)
+        yield c
+      )(containsString("abc123"))
     },
     test("zipWith") {
       assertZIO(
