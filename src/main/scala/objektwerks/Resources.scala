@@ -1,5 +1,7 @@
 package objektwerks
 
+import com.typesafe.config.{Config, ConfigFactory}
+
 import java.io.IOException
 
 import scala.io.{BufferedSource, Codec, Source}
@@ -22,3 +24,11 @@ object Resources:
         ZIO.attemptBlockingIO(source.getLines().toList)
       }
     }
+
+  def loadConfig(path: String, section: String): ZIO[Any, IOException, Config] =
+    ZIO.attemptBlockingIO(
+      ConfigFactory
+        .load(path)
+        .getObject(section)
+        .toConfig
+    )
