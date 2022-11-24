@@ -8,12 +8,12 @@ trait Logger:
   def log(message: String): UIO[Unit]
 
 // Service Implementor
-class DefaultLogger extends Logger:
+case class DefaultLogger() extends Logger:
   override def log(message: String): UIO[Unit] = ZIO.log(message)
 
 // Service ZLayer, No Accessor Method
 object DefaultLogger:
-  val layer: ZLayer[Any, Nothing, DefaultLogger] = ZLayer.succeed(DefaultLogger())
+  val layer: ZLayer[Any, Nothing, DefaultLogger] = ZLayer.succeed(apply())
 
 // App
 object LoggerApp extends ZIOAppDefault:
