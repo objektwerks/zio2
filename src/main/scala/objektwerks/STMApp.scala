@@ -30,4 +30,7 @@ object STMApp extends ZIOAppDefault:
     yield receiverAmount
 
   override def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] =
-    app(senderAccountBalance = 1000, receiverAccountBalance = 0, transferAmount = 500)
+    app(senderAccountBalance = 1000,
+        receiverAccountBalance = 0,
+        transferAmount = 500)
+      .map(receiverAmount => assert(receiverAmount == 500))
