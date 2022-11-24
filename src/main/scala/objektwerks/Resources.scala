@@ -7,6 +7,8 @@ import java.io.IOException
 import scala.io.{BufferedSource, Codec, Source}
 
 import zio.{Scope, ZIO}
+import zio.config.ConfigSource
+import zio.config.typesafe.TypesafeConfigSource
 
 object Resources:
   private def acquire(url: => String): ZIO[Any, IOException, Source] =
@@ -32,3 +34,6 @@ object Resources:
         .getObject(section)
         .toConfig
     )
+
+  def loadConfigSource(path: String, section: String): ConfigSource =
+    TypesafeConfigSource.fromTypesafeConfig( loadConfig(path, section) )
