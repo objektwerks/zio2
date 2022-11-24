@@ -113,4 +113,12 @@ object ZIOTest extends ZIOSpecDefault:
           .tap(i => printLine(s"tap: post-map - $i"))
       )(equalTo(2))
     },
+    test("race") {
+      assertZIO(
+        for {
+          winner <- ZIO.succeed("first").race(ZIO.succeed("second"))
+          _      <- printLine(s"race winner: $winner")
+        } yield winner
+      )(containsString("first") || containsString("second"))
+    }
   )
