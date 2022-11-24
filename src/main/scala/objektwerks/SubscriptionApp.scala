@@ -9,7 +9,7 @@ case class User(name: String, email: String)
 case class Connection():
   def run(query: String): Task[Unit] = ZIO.succeed(println(s"Executing query: $query"))
 
-class ConnectionPool():
+case class ConnectionPool():
   def size = Runtime.getRuntime().availableProcessors()
   def connect: Task[Connection] = ZIO.succeed(println("Acquired connection.")) *> ZIO.succeed(Connection())
 
@@ -17,7 +17,7 @@ object ConnectionPool:
   def apply: ConnectionPool = new ConnectionPool()
   def layer: ZLayer[Any, Nothing, ConnectionPool] = ZLayer.succeed(apply)
 
-class DatabaseService(connectionPool: ConnectionPool):
+case class DatabaseService(connectionPool: ConnectionPool):
   def add(user: User): Task[Unit] =
     for
       connection <- connectionPool.connect
@@ -28,14 +28,14 @@ object DatabaseService:
   def apply(connectionPool: ConnectionPool): DatabaseService = new DatabaseService(connectionPool)
   def layer: ZLayer[ConnectionPool, Nothing, DatabaseService] = ZLayer.fromFunction(apply)
 
-class EmailService:
+case class EmailService():
   def email(user: User): Task[Unit] = ZIO.succeed(println(s"You're subscribed! Welcome, ${user.name}!")).unit
 
 object EmailService:
   def apply: EmailService = new EmailService()
   def layer: ZLayer[Any, Nothing, EmailService] = ZLayer.succeed(apply)
 
-class SubscriptionService(emailService: EmailService, database: DatabaseService):
+case class SubscriptionService(emailService: EmailService, database: DatabaseService):
   def subscribe(user: User): Task[Unit] =
     for
       _ <- emailService.email(user)
