@@ -9,7 +9,7 @@ object ResourceTest extends ZIOSpecDefault:
         assertTrue(lines.size == 48) && assertTrue(lines.mkString(" ").length() == 9124)
       }
     },
-    test("resource") {
+    test("url") {
       Resources.read("https://github.com/objektwerks").map { lines =>
         assertTrue(lines.nonEmpty)
       }
