@@ -3,8 +3,8 @@ package objektwerks
 import scala.concurrent.Future
 import scala.util.Try
 
-import zio.ZIO
-import zio.test.{assertZIO, ZIOSpecDefault}
+import zio.{Promise, ZIO}
+import zio.test.{assertTrue, assertZIO, ZIOSpecDefault}
 import zio.test.Assertion.*
 
 object ZIOTest extends ZIOSpecDefault:
@@ -80,4 +80,18 @@ object ZIOTest extends ZIOSpecDefault:
           )
       )(equalTo(1))
     },
+    test("promise succeed") {
+      for
+        promise <- Promise.make[Throwable, Int]
+        succeed <- promise.succeed(1)
+        _       <- promise.await
+      yield assertTrue(succeed)
+    },
+    test("promise fail") {
+      (for
+        promise <- Promise.make[Throwable, Int]
+        fail    <- promise.fail(new IllegalArgumentException("invalid arg"))
+        _       <- promise.await
+      yield assertTrue(fail == false)).catchAll(failure => assertTrue(failure.getMessage.nonEmpty))
+    }
   )
