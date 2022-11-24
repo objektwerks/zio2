@@ -4,6 +4,7 @@ import scala.concurrent.Future
 import scala.util.Try
 
 import zio.{Promise, ZIO}
+import zio.Console.printLine
 import zio.test.{assertTrue, assertZIO, ZIOSpecDefault}
 import zio.test.Assertion.*
 
@@ -93,5 +94,14 @@ object ZIOTest extends ZIOSpecDefault:
         fail    <- promise.fail(new IllegalArgumentException("invalid arg"))
         _       <- promise.await
       yield assertTrue(fail == false)).catchAll(failure => assertTrue(failure.getMessage.nonEmpty))
-    }
+    },
+    test("tap") {
+      assertZIO(
+        ZIO
+          .succeed(1)
+          .tap(i => printLine(s"tap: pre-map - $i"))
+          .map(value => value + 1)
+          .tap(i => printLine(s"tap: post-map - $i"))
+      )(equalTo(2))
+    },
   )
