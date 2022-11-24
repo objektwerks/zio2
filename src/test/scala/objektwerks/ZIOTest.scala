@@ -8,7 +8,7 @@ import zio.test.{assertTrue, assertZIO, ZIOSpecDefault}
 import zio.test.Assertion.*
 
 object ZIOTest extends ZIOSpecDefault:
-  def spec = suite("effect")(
+  def spec = suite("zio")(
     test("map") {
       assertZIO(
         ZIO
