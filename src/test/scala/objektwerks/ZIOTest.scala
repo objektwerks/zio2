@@ -100,7 +100,7 @@ object ZIOTest extends ZIOSpecDefault:
     test("promise fail") {
       (for
         promise <- Promise.make[Throwable, Int]
-        fail    <- promise.fail(new IllegalArgumentException("invalid arg"))
+        fail    <- promise.fail(new IllegalArgumentException("illegal arg"))
         _       <- promise.await
       yield assertTrue(fail == false)).catchAll(failure => assertTrue(failure.getMessage.nonEmpty))
     },
