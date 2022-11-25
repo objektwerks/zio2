@@ -9,7 +9,7 @@ case class Conf(value: String, number: Int)
 
 object ConfigTest extends ZIOSpecDefault:
   def loadConf(path: String, section: String): ZIO[Any, ReadError[K], Conf] =
-    read( descriptor[Conf].from( Resources.loadConfigSource("test.conf", "Conf") ) )
+    read( descriptor[Conf].from( Resources.loadConfigSource(path = "test.conf", section = "Conf") ) )
 
   def spec = suite("config")(
     test("conf") {
