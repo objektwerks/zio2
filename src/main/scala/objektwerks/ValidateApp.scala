@@ -11,4 +11,7 @@ object ValidateApp extends ZIOAppDefault:
 
   override def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] =
     app(List.range(1, 5), 2)
-      .map(validations => assert(validations._1.size == 2 && validations._2.size == 2))
+      .map { validations =>
+        val (errors, successes) = validations
+        assert(errors.size == 2 && successes.size == 2)
+      }
