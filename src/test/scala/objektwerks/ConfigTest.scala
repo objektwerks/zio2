@@ -15,7 +15,7 @@ object ConfigTest extends ZIOSpecDefault:
   def spec = suite("config")(
     test("conf") {
       loadConf("test.conf", "Conf").map { case Conf(value, number) =>
-        assertTrue(value == "value") && assertTrue(number == 1)
+        assertTrue(value == "value" && number == 1)
       }
     }
   )
