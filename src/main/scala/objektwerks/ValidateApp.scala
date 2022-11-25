@@ -5,9 +5,10 @@ import zio.{Scope, ZIO, ZIOAppArgs, ZIOAppDefault}
 object ValidateApp extends ZIOAppDefault:
   def app(values: List[Int], limit: Int): ZIO[Any, Nothing, (Iterable[String], Iterable[Int])] =
     ZIO.partition(values) { i =>
-      if (i < limit) then ZIO.succeed(i)
-      else ZIO.fail(s"$i >= $limit")
+      if (i <= limit) then ZIO.succeed(i).debug
+      else ZIO.fail(s"$i > $limit").debug
     }
 
   override def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] =
-    app(List.range(1, 8), 4)
+    app(List.range(1, 5), 2)
+      .map(validations => assert(validations._1.size == 2 && validations._2.size == 2))
