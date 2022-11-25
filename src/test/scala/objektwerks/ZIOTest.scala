@@ -116,7 +116,7 @@ object ZIOTest extends ZIOSpecDefault:
     test("race") {
       assertZIO(
         for {
-          winner <- ZIO.succeed("first").race(ZIO.succeed("second"))
+          winner <- ZIO.succeed("fred flintstone").race(ZIO.succeed("barney rubble"))
           _      <- printLine(s"race winner: $winner")
         } yield winner
       )(containsString("first") || containsString("second"))
