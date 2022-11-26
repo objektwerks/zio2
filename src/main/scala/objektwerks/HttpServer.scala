@@ -1,18 +1,23 @@
 package objektwerks
 
+import java.nio.file.Path
 import java.time.Instant
 
-import zio.{Scope, ZIO, ZIOAppArgs, ZIOAppDefault}
+import zio.{Runtime, Scope, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
 import zio.http.{!!, /, ->, Http, Request, Response, Server, ServerConfig}
 import zio.http.model.Method
 import zio.json.{DecoderOps, EncoderOps}
+import zio.logging.{LogFormat, file}
 
 import Command.given
 import Event.given
 
 object HttpServer extends ZIOAppDefault:
   val port = 7272
-  val config = ServerConfig.default.port(port)
+  val config = ServerConfig.default.port(port) // ZIO.log(s"HttpServer running at http://localhost:$port")
+
+  override val bootstrap: ZLayer[ZIOAppArgs, Any, Environment] =
+    Runtime.removeDefaultLoggers >>> file(Path.of("./target/http.server.log"))
 
   def router: Http[Any, Throwable, Request, Response] = Http.collectZIO[Request] {
     case Method.GET -> !! / "now" => ZIO.succeed( Response.text(Instant.now.toString()) )
