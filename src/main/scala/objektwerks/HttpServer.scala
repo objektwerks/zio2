@@ -14,7 +14,7 @@ import Event.given
 
 object HttpServer extends ZIOAppDefault:
   val port = 7272
-  val config = ServerConfig.default.port(port) // ZIO.log(s"HttpServer running at http://localhost:$port")
+  val config = ServerConfig.default.port(port)
 
   override val bootstrap: ZLayer[ZIOAppArgs, Any, Environment] =
     Runtime.removeDefaultLoggers >>> file(Path.of("./target/http-server.log"))
