@@ -2,7 +2,7 @@ package objektwerks
 
 import java.time.Instant
 
-import zio.{Console, Scope, ZIO, ZIOAppArgs, ZIOAppDefault}
+import zio.{Scope, ZIO, ZIOAppArgs, ZIOAppDefault}
 import zio.http.{!!, /, ->, Http, Request, Response, Server, ServerConfig}
 import zio.http.model.Method
 import zio.json.{DecoderOps, EncoderOps}
@@ -14,7 +14,7 @@ object HttpServer extends ZIOAppDefault:
   val port = 7272
   val config = ServerConfig.default.port(port)
 
-  val router: Http[Any, Throwable, Request, Response] = Http.collectZIO[Request] {
+  def router: Http[Any, Throwable, Request, Response] = Http.collectZIO[Request] {
     case Method.GET -> !! / "now" => ZIO.succeed( Response.text(Instant.now.toString()) )
     case request @ Method.POST -> !! / "greeting" => request.body.asString.map { name => Response.text(s"\nGreetings, $name!\n") }
     case request @ Method.POST -> !! / "command" => request.body.asString.map { json =>
@@ -30,4 +30,3 @@ object HttpServer extends ZIOAppDefault:
     Server
       .serve(router)
       .provide(ServerConfig.live(config), Server.live)
-      .tap(ZIO.log(s"HttpServer running at http://localhost:$port"))
