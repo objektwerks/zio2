@@ -3,9 +3,8 @@ package objektwerks
 import java.time.Instant
 
 import zio.{Console, Scope, ZIO, ZIOAppArgs, ZIOAppDefault}
-import zhttp.http.{!!, /, ->, Http, Method, Request, Response}
-import zhttp.service.Server
-
+import zio.http.{!!, /, ->, Http, Request, Response, Server, ServerConfig}
+import zio.http.model.Method
 import zio.json.{DecoderOps, EncoderOps}
 
 import Command.given
@@ -13,6 +12,7 @@ import Event.given
 
 object HttpServer extends ZIOAppDefault:
   val port = 7272
+  val config = ServerConfig.default.port(port)
 
   val router: Http[Any, Throwable, Request, Response] = Http.collectZIO[Request] {
     case Method.GET -> !! / "now" => ZIO.succeed( Response.text(Instant.now.toString()) )
@@ -26,10 +26,8 @@ object HttpServer extends ZIOAppDefault:
     }
   }
 
-  val server: ZIO[Any, Throwable, Unit] =
-    for
-      _ <- ZIO.log(s"HttpServer running at http://localhost:$port")
-      _ <- Server.start(port, router)
-    yield ()
-
-  override def run: ZIO[Environment & (ZIOAppArgs & Scope ), Any, Any] = server
+  override def run: ZIO[Environment & (ZIOAppArgs & Scope ), Any, Any] =
+    Server
+      .serve(router)
+      .provide(ServerConfig.live(config), Server.live)
+      .tap(ZIO.log(s"HttpServer running at http://localhost:$port"))
