@@ -17,7 +17,7 @@ object HttpServer extends ZIOAppDefault:
   val config = ServerConfig.default.port(port) // ZIO.log(s"HttpServer running at http://localhost:$port")
 
   override val bootstrap: ZLayer[ZIOAppArgs, Any, Environment] =
-    Runtime.removeDefaultLoggers >>> file(Path.of("./target/http.server.log"))
+    Runtime.removeDefaultLoggers >>> file(Path.of("./target/http-server.log"))
 
   def router: Http[Any, Throwable, Request, Response] = Http.collectZIO[Request] {
     case Method.GET -> !! / "now" => ZIO.succeed( Response.text(Instant.now.toString()) )
