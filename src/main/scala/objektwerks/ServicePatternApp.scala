@@ -49,7 +49,7 @@ object BDefault:
   val layer: ZLayer[Any, Nothing, B] = ZLayer.succeed(apply())
 
 object CDefault:
-  val layer: ZLayer[A with B, Nothing, C] =
+  val layer: ZLayer[A & B, Nothing, C] =
     ZLayer {
       for {
         a <- ZIO.service[A]
@@ -74,15 +74,18 @@ object ServicePatternApp extends ZIOAppDefault:
 
   def appx: ZIO[A & B & C, Nothing, Boolean] =
     for
-      as <- A.a.debug
-      bs <- B.b.debug
-      cs <- C.c.debug
-      abc <- C.abc.debug
-    yield (as + bs + cs) == abc
+      as <- A.a
+      bs <- B.b
+      cs <- C.c
+      abc <- C.abc
+    yield
+      val abcs = as + bs + cs
+      val isEqual = abcs == abc
+      println(s"$abcs == $abc is $isEqual")
+      isEqual
 
   def appLayer: ZLayer[Any, Nothing, A & B & C] =
     ZLayer.make[A & B & C](ADefault.layer, BDefault.layer, CDefault.layer)
-
 
   // override def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] = app.provide(appLayer)
 
