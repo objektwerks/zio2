@@ -35,12 +35,20 @@ import zio._
 
 // Service Layers
 object ADefault:
+  def a: ZIO[A, Nothing, String] = ZIO.serviceWithZIO[A](_.a)
+
   val layer: ZLayer[Any, Nothing, A] = ZLayer.succeed(apply())
 
 object BDefault:
+  def b: ZIO[B, Nothing, String] = ZIO.serviceWithZIO[B](_.b)
+
   val layer: ZLayer[Any, Nothing, B] = ZLayer.succeed(apply())
 
 object CDefault:
+  def c: ZIO[C, Nothing, String] = ZIO.serviceWithZIO[C](_.c)
+
+  def abc: ZIO[C, Nothing, String] = ZIO.serviceWithZIO[C](_.abc)
+
   val layer: ZLayer[B with A, Nothing, C] =
     ZLayer {
       for {
