@@ -55,10 +55,10 @@ object ServicePatternApp extends ZIOAppDefault:
       a <- ZIO.service[A]
       b <- ZIO.service[B]
       c <- ZIO.service[C]
-      as <- a.a
-      bs <- b.b
-      cs <- c.c
-      abc <- c.abc
+      as <- a.a.debug
+      bs <- b.b.debug
+      cs <- c.c.debug
+      abc <- c.abc.debug
     } yield (as + bs + cs) == abc
 
   val appLayer: ZLayer[Any, Nothing, A with B with C] =
