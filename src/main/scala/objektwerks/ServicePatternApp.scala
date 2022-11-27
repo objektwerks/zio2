@@ -1,7 +1,5 @@
 package objektwerks
 
-import zio.ZIOAppDefault
-
 import zio.{Scope, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
 
 // Service Traits
@@ -59,6 +57,9 @@ object CDefault:
       } yield CDefault(a, b)
     }
 
+/**
+  * See https://zio.dev/reference/di/dependency-injection-in-zio for original version.
+  */
 object ServicePatternApp extends ZIOAppDefault:
   def app: ZIO[A & B & C, Nothing, Boolean] =
     for
