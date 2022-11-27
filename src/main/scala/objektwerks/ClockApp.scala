@@ -12,6 +12,6 @@ object ClockApp extends ZIOAppDefault:
       dt <- Clock.currentDateTime
       _  <- ZIO.log(s"Clock datetime: $dt")
       _  <- Console.printLine(s"Clock datetime: $dt")
-    yield ()
+    yield assert(dt.toString.nonEmpty)
 
   def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] = app
