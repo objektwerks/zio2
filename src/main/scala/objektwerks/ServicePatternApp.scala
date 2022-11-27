@@ -63,13 +63,15 @@ object CDefault:
 object ServicePatternApp extends ZIOAppDefault:
   def app: ZIO[A & B & C, Nothing, Boolean] =
     for
-      a <- ZIO.service[A]
-      b <- ZIO.service[B]
-      c <- ZIO.service[C]
-      as <- a.a.debug
-      bs <- b.b.debug
-      cs <- c.c.debug
+      a   <- ZIO.service[A]
+      b   <- ZIO.service[B]
+      c   <- ZIO.service[C]
+      as  <- a.a
+      bs  <- b.b
+      cs  <- c.c
       abc <- c.abc.debug
+      _   <- ZIO.debug(s"a: $as, b: $bs, c: $cs")
+      _   <- ZIO.debug(s"abc: $abc")
     yield (as + bs + cs) == abc
 
   def appx: ZIO[A & B & C, Nothing, Boolean] =
