@@ -12,6 +12,6 @@ object RandomApp extends ZIOAppDefault:
       ri <- Random.nextInt
       _  <- ZIO.log(s"Random int: $ri")
       _  <- Console.printLine(s"Random int: $ri")
-    yield ()
+    yield assert(ri != 0)
 
   def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] = app
