@@ -6,19 +6,19 @@ import zio.test.{assertTrue, ZIOSpecDefault}
 case class JavaHome(value: String)
 
 object JavaHome {
-  def config: Config[JavaHome] = 
-    Config.string("JAVA_HOME").map {
-      case value => JavaHome(value)
+  def config: Config[JavaHome] =
+    Config.succeed(sys.env.get("JAVA_HOME")).map {
+      case value => JavaHome(value.getOrElse("JAVA_HOME not found"))
     }
 }
 
 object ConfigNativeTest extends ZIOSpecDefault:
+  println(s"JAVA_HOME = ${sys.env.get("JAVA_HOME").get}")
+
   def spec = suite("config-native")(
     test("config") {
-      ConfigProvider
-        .envProvider
-        .load(JavaHome.config)
-        .tap(javaHome => ZIO.succeed(javaHome.toString).debug)
-        .map(javaHome => assertTrue(javaHome.value.nonEmpty))
+      for
+        config <- ZIO.config[JavaHome](JavaHome.config)
+      yield assertTrue(config.value.nonEmpty)
     }
   )
