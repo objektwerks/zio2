@@ -4,7 +4,7 @@ import java.io.IOException
 import java.nio.file.Path
 
 import zio.Console.{printLine, readLine}
-import zio.{Runtime, Scope, System, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
+import zio.{Runtime, Scope, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
 import zio.logging.{LogFormat, file}
 
 object ConsoleApp extends ZIOAppDefault:
@@ -20,4 +20,4 @@ object ConsoleApp extends ZIOAppDefault:
       _    <- printLine(s"*** Welcome, ${name}!")
     yield ()
 
-  def run: ZIO[Environment & (ZIOAppArgs & Scope ), Any, Any] = app
+  def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] = app
