@@ -18,7 +18,7 @@ object ConfigNativeTest extends ZIOSpecDefault:
       ConfigProvider
         .envProvider
         .load(JavaHome.config)
-        .tap(javaHome => ZIO.succeed(javaHome).debug)
+        .tap(javaHome => ZIO.succeed(javaHome.toString).debug)
         .map(javaHome => assertTrue(javaHome.value.nonEmpty))
     }
   )
