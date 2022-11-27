@@ -37,7 +37,9 @@ Multiple main classes detected. Select one to run:
 7. objektwerks.STMApp
 8. objektwerks.ScheduleApp
 9. objektwerks.SemaphoreApp
-10. objektwerks.SubscriptionApp
+10. objektwerks.ServicePatternApp
+11. objektwerks.SubscriptionApp
+12. objektwerks.ValidateApp
 
 Curl
 ----
