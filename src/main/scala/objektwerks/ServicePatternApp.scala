@@ -4,6 +4,7 @@ import zio.ZIOAppDefault
 
 import zio.{Scope, ZIO, ZIOAppArgs, ZIOAppDefault}
 
+// Service Traits
 trait A:
   def a: ZIO[Any, Nothing, String]
 
@@ -14,6 +15,7 @@ trait C:
   def c: ZIO[Any, Nothing, String]
   def abc: ZIO[Any, Nothing, String]
 
+// Service Implementors
 final case class ADefault() extends A:
   def a = ZIO.succeed("a")
 
