@@ -2,7 +2,7 @@ package objektwerks
 
 import zio.ZIOAppDefault
 
-import zio.{Scope, ZIO, ZIOAppArgs, ZIOAppDefault}
+import zio.{Scope, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
 
 // Service Traits
 trait A:
@@ -35,13 +35,13 @@ import zio._
 
 // Service Layers
 object ADefault:
-  val layer: ZLayer[Any, Nothing, ADefault] = ZLayer.succeed(apply())
+  val layer: ZLayer[Any, Nothing, A] = ZLayer.succeed(apply())
 
 object BDefault:
-  val layer: ZLayer[Any, Nothing, BDefault] = ZLayer.succeed(apply())
+  val layer: ZLayer[Any, Nothing, B] = ZLayer.succeed(apply())
 
 object CDefault:
-  val layer: ZLayer[B with A, Nothing, CDefault] =
+  val layer: ZLayer[B with A, Nothing, C] =
     ZLayer {
       for {
         a <- ZIO.service[A]
@@ -50,4 +50,22 @@ object CDefault:
     }
 
 object ServicePatternApp extends ZIOAppDefault:
-  override def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] = ???
+  def app: ZIO[A with B with C, Nothing, Boolean] =
+    for {
+      a <- ZIO.service[A]
+      b <- ZIO.service[B]
+      c <- ZIO.service[C]
+      as <- a.a
+      bs <- b.b
+      cs <- c.c
+      abc <- c.abc
+    } yield (as + bs + cs) == abc
+
+  def appLayer: ZIO[Any, Nothing, Boolean] = app.provide(
+    ADefault.layer,
+    BDefault.layer,
+    CDefault.layer
+  )
+
+
+  override def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] = appLayer
