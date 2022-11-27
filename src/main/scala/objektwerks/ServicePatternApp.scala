@@ -31,5 +31,23 @@ final case class CDefault(a: A, b: B) extends C:
       c <- c
     yield a + b + c
 
+import zio._
+
+// Service Layers
+object ADefault:
+  val layer: ZLayer[Any, Nothing, ADefault] = ZLayer.succeed(apply())
+
+object BDefault:
+  val layer: ZLayer[Any, Nothing, BDefault] = ZLayer.succeed(apply())
+
+object CDefault:
+  val layer: ZLayer[B with A, Nothing, CDefault] =
+    ZLayer {
+      for {
+        a <- ZIO.service[A]
+        b <- ZIO.service[B]
+      } yield CDefault(a, b)
+    }
+
 object ServicePatternApp extends ZIOAppDefault:
   override def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] = ???
