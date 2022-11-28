@@ -12,10 +12,19 @@ case class Store(conf: Config):
   val ctx = new H2JdbcContext(SnakeCase, conf.getConfig("quill.ctx"))
   import ctx._
 
-  inline def addTodo(todo: Todo): Int = run( query[Todo].insert(lift(todo => (todo.id, todo.task))).returningGenerated(_.id) )
+  inline def addTodo(todo: Todo): Int =
+    run( 
+      query[Todo]
+        .insert(lift(todo => (todo.id, todo.task)))
+        .returningGenerated(_.id)
+    )
 
   inline def updateTodo(todo: Todo): Long =
-    run( query[Todo].filter(_.id == lift(todo.id)).update(lift(todo => (todo.id, todo.task))) )
+    run(
+      query[Todo]
+        .filter(_.id == lift(todo.id))
+        .update(lift(todo => (todo.id, todo.task)))
+    )
 
   inline def listTodos(): Seq[Todo] = run( query[Todo] )
 
