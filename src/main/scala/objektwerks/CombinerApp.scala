@@ -1,7 +1,7 @@
 package objektwerks
 
-import zio.Console.{printLine, readLine}
 import zio.{Scope, Task, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
+import zio.Console.{printLine, readLine}
 
 // Service Implementor, No Trait
 case class Combiner():
