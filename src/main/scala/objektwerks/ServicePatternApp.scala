@@ -76,9 +76,9 @@ object ServicePatternApp extends ZIOAppDefault:
 
   def appx: ZIO[A & B & C, Nothing, Boolean] =
     for
-      as <- A.a
-      bs <- B.b
-      cs <- C.c
+      as  <- A.a
+      bs  <- B.b
+      cs  <- C.c
       abc <- C.abc
     yield
       val abcs = as + bs + cs
