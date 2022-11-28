@@ -1,14 +1,14 @@
 package objektwerks
 
-import com.typesafe.config.{Config, ConfigFactory}
-
 import zio.{Console, Runtime, Scope, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
 
 case class Todo(id: Int = 0, task: String)
 
-case class Store(conf: Config):
+case class Store():
+  import com.typesafe.config.{Config, ConfigFactory}
   import io.getquill.*
 
+  val conf = ConfigFactory.load("quill.conf")
   val ctx = new H2JdbcContext(SnakeCase, conf.getConfig("quill.ctx"))
   import ctx._
 
@@ -29,8 +29,6 @@ case class Store(conf: Config):
   inline def listTodos(): Seq[Todo] = run( query[Todo] )
 
 object QuillApp extends ZIOAppDefault:
-  val conf = ConfigFactory.load("test.conf")
-
   def app: ZIO[Any, Exception, Unit] =
     for
       _  <- Console.printLine("TODO!")
