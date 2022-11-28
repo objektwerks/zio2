@@ -11,7 +11,17 @@ import io.getquill.jdbczio.Quill.H2
 
 case class Todo(id: Int = 0, task: String)
 
-case class Store():
+trait Store:
+  def addTodo(todo: Todo): ZIO[Any, SQLException, Int]
+  def updateTodo(todo: Todo): ZIO[Any, SQLException, Long]
+  def listTodos: ZIO[Any, SQLException, List[Todo]]
+
+object Store:
+  def addTodo(todo: Todo): ZIO[Store, SQLException, Int] = ZIO.serviceWithZIO[Store](_.addTodo(todo))
+  def updateTodo(todo: Todo): ZIO[Store, SQLException, Long] = ZIO.serviceWithZIO[Store](_.updateTodo(todo))
+  def listTodos: ZIO[Store, SQLException, List[Todo]] = ZIO.serviceWithZIO[Store](_.listTodos)
+
+case class DefaultStore() extends Store:
   val conf = ConfigFactory.load("quill.conf")
   val ctx = H2(SnakeCase, new H2JdbcContext(SnakeCase, conf).dataSource)
   import ctx.*
