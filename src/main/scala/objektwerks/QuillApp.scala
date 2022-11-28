@@ -21,6 +21,7 @@ object Store:
   def updateTodo(todo: Todo): ZIO[Store, SQLException, Long] = ZIO.serviceWithZIO[Store](_.updateTodo(todo))
   def listTodos: ZIO[Store, SQLException, List[Todo]] = ZIO.serviceWithZIO[Store](_.listTodos)
 
+// ZIO Quill cannot life case classes like old Quill. Why?
 case class DefaultStore(config: Config) extends Store:
   val ctx = H2(SnakeCase, new H2JdbcContext(SnakeCase, config).dataSource)
   import ctx.*
