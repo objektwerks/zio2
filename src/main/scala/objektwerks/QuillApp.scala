@@ -58,7 +58,8 @@ object QuillApp extends ZIOAppDefault:
       todos <- Store.listTodos
       _     <- Console.printLine(s"Todos: $todos")
       _     <- Store.updateTodo( todos(0).copy(task = "mowed yard"))
-      _     <- Console.printLine(s"Todos: ${Store.listTodos}")
+      dones <- Store.listTodos
+      _     <- Console.printLine(s"Todos: $dones")
     yield ()
 
   def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] = app.provide(DefaultStore.layer)
