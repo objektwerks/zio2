@@ -46,7 +46,7 @@ object DefaultStore:
   val layer: ZLayer[Any, IOException, Store] =
     ZLayer {
       for
-        config <- Resources.loadConfig("quill.conf", "quill.ctx")
+        config <- Resources.loadConfig(path = "quill.conf", section = "quill.ctx")
       yield DefaultStore(config)
     }
 
