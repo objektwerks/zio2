@@ -5,6 +5,7 @@ import com.typesafe.config.{Config, ConfigFactory}
 import io.getquill.*
 import io.getquill.jdbczio.Quill.H2
 
+import java.io.IOException
 import java.sql.SQLException
 
 import zio.{Console, Runtime, Scope, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
@@ -42,9 +43,11 @@ case class DefaultStore(config: Config) extends Store:
   inline def listTodos: ZIO[Any, SQLException, List[Todo]] = run( query[Todo] )
 
 object DefaultStore:
-  val layer: ZLayer[Any, Nothing, Store] =
+  val layer: ZLayer[Any, IOException, Store] =
     ZLayer {
-      ZIO.succeed(DefaultStore( ConfigFactory.load("quill.conf") ))
+      for
+        config <- Resources.loadConfig("quill.conf", "quill.ctx")
+      yield DefaultStore(config)
     }
 
 object QuillApp extends ZIOAppDefault:
