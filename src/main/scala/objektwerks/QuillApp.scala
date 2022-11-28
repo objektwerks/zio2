@@ -57,7 +57,8 @@ object QuillApp extends ZIOAppDefault:
       _     <- Console.printLine(s"Todo id: $id")
       todos <- Store.listTodos
       _     <- Console.printLine(s"Todos: $todos")
-      _     <- Store.updateTodo( todos(0).copy(task = "mowed yard"))
+      ct    <- Store.updateTodo( todos(0).copy(task = "mowed yard"))
+      _     <- Console.printLine(s"Update count: $ct")
       dones <- Store.listTodos
       _     <- Console.printLine(s"Dones: $dones")
     yield ()
