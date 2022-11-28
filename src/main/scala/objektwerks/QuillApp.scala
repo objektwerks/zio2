@@ -28,15 +28,15 @@ case class DefaultStore(config: Config) extends Store:
   inline def addTodo(todo: Todo): ZIO[Any, SQLException, Int] =
     run( 
       query[Todo]
-        .insert( lazyLift(todo) )
+        .insert( lift(todo => (todo.id, todo.task)) )
         .returningGenerated(_.id)
     )
 
   inline def updateTodo(todo: Todo): ZIO[Any, SQLException, Long] =
     run(
       query[Todo]
-        .filter(_.id == lazyLift(todo.id))
-        .update( lazyLift(todo) )
+        .filter(_.id == lift(todo.id))
+        .update( lift(todo => (todo.id, todo.task)) )
     )
 
   inline def listTodos: ZIO[Any, SQLException, List[Todo]] = run( query[Todo] )
