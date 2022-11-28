@@ -4,7 +4,6 @@ import scala.concurrent.Future
 import scala.util.Try
 
 import zio.{Console, Promise, ZIO}
-import zio.Console.printLine
 import zio.test.{assertTrue, assertZIO, TestConsole, ZIOSpecDefault}
 import zio.test.Assertion.*
 
@@ -108,16 +107,16 @@ object ZIOTest extends ZIOSpecDefault:
       assertZIO(
         ZIO
           .succeed(1)
-          .tap(i => printLine(s"tap: pre-map - $i"))
+          .tap(i => Console.printLine(s"tap: pre-map - $i"))
           .map(value => value + 1)
-          .tap(i => printLine(s"tap: post-map - $i"))
+          .tap(i => Console.printLine(s"tap: post-map - $i"))
       )(equalTo(2))
     },
     test("race") {
       assertZIO(
         for {
           winner <- ZIO.succeed("fred flintstone").race(ZIO.succeed("barney rubble"))
-          _      <- printLine(s"race winner: $winner")
+          _      <- Console.printLine(s"race winner: $winner")
         } yield winner
       )(containsString("fred") || containsString("barney"))
     }
