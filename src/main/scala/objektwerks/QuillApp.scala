@@ -15,7 +15,7 @@ case class Store():
   inline def addTodo(todo: Todo): Int =
     run( 
       query[Todo]
-        .insert(lift(todo => (todo.id, todo.task)))
+        .insert( lift(todo => (todo.id, todo.task)) )
         .returningGenerated(_.id)
     )
 
@@ -23,10 +23,10 @@ case class Store():
     run(
       query[Todo]
         .filter(_.id == lift(todo.id))
-        .update(lift(todo => (todo.id, todo.task)))
+        .update( lift(todo => (todo.id, todo.task)) )
     )
 
-  inline def listTodos(): Seq[Todo] = run( query[Todo] )
+  inline def listTodos: List[Todo] = run( query[Todo] )
 
 object QuillApp extends ZIOAppDefault:
   def app: ZIO[Any, Exception, Unit] =
