@@ -27,7 +27,7 @@ Test
 
 Run
 ---
-1. sbt clean run
+1. sbt run
 Multiple main classes detected. Select one to run:
 1. objektwerks.ClockApp
 2. objektwerks.CombinerApp
