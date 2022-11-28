@@ -21,8 +21,8 @@ object Store:
   def updateTodo(todo: Todo): ZIO[Store, SQLException, Long] = ZIO.serviceWithZIO[Store](_.updateTodo(todo))
   def listTodos: ZIO[Store, SQLException, List[Todo]] = ZIO.serviceWithZIO[Store](_.listTodos)
 
-case class DefaultStore(conf: Config) extends Store:
-  val ctx = H2(SnakeCase, new H2JdbcContext(SnakeCase, conf).dataSource)
+case class DefaultStore(config: Config) extends Store:
+  val ctx = H2(SnakeCase, new H2JdbcContext(SnakeCase, config).dataSource)
   import ctx.*
 
   inline def addTodo(todo: Todo): ZIO[Any, SQLException, Int] =
@@ -41,12 +41,16 @@ case class DefaultStore(conf: Config) extends Store:
 
   inline def listTodos: ZIO[Any, SQLException, List[Todo]] = run( query[Todo] )
 
-object QuillApp extends ZIOAppDefault:
-  val conf = ConfigFactory.load("quill.conf")
+object DefaultStore:
+  val layer: ZLayer[Any, Nothing, Store] =
+    ZLayer {
+      ZIO.succeed(DefaultStore( ConfigFactory.load("quill.conf") ))
+    }
 
+object QuillApp extends ZIOAppDefault:
   def app: ZIO[Any, Exception, Unit] =
     for
       _  <- Console.printLine("TODO!")
     yield ()
 
-  def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] = app
+  def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] = app.provide(DefaultStore.layer)
