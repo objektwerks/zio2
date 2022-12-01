@@ -51,10 +51,10 @@ object BDefault:
 object CDefault:
   val layer: ZLayer[A & B, Nothing, C] =
     ZLayer {
-      for {
+      for
         a <- ZIO.service[A]
         b <- ZIO.service[B]
-      } yield CDefault(a, b)
+      yield CDefault(a, b)
     }
 
 /**
