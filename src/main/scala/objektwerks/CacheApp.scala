@@ -8,10 +8,9 @@ import zio.cache.{Cache, Lookup}
 object CacheApp extends ZIOAppDefault:
   def app =
     for
-      cache  <- Cache
-                  .make(capacity = 100,
-                        timeToLive = Duration.Infinity,
-                        lookup = Lookup( (n: Int) => ZIO.debug(s"Computing $n").as(n) ) )
+      cache  <- Cache.make(capacity = 100,
+                           timeToLive = Duration.Infinity,
+                           lookup = Lookup( (n: Int) => ZIO.debug(s"lookup $n").as(n) ) )
       first  <- cache.get(1)
       second <- cache.get(1)
     yield ()
