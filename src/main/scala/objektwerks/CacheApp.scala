@@ -12,7 +12,9 @@ object CacheApp extends ZIOAppDefault:
                            timeToLive = Duration.Infinity,
                            lookup = Lookup( (n: Int) => ZIO.debug(s"lookup $n").as(n) ) )
       first  <- cache.get(1)
+      _      <- ZIO.debug(s"first get(1): $first")
       second <- cache.get(1)
+      _      <- ZIO.debug(s"second get(1): $second")
     yield ()
 
   def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] = app
