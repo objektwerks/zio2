@@ -30,22 +30,23 @@ Run
 ---
 1. sbt run
 Multiple main classes detected. Select one to run:
-1. objektwerks.ClockApp
-2. objektwerks.CombinerApp
-3. objektwerks.ConsoleApp
-4. objektwerks.HttpServer
-5. objektwerks.InterruptApp
-6. objektwerks.LoggerApp
-7. objektwerks.ParApp
-8. objektwerks.QuillApp
-9. objektwerks.RandomApp
-10. objektwerks.STMApp
-11. objektwerks.ScheduleApp
-12. objektwerks.SemaphoreApp
-13. objektwerks.ServicePatternApp
-14. objektwerks.SubscriptionApp
-15. objektwerks.SystemApp
-16. objektwerks.ValidateApp
+1. objektwerks.CacheApp
+2. objektwerks.ClockApp
+3. objektwerks.CombinerApp
+4. objektwerks.ConsoleApp
+5. objektwerks.HttpServer
+6. objektwerks.InterruptApp
+7. objektwerks.LoggerApp
+8. objektwerks.ParApp
+9. objektwerks.QuillApp
+10. objektwerks.RandomApp
+11. objektwerks.STMApp
+12. objektwerks.ScheduleApp
+13. objektwerks.SemaphoreApp
+14. objektwerks.ServicePatternApp
+15. objektwerks.SubscriptionApp
+16. objektwerks.SystemApp
+17. objektwerks.ValidateApp
 
 Curl
 ----
