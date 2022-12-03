@@ -11,10 +11,8 @@ object CacheApp extends ZIOAppDefault:
       cache  <- Cache.make(capacity = 10,
                            timeToLive = Duration.Infinity,
                            lookup = Lookup( (n: Int) => ZIO.debug(s"cached $n").as(n) ) )
-      first  <- cache.get(1)
-      _      <- ZIO.debug(s"first get(1): $first")
-      second <- cache.get(1)
-      _      <- ZIO.debug(s"second get(1): $second")
+      put    <- cache.get(1) // lookup caches, or puts, 1 if it doesn't exist!
+      _      <- ZIO.debug(s"get(1): $put")
       bool   <- cache.contains(1)
       _      <- ZIO.debug(s"contains(1): $bool")
     yield ()
