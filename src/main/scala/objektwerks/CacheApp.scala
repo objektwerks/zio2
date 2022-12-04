@@ -1,7 +1,5 @@
 package objektwerks
 
-import zio.ZIOAppDefault
-
 import zio.{Console, Duration, Runtime, Scope, UIO, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
 import zio.cache.{Cache, Lookup}
 
