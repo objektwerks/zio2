@@ -10,7 +10,7 @@ case class CacheService(cache: Cache[Int, Nothing, Int]):
   def contains(n: Int): UIO[Boolean] = cache.contains(n)
 
 object CacheService:
-  val layer: ZLayer[Cache[Int, Nothing, Int], Nothing, CacheService] =
+  val layer: ZLayer[Any, Nothing, CacheService] =
     ZLayer {
       for
         cache <- Cache.make(capacity = 10,
