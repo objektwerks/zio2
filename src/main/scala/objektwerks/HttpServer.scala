@@ -13,9 +13,6 @@ import Command.given
 import Event.given
 
 object HttpServer extends ZIOAppDefault:
-  override val bootstrap: ZLayer[ZIOAppArgs, Any, Environment] =
-    Runtime.removeDefaultLoggers >>> file(Path.of("./target/http-server.log"))
-
   val router: Http[Any, Throwable, Request, Response] = Http.collectZIO[Request] {
     case Method.GET -> !! / "now" => ZIO.succeed( Response.text(Instant.now.toString()) )
     case request @ Method.POST -> !! / "greeting" => request.body.asString.map { name => Response.text(s"\nGreetings, $name!\n") }
@@ -27,6 +24,9 @@ object HttpServer extends ZIOAppDefault:
         case Left(error) => Response.json( Fault( error ).toJson )
     }
   }
+
+  override val bootstrap: ZLayer[ZIOAppArgs, Any, Environment] =
+    Runtime.removeDefaultLoggers >>> file(Path.of("./target/http-server.log"))
 
   override def run: ZIO[Environment & (ZIOAppArgs & Scope ), Any, Any] =
     for
