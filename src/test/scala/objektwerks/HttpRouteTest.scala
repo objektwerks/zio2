@@ -6,7 +6,7 @@ import zio.http.model.{Method, Status}
 import zio.test.{assertTrue, ZIOSpecDefault}
 import zio.test.Assertion.*
 
-object HttpTest extends ZIOSpecDefault:
+object HttpRouteTest extends ZIOSpecDefault:
   val route: Http[Any, Nothing, Request, Response] = Http.collectZIO[Request] {
     case Method.GET -> !! / "test" => ZIO.succeed( Response.text("test") )
   }
