@@ -14,9 +14,9 @@ import java.sql.SQLException
 import zio.{Runtime, Scope, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
 import zio.logging.{LogFormat, file}
 
-case class Todo(id: Int = 0, task: String)
+final case class Todo(id: Int = 0, task: String)
 
-case class Store(quill: Quill.H2[SnakeCase]):
+final case class Store(quill: Quill.H2[SnakeCase]):
   import quill.*
 
   def addTodo(todo: Todo): ZIO[Any, SQLException, Int] =
@@ -68,3 +68,4 @@ object QuillApp extends ZIOAppDefault:
               Store.dataSourceLayer(config),
               Store.namingStrategyLayer
             )
+            .debug
