@@ -61,7 +61,7 @@ object QuillApp extends ZIOAppDefault:
 
   def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] =
     for
-      config <- Resources.loadConfig(path = "quill.conf", section = "quill.ctx")
+      config <- Resources.loadConfig(path = "quill.conf", section = "db")
     yield app
             .provide(
               Store.layer,
