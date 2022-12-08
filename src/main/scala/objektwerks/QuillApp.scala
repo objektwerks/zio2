@@ -68,4 +68,3 @@ object QuillApp extends ZIOAppDefault:
               Store.dataSourceLayer(config),
               Store.namingStrategyLayer
             )
-            .debug
