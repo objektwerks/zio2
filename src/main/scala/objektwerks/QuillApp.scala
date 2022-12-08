@@ -12,8 +12,7 @@ import zio.{Console, Runtime, Scope, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
 
 final case class Todo(id: Int = 0, task: String)
 
-final case class Store(config: Config):
-  val quill = H2(SnakeCase, new H2JdbcContext(SnakeCase, config).dataSource)
+final case class Store(quill: H2[SnakeCase]):
   import quill.*
 
   def addTodo(todo: Todo): ZIO[Any, SQLException, Int] =
@@ -33,7 +32,12 @@ final case class Store(config: Config):
   def listTodos: ZIO[Any, SQLException, List[Todo]] = run( query[Todo] )
 
 object Store:
-  def layer(config: Config): ZLayer[Any, IOException, Store] = ZLayer.succeed( Store(config) )
+  val layer: ZLayer[Any, IOException, Store] =
+    ZLayer {
+      for
+        config <- Resources.loadConfig(path = "quill.conf", section = "db")
+      yield Store(H2(SnakeCase, new H2JdbcContext(SnakeCase, config).dataSource))
+    }
 
 object QuillApp extends ZIOAppDefault:
   def app: ZIO[Store, Exception, Unit] =
@@ -49,7 +53,4 @@ object QuillApp extends ZIOAppDefault:
       _     <- Console.printLine(s"Dones: $dones")
     yield ()
 
-  def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] =
-    for
-      config <- Resources.loadConfig(path = "quill.conf", section = "db")
-    yield app.provide( Store.layer(config) )
+  def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] = app.provide(Store.layer)
