@@ -1,22 +1,19 @@
 package objektwerks
 
-import com.typesafe.config.{Config, ConfigFactory}
+import com.typesafe.config.Config
 
 import io.getquill.*
-import io.getquill.jdbczio.Quill
 import io.getquill.jdbczio.Quill.H2
 
 import java.io.IOException
-import java.nio.file.Path
-import javax.sql.DataSource
 import java.sql.SQLException
 
-import zio.{Runtime, Scope, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
-import zio.logging.{LogFormat, file}
+import zio.{Console, Runtime, Scope, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
 
 final case class Todo(id: Int = 0, task: String)
 
-final case class Store(quill: Quill.H2[SnakeCase]):
+final case class Store(config: Config):
+  val quill = H2(SnakeCase, new H2JdbcContext(SnakeCase, config).dataSource)
   import quill.*
 
   def addTodo(todo: Todo): ZIO[Any, SQLException, Int] =
@@ -36,35 +33,23 @@ final case class Store(quill: Quill.H2[SnakeCase]):
   def listTodos: ZIO[Any, SQLException, List[Todo]] = run( query[Todo] )
 
 object Store:
-  def dataSourceLayer(config: Config): ZLayer[Any, Throwable, DataSource] = Quill.DataSource.fromConfig(config)
-
-  val namingStrategyLayer: ZLayer[DataSource, Nothing, H2[SnakeCase]] = Quill.H2.fromNamingStrategy(SnakeCase)
-
-  val layer: ZLayer[H2[SnakeCase], IOException, Store] = ZLayer.fromFunction(apply(_))
+  def layer(config: Config): ZLayer[Any, IOException, Store] = ZLayer.succeed( Store(config) )
 
 object QuillApp extends ZIOAppDefault:
-  override val bootstrap: ZLayer[ZIOAppArgs, Any, Environment] =
-    Runtime.removeDefaultLoggers >>> file(Path.of("./target/quill.log"))
-
   def app: ZIO[Store, Exception, Unit] =
     for
       store <- ZIO.service[Store]
       id    <- store.addTodo( Todo(task = "mow yard") )
-      _     <- ZIO.log(s"Todo id: $id")
+      _     <- Console.printLine(s"Todo id: $id")
       todos <- store.listTodos
-      _     <- ZIO.log(s"Todos: $todos")
+      _     <- Console.printLine(s"Todos: $todos")
       ct    <- store.updateTodo( todos(0).copy(task = "mowed yard") )
-      _     <- ZIO.log(s"Update count: $ct")
+      _     <- Console.printLine(s"Update count: $ct")
       dones <- store.listTodos
-      _     <- ZIO.log(s"Dones: $dones")
+      _     <- Console.printLine(s"Dones: $dones")
     yield ()
 
   def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] =
     for
       config <- Resources.loadConfig(path = "quill.conf", section = "db")
-    yield app
-            .provide(
-              Store.layer,
-              Store.dataSourceLayer(config),
-              Store.namingStrategyLayer
-            )
+    yield app.provide( Store.layer(config) )
