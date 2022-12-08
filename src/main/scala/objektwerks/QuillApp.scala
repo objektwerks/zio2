@@ -26,21 +26,21 @@ case class DefaultStore(config: Config) extends Store:
   val ctx = H2(SnakeCase, new H2JdbcContext(SnakeCase, config).dataSource)
   import ctx.*
 
-  inline def addTodo(todo: Todo): ZIO[Any, SQLException, Int] =
+  def addTodo(todo: Todo): ZIO[Any, SQLException, Int] =
     run( 
       query[Todo]
         .insertValue( lift(todo) )
         .returningGenerated(_.id)
     )
 
-  inline def updateTodo(todo: Todo): ZIO[Any, SQLException, Long] =
+  def updateTodo(todo: Todo): ZIO[Any, SQLException, Long] =
     run(
       query[Todo]
         .filter(_.id == lift(todo.id))
         .updateValue( lift(todo) )
     )
 
-  inline def listTodos: ZIO[Any, SQLException, List[Todo]] = run( query[Todo] )
+  def listTodos: ZIO[Any, SQLException, List[Todo]] = run( query[Todo] )
 
 object DefaultStore:
   val layer: ZLayer[Any, IOException, Store] =
