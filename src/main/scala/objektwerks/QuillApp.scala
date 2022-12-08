@@ -12,17 +12,7 @@ import zio.{Console, Runtime, Scope, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
 
 case class Todo(id: Int = 0, task: String)
 
-trait Store:
-  def addTodo(todo: Todo): ZIO[Any, SQLException, Int]
-  def updateTodo(todo: Todo): ZIO[Any, SQLException, Long]
-  def listTodos: ZIO[Any, SQLException, List[Todo]]
-
-object Store:
-  def addTodo(todo: Todo): ZIO[Store, SQLException, Int] = ZIO.serviceWithZIO[Store](_.addTodo(todo))
-  def updateTodo(todo: Todo): ZIO[Store, SQLException, Long] = ZIO.serviceWithZIO[Store](_.updateTodo(todo))
-  def listTodos: ZIO[Store, SQLException, List[Todo]] = ZIO.serviceWithZIO[Store](_.listTodos)
-
-case class DefaultStore(config: Config) extends Store:
+case class Store(config: Config):
   val ctx = H2(SnakeCase, new H2JdbcContext(SnakeCase, config).dataSource)
   import ctx.*
 
@@ -42,25 +32,26 @@ case class DefaultStore(config: Config) extends Store:
 
   def listTodos: ZIO[Any, SQLException, List[Todo]] = run( query[Todo] )
 
-object DefaultStore:
+object Store:
   val layer: ZLayer[Any, IOException, Store] =
     ZLayer {
       for
         config <- Resources.loadConfig(path = "quill.conf", section = "quill.ctx")
-      yield DefaultStore(config)
+      yield Store(config)
     }
 
 object QuillApp extends ZIOAppDefault:
   def app: ZIO[Store, Exception, Unit] =
     for
-      id    <- Store.addTodo( Todo(task = "mow yard") )
+      store <- ZIO.service[Store]
+      id    <- store.addTodo( Todo(task = "mow yard") )
       _     <- Console.printLine(s"Todo id: $id")
-      todos <- Store.listTodos
+      todos <- store.listTodos
       _     <- Console.printLine(s"Todos: $todos")
-      ct    <- Store.updateTodo( todos(0).copy(task = "mowed yard") )
+      ct    <- store.updateTodo( todos(0).copy(task = "mowed yard") )
       _     <- Console.printLine(s"Update count: $ct")
-      dones <- Store.listTodos
+      dones <- store.listTodos
       _     <- Console.printLine(s"Dones: $dones")
     yield ()
 
-  def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] = app.provide(DefaultStore.layer)
+  def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] = app.provide(Store.layer)
