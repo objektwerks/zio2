@@ -34,5 +34,8 @@ object HttpServer extends ZIOAppDefault:
       port   =  args.headOption.getOrElse("7272").toInt
       config =  ServerConfig.default.port(port)
       _      <- ZIO.log(s"HttpServer running at http://localhost:$port")
-      server <- Server.serve(router).provide(ServerConfig.live(config), Server.live)
+      server <- Server
+                  .serve(router)
+                  .provide(ServerConfig.live(config), Server.live)
+                  .exitCode
     yield server
