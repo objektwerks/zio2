@@ -35,7 +35,7 @@ object Store:
   val layer: ZLayer[Any, IOException, Store] =
     ZLayer {
       for
-        config <- Resources.loadConfig(path = "quill.conf", section = "db")
+        config <- Resources.loadConfig(path = "quill.conf", section = "h2")
       yield Store(H2(SnakeCase, new H2JdbcContext(SnakeCase, config).dataSource))
     }
 
