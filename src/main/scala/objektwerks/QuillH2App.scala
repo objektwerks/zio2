@@ -12,7 +12,7 @@ import zio.{Console, Runtime, Scope, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
 
 final case class Todo(id: Int = 0, task: String)
 
-final case class Store(quill: H2[SnakeCase]):
+final case class H2Store(quill: H2[SnakeCase]):
   import quill.*
 
   def addTodo(todo: Todo): ZIO[Any, SQLException, Int] =
@@ -31,18 +31,18 @@ final case class Store(quill: H2[SnakeCase]):
 
   def listTodos: ZIO[Any, SQLException, List[Todo]] = run( query[Todo] )
 
-object Store:
-  val layer: ZLayer[Any, IOException, Store] =
+object H2Store:
+  val layer: ZLayer[Any, IOException, H2Store] =
     ZLayer {
       for
         config <- Resources.loadConfig(path = "quill.conf", section = "h2")
-      yield Store(H2(SnakeCase, new H2JdbcContext(SnakeCase, config).dataSource))
+      yield H2Store(H2(SnakeCase, new H2JdbcContext(SnakeCase, config).dataSource))
     }
 
 object QuillH2App extends ZIOAppDefault:
-  def app: ZIO[Store, Exception, Unit] =
+  def app: ZIO[H2Store, Exception, Unit] =
     for
-      store <- ZIO.service[Store]
+      store <- ZIO.service[H2Store]
       id    <- store.addTodo( Todo(task = "mow yard") )
       _     <- Console.printLine(s"Todo id: $id")
       todos <- store.listTodos
@@ -53,4 +53,4 @@ object QuillH2App extends ZIOAppDefault:
       _     <- Console.printLine(s"Dones: $dones")
     yield ()
 
-  def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] = app.provide(Store.layer)
+  def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] = app.provide(H2Store.layer)
