@@ -39,7 +39,7 @@ object Store:
       yield Store(H2(SnakeCase, new H2JdbcContext(SnakeCase, config).dataSource))
     }
 
-object QuillApp extends ZIOAppDefault:
+object QuillH2App extends ZIOAppDefault:
   def app: ZIO[Store, Exception, Unit] =
     for
       store <- ZIO.service[Store]
