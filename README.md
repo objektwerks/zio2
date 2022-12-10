@@ -38,15 +38,16 @@ Multiple main classes detected. Select one to run:
 6. objektwerks.InterruptApp
 7. objektwerks.LoggerApp
 8. objektwerks.ParApp
-9. objektwerks.QuillApp
-10. objektwerks.RandomApp
-11. objektwerks.STMApp
-12. objektwerks.ScheduleApp
-13. objektwerks.SemaphoreApp
-14. objektwerks.ServicePatternApp
-15. objektwerks.SubscriptionApp
-16. objektwerks.SystemApp
-17. objektwerks.ValidateApp
+9. objektwerks.QuillH2App
+10. objektwerks.QuillPostgreSqlApp
+11. objektwerks.RandomApp
+12. objektwerks.STMApp
+13. objektwerks.ScheduleApp
+14. objektwerks.SemaphoreApp
+15. objektwerks.ServicePatternApp
+16. objektwerks.SubscriptionApp
+17. objektwerks.SystemApp
+18. objektwerks.ValidateApp
 
 Curl
 ----
