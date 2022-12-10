@@ -33,7 +33,7 @@ object PostgreSqlStore:
   val layer: ZLayer[Any, IOException, PostgreSqlStore] =
     ZLayer {
       for
-        config <- Resources.loadConfig(path = "quill.conf", section = "pgsql")
+        config <- Resources.loadConfig(path = "quill.conf", section = "pg")
       yield PostgreSqlStore(H2(SnakeCase, PostgresJdbcContext(SnakeCase, config).dataSource))
     }
 
