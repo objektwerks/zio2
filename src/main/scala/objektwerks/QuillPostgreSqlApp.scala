@@ -9,8 +9,10 @@ import java.io.IOException
 import java.sql.SQLException
 
 import zio.{Console, Runtime, Scope, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
+import io.getquill.jdbczio.Quill
+import io.getquill.jdbczio.Quill.Postgres
 
-final case class PostgreSqlStore(quill: H2[SnakeCase]):
+final case class PostgreSqlStore(quill: Quill.Postgres[SnakeCase]):
   import quill.*
 
   def addTodo(todo: Todo): ZIO[Any, SQLException, Int] =
@@ -30,25 +32,28 @@ final case class PostgreSqlStore(quill: H2[SnakeCase]):
   def listTodos: ZIO[Any, SQLException, List[Todo]] = run( query[Todo] )
 
 object PostgreSqlStore:
-  val layer: ZLayer[Any, IOException, PostgreSqlStore] =
-    ZLayer {
-      for
-        config <- Resources.loadConfig(path = "quill.conf", section = "pg")
-      yield PostgreSqlStore(H2(SnakeCase, PostgresJdbcContext(SnakeCase, config).dataSource))
-    }
+  val layer: ZLayer[Postgres[SnakeCase], Nothing, PostgreSqlStore] = ZLayer.fromFunction(apply(_))
 
 object QuillPostgreSqlApp extends ZIOAppDefault:
   def app: ZIO[PostgreSqlStore, Exception, Unit] =
     for
       store <- ZIO.service[PostgreSqlStore]
-      id    <- store.addTodo( Todo(task = "mow yard") )
+      id    <- store.addTodo( Todo(task = "clean pool") )
       _     <- Console.printLine(s"Todo id: $id")
       todos <- store.listTodos
       _     <- Console.printLine(s"Todos: $todos")
-      ct    <- store.updateTodo( todos(0).copy(task = "mowed yard") )
+      ct    <- store.updateTodo( todos(0).copy(task = "cleaned pool") )
       _     <- Console.printLine(s"Update count: $ct")
       dones <- store.listTodos
       _     <- Console.printLine(s"Dones: $dones")
     yield ()
 
-  def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] = app.provide(PostgreSqlStore.layer)
+  def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] =
+    app
+      .provide(
+        PostgreSqlStore.layer,
+        Quill.Postgres.fromNamingStrategy(SnakeCase),
+        Quill.DataSource.fromConfig(Resources.load("quill.conf", "pg"))
+      )
+      .debug("Results")
+      .exitCode

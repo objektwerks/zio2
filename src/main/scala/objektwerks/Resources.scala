@@ -37,3 +37,7 @@ object Resources:
 
   def loadConfigSource(path: String, section: String): ConfigSource =
     TypesafeConfigSource.fromTypesafeConfig( loadConfig(path, section) )
+
+  def load(path: String): Config = ConfigFactory.load(path)
+
+  def load(path: String, section: String): Config = ConfigFactory.load(path).getConfig(section)
