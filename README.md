@@ -58,6 +58,18 @@ Curl
 4. curl --header "Content-Type: application/json" --request POST --data '{"Multiply":{"x":1,"y":2}}' http://localhost:7272/command
 5. curl --header "Content-Type: application/json" --request POST --data '{"Fake":{"x":1,"y":2}}' http://localhost:7272/command
 
+Postgresql Database
+-------------------
+>Example database url: postgresql://localhost:5432/todo?user=tripletail&password=
+1. psql postgres
+2. CREATE DATABASE todo OWNER [your computer name];
+3. GRANT ALL PRIVILEGES ON DATABASE todo TO [your computer name];
+4. \l
+5. \q
+6. psql todo
+7. \i pg-ddl.sql
+8. \q
+
 Postgresql DDL
 --------------
 1. psql todo
