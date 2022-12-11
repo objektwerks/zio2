@@ -42,7 +42,7 @@ object QuillPostgreSqlApp extends ZIOAppDefault:
       _     <- Console.printLine(s"Todo id: $id")
       todos <- store.listTodos
       _     <- Console.printLine(s"Todos: $todos")
-      ct    <- store.updateTodo( todos(0).copy(task = "cleaned pool") )
+      ct    <- store.updateTodo( todos.head.copy(task = "cleaned pool") )
       _     <- Console.printLine(s"Update count: $ct")
       dones <- store.listTodos
       _     <- Console.printLine(s"Dones: $dones")
@@ -53,7 +53,7 @@ object QuillPostgreSqlApp extends ZIOAppDefault:
       .provide(
         PostgreSqlStore.layer,
         Quill.Postgres.fromNamingStrategy(SnakeCase),
-        Quill.DataSource.fromConfig(Resources.load("quill.conf", "pg"))
+        Quill.DataSource.fromConfig(Resources.loadConfig("quill.conf", "pg"))
       )
       .debug("Results")
       .exitCode
