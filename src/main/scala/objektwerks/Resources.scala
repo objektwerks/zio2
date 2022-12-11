@@ -27,7 +27,7 @@ object Resources:
       }
     }
 
-  def loadConfig(path: String, section: String): ZIO[Any, IOException, Config] =
+  def loadZIOConfig(path: String, section: String): ZIO[Any, IOException, Config] =
     ZIO.attemptBlockingIO(
       ConfigFactory
         .load(path)
@@ -36,8 +36,8 @@ object Resources:
     )
 
   def loadConfigSource(path: String, section: String): ConfigSource =
-    TypesafeConfigSource.fromTypesafeConfig( loadConfig(path, section) )
+    TypesafeConfigSource.fromTypesafeConfig( loadZIOConfig(path, section) )
 
-  def load(path: String): Config = ConfigFactory.load(path)
+  def loadConfig(path: String): Config = ConfigFactory.load(path)
 
-  def load(path: String, section: String): Config = ConfigFactory.load(path).getConfig(section)
+  def loadConfig(path: String, section: String): Config = ConfigFactory.load(path).getConfig(section)
