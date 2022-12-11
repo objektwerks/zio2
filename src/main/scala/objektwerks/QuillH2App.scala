@@ -35,8 +35,8 @@ object H2Store:
   val layer: ZLayer[Any, IOException, H2Store] =
     ZLayer {
       for
-        config <- Resources.loadConfig(path = "quill.conf", section = "h2")
-      yield H2Store(H2(SnakeCase, new H2JdbcContext(SnakeCase, config).dataSource))
+        config <- Resources.loadZIOConfig(path = "quill.conf", section = "h2")
+      yield H2Store(H2(SnakeCase, H2JdbcContext(SnakeCase, config).dataSource))
     }
 
 object QuillH2App extends ZIOAppDefault:
@@ -47,7 +47,7 @@ object QuillH2App extends ZIOAppDefault:
       _     <- Console.printLine(s"Todo id: $id")
       todos <- store.listTodos
       _     <- Console.printLine(s"Todos: $todos")
-      ct    <- store.updateTodo( todos(0).copy(task = "mowed yard") )
+      ct    <- store.updateTodo( todos.head.copy(task = "mowed yard") )
       _     <- Console.printLine(s"Update count: $ct")
       dones <- store.listTodos
       _     <- Console.printLine(s"Dones: $dones")
