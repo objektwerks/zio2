@@ -32,7 +32,7 @@ final case class PostgresStore(quill: Quill.Postgres[Literal]):
   def listTodos: ZIO[Any, SQLException, List[Todo]] = run( query[Todo] )
 
 object PostgresStore:
-  val layer = ZLayer.fromFunction(apply(_))
+  val layer: ZLayer[Postgres[Literal], Nothing, PostgresStore] = ZLayer.fromFunction(apply(_))
 
 object QuillPostgreSqlApp extends ZIOAppDefault:
   def app: ZIO[PostgresStore, Exception, Unit] =
