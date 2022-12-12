@@ -49,3 +49,13 @@ object QuillPostgreSqlApp extends ZIOAppDefault:
       )
       .debug
       .exitCode
+
+  /*
+  <FAIL> Die(java.lang.Error: Defect in zio.ZEnvironment: Could not find Quill::Postgres[+Literal] inside
+  ZEnvironment(Quill$::Postgres[+Literal] -> io.getquill.jdbczio.Quill$Postgres@58360b6c),Stack trace for
+  thread "zio-fiber-4":
+	at objektwerks.PostgresStore.layer(QuillPostgresApp.scala:27)
+	at objektwerks.QuillPostgreSqlApp.run(QuillPostgresApp.scala:44)
+	at objektwerks.QuillPostgreSqlApp.run(QuillPostgresApp.scala:50)
+	at objektwerks.QuillPostgreSqlApp.run(QuillPostgresApp.scala:51)
+  */
