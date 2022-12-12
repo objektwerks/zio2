@@ -48,6 +48,12 @@ object QuillPostgreSqlApp extends ZIOAppDefault:
       _     <- Console.printLine(s"Dones: $dones")
     yield ()
 
+  /*
+    <FAIL> Die(java.lang.Error: Defect in zio.ZEnvironment: Could not find Quill::Postgres[+Literal]
+    inside ZEnvironment(Quill$::Postgres[+Literal] -> io.getquill.jdbczio.Quill$Postgres@4d055abd),
+    Stack trace for thread "zio-fiber-4": at objektwerks.PostgresStore.layer(QuillPostgresApp.scala:35)
+  */
+
   def run: ZIO[Environment & (ZIOAppArgs & Scope), Any, Any] =
     app
       .provide(
