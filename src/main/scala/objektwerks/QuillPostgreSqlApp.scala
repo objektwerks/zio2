@@ -12,7 +12,7 @@ import zio.{Console, Runtime, Scope, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
 import io.getquill.jdbczio.Quill
 import io.getquill.jdbczio.Quill.Postgres
 
-final case class PostgreSqlStore(quill: Quill.Postgres[SnakeCase]):
+final case class PostgreSqlStore(quill: Quill.Postgres[Literal]):
   import quill.*
 
   def addTodo(todo: Todo): ZIO[Any, SQLException, Int] =
@@ -32,7 +32,7 @@ final case class PostgreSqlStore(quill: Quill.Postgres[SnakeCase]):
   def listTodos: ZIO[Any, SQLException, List[Todo]] = run( query[Todo] )
 
 object PostgreSqlStore:
-  val layer: ZLayer[Postgres[SnakeCase], Nothing, PostgreSqlStore] = ZLayer.fromFunction(apply(_))
+  val layer = ZLayer.fromFunction(apply(_))
 
 object QuillPostgreSqlApp extends ZIOAppDefault:
   def app: ZIO[PostgreSqlStore, Exception, Unit] =
@@ -52,7 +52,7 @@ object QuillPostgreSqlApp extends ZIOAppDefault:
     app
       .provide(
         PostgreSqlStore.layer,
-        Quill.Postgres.fromNamingStrategy(SnakeCase),
+        Quill.Postgres.fromNamingStrategy(Literal),
         Quill.DataSource.fromConfig(Resources.loadConfig("quill.conf", "pg"))
       )
       .debug("Results")
