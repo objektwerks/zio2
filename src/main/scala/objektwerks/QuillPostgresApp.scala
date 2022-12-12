@@ -3,16 +3,14 @@ package objektwerks
 import com.typesafe.config.Config
 
 import io.getquill.*
-import io.getquill.jdbczio.Quill.H2
+import io.getquill.jdbczio.Quill
 
 import java.io.IOException
 import java.sql.SQLException
 
 import zio.{Console, Runtime, Scope, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
-import io.getquill.jdbczio.Quill
-import io.getquill.jdbczio.Quill.Postgres
 
-final case class PostgresStore(quill: Postgres[Literal]):
+final case class PostgresStore(quill: Quill.Postgres[Literal]):
   import quill.*
 
   def addTodo(todo: Todo): ZIO[Any, SQLException, Int] =
@@ -32,7 +30,7 @@ final case class PostgresStore(quill: Postgres[Literal]):
   def listTodos: ZIO[Any, SQLException, List[Todo]] = run( query[Todo] )
 
 object PostgresStore:
-  val layer: ZLayer[Postgres[Literal], Nothing, PostgresStore] = ZLayer.fromFunction(apply(_))
+  val layer: ZLayer[Quill.Postgres[Literal], Nothing, PostgresStore] = ZLayer.fromFunction(apply(_))
 
 object QuillPostgreSqlApp extends ZIOAppDefault:
   def app: ZIO[PostgresStore, Exception, Unit] =
