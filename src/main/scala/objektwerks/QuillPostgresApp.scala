@@ -55,5 +55,4 @@ object QuillPostgreSqlApp extends ZIOAppDefault:
         Quill.Postgres.fromNamingStrategy(Literal),
         Quill.DataSource.fromConfig(Resources.loadConfig("quill.conf", "pg"))
       )
-      .debug("Results")
       .exitCode
