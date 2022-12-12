@@ -15,20 +15,13 @@ final case class PostgresStore(quill: Quill.Postgres[Literal]):
   import quill.*
 
   def addTodo(todo: Todo): ZIO[Any, SQLException, Int] =
-    run( 
-      query[Todo]
-        .insertValue( lift(todo) )
-        .returningGenerated(_.id)
-    )
+    run( query[Todo].insertValue( lift(todo) ).returningGenerated(_.id) )
 
   def updateTodo(todo: Todo): ZIO[Any, SQLException, Long] =
-    run(
-      query[Todo]
-        .filter(_.id == lift(todo.id))
-        .updateValue( lift(todo) )
-    )
+    run( query[Todo].filter(_.id == lift(todo.id)).updateValue( lift(todo) ) )
 
-  def listTodos: ZIO[Any, SQLException, List[Todo]] = run( query[Todo] )
+  def listTodos: ZIO[Any, SQLException, List[Todo]] =
+    run( query[Todo] )
 
 object PostgresStore:
   val layer: ZLayer[Postgres[Literal], Nothing, PostgresStore] = ZLayer.fromFunction(apply(_))
