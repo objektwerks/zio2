@@ -18,8 +18,8 @@ object ScalaFxApp extends JFXApp3:
 
     val zioStream = ZStream.async[Any, Any, String] { emitter =>
       textField.text.onChange { (_, _, newValue) =>
-        emitter( ZIO.succeed( Chunk(newValue) ) )
         listView.getItems().add(newValue)
+        emitter( ZIO.succeed( Chunk(newValue) ) )
       }
     }
 
