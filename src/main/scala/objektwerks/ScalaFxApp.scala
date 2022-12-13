@@ -8,6 +8,7 @@ import scalafx.scene.layout.VBox
 
 import zio.{Chunk, Console, Runtime, Unsafe, ZIO}
 import zio.stream.ZStream
+import scala.annotation.newMain
 
 object ScalaFxApp extends JFXApp3:
   override def start(): Unit =
@@ -18,6 +19,7 @@ object ScalaFxApp extends JFXApp3:
     val zioStream = ZStream.async[Any, Any, String] { emitter =>
       textField.text.onChange { (_, _, newValue) =>
         emitter( ZIO.succeed( Chunk(newValue) ) )
+        listView.getItems().add(newValue)
       }
     }
 
@@ -25,7 +27,7 @@ object ScalaFxApp extends JFXApp3:
       ZIO.succeed {
         for
           text <- zioStream
-        yield listView.getItems().add(text)
+        yield Console.printLine(text)
       }
 
     stage = new JFXApp3.PrimaryStage {
