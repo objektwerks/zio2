@@ -39,6 +39,6 @@ object ScalaFxApp extends JFXApp3:
       Unsafe.unsafe { implicit unsafe =>
         Runtime.default.unsafe
           .run( zioApp )
-          .getOrThrowFiberFailure()
+          .debug
       }
     }
