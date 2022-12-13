@@ -1,14 +1,13 @@
 package objektwerks
 
 import scalafx.Includes._
-import scalafx.application.JFXApp3
+import scalafx.application.{JFXApp3, Platform}
 import scalafx.scene.Scene
 import scalafx.scene.control.{ListView, TextField}
 import scalafx.scene.layout.VBox
 
 import zio.{Chunk, Console, Runtime, Unsafe, ZIO}
 import zio.stream.ZStream
-import scala.annotation.newMain
 
 object ScalaFxApp extends JFXApp3:
   override def start(): Unit =
@@ -26,8 +25,8 @@ object ScalaFxApp extends JFXApp3:
       ZIO.succeed {
         for
           text <- zioStream
-        yield listView.getItems().add(text)
-      }.debug
+        yield Platform.runLater( listView.getItems().add(text) )
+      }
 
     stage = new JFXApp3.PrimaryStage {
       scene = new Scene {
@@ -37,6 +36,12 @@ object ScalaFxApp extends JFXApp3:
 
     stage.onShown.onChange { (_, _, _) =>
       Unsafe.unsafe { implicit unsafe =>
-        Runtime.default.unsafe.run(zioApp).getOrThrowFiberFailure()
+        Runtime
+          .default
+          .unsafe
+          .run(
+            zioApp
+          )
+          .getOrThrowFiberFailure()
       }
     }
