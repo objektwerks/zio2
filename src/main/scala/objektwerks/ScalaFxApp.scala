@@ -15,6 +15,7 @@ object ScalaFxApp extends JFXApp3:
     val listView = new ListView[String]()
     val vbox = new VBox(textField, listView)
 
+    // ZStream can't replace ScalaFx observables!
     var zioStream = ZStream[String]()
 
     textField.text.onChange { (_, _, newValue) =>
