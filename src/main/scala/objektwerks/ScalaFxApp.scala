@@ -37,12 +37,8 @@ object ScalaFxApp extends JFXApp3:
 
     stage.onShown.onChange { (_, _, _) =>
       Unsafe.unsafe { implicit unsafe =>
-        Runtime
-          .default
-          .unsafe
-          .run(
-            zioApp
-          )
+        Runtime.default.unsafe
+          .run( zioApp )
           .getOrThrowFiberFailure()
       }
     }
