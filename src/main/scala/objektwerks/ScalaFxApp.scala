@@ -15,17 +15,17 @@ object ScalaFxApp extends JFXApp3:
     val listView = new ListView[String]()
     val vbox = new VBox(textField, listView)
 
-    var stream = ZStream[String]()
+    var zioStream = ZStream[String]()
 
     textField.text.onChange { (_, _, newValue) =>
       listView.getItems().add(newValue)
-      stream.concat( ZStream( newValue ) )
+      zioStream.concat( ZStream( newValue ) )
     }
 
     val zioApp =
       ZIO.succeed {
         for
-          text <- stream
+          text <- zioStream
         yield Console.printLine(text)
       }
 
