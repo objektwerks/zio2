@@ -20,9 +20,11 @@ object ScalaFxApp extends JFXApp3:
     }
 
     val zioApp =
-      for
-        text <- zioStream
-      yield targetListView.getItems().add(text)
+      ZIO.succeed {
+        for
+          text <- zioStream
+        yield targetListView.getItems().add(text)
+      }
 
     stage = new JFXApp3.PrimaryStage {
       scene = new Scene {
