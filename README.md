@@ -42,13 +42,14 @@ Multiple main classes detected. Select one to run:
 10. objektwerks.QuillPostgreSqlApp
 11. objektwerks.RandomApp
 12. objektwerks.STMApp
-13. objektwerks.ScheduleApp
-14. objektwerks.SemaphoreApp
-15. objektwerks.ServicePatternApp
-16. objektwerks.SubscriptionApp
-17. objektwerks.SystemApp
-18. objektwerks.ValidateApp
-19. objektwerks.ZIODirect
+13. objektwerks.ScalaFxApp
+14. objektwerks.ScheduleApp
+15. objektwerks.SemaphoreApp
+16. objektwerks.ServicePatternApp
+17. objektwerks.SubscriptionApp
+18. objektwerks.SystemApp
+19. objektwerks.ValidateApp
+20. objektwerks.ZIODirect
 
 Curl
 ----
@@ -63,8 +64,8 @@ Postgresql Database
 -------------------
 >Example database url: postgresql://localhost:5432/todo?user=tripletail&password=
 1. psql postgres
-2. CREATE DATABASE todo OWNER [your computer name];
-3. GRANT ALL PRIVILEGES ON DATABASE todo TO [your computer name];
+2. CREATE DATABASE todo OWNER your computer name.;
+3. GRANT ALL PRIVILEGES ON DATABASE todo TO your computer name.;
 4. \l
 5. \q
 6. psql todo
