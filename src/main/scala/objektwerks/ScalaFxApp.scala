@@ -33,6 +33,13 @@ object ScalaFxApp extends JFXApp3:
       scene = new Scene {
         content = vbox
       }
+      /* Can do, but zero effect!
+      Unsafe.unsafe { implicit unsafe =>
+        Runtime.default.unsafe
+          .run( zioApp )
+          .debug
+      }
+      */
     }
 
     stage.onShown.onChange { (_, _, _) =>
