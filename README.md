@@ -14,9 +14,10 @@ ZIO 2
 11. quill
 12. ref/fiber ref
 13. resources
-14. streams
-15. schedule
-16. test
+14. scalafx
+15. streams
+16. schedule
+17. test
 
 Build
 -----
