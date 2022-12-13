@@ -15,7 +15,7 @@ object ScalaFxApp extends JFXApp3:
     val listView = new ListView[String]()
     val vbox = new VBox(textField, listView)
 
-    val stream = ZStream[String]()
+    var stream = ZStream[String]()
 
     textField.text.onChange { (_, _, newValue) =>
       listView.getItems().add(newValue)
@@ -25,8 +25,8 @@ object ScalaFxApp extends JFXApp3:
     val zioApp =
       ZIO.succeed {
         for
-          text <- stream.debug
-        yield ()
+          text <- stream
+        yield Console.printLine(text)
       }
 
     stage = new JFXApp3.PrimaryStage {
