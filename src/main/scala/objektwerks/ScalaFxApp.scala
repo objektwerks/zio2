@@ -25,8 +25,8 @@ object ScalaFxApp extends JFXApp3:
     val zioApp =
       ZIO.succeed {
         for
-          text <- stream
-        yield Console.printLine(text)
+          text <- stream.debug
+        yield ()
       }
 
     stage = new JFXApp3.PrimaryStage {
