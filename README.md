@@ -48,6 +48,7 @@ Multiple main classes detected. Select one to run:
 16. objektwerks.SubscriptionApp
 17. objektwerks.SystemApp
 18. objektwerks.ValidateApp
+19. objektwerks.ZIODirect
 
 Curl
 ----
