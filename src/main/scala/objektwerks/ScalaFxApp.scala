@@ -22,25 +22,18 @@ object ScalaFxApp extends JFXApp3:
       zioStream.concat( ZStream( newValue ) )
     }
 
+    stage = new JFXApp3.PrimaryStage {
+      scene = new Scene {
+        content = vbox
+      }
+    }
+
     val zioApp =
       ZIO.succeed {
         for
           text <- zioStream
         yield text
       }
-
-    stage = new JFXApp3.PrimaryStage {
-      scene = new Scene {
-        content = vbox
-      }
-      /* Can do, but zero effect!
-      Unsafe.unsafe { implicit unsafe =>
-        Runtime.default.unsafe
-          .run( zioApp )
-          .debug
-      }
-      */
-    }
 
     stage.onShown.onChange { (_, _, _) =>
       Unsafe.unsafe { implicit unsafe =>
