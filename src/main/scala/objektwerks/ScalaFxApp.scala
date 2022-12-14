@@ -29,16 +29,13 @@ object ScalaFxApp extends JFXApp3:
         content = vbox
 
     val zioApp: ZIO[Any, Any, Unit] =
-      for
-        fiber <- ZStream
-                   .async { emitter =>
-                     textField.text.onChange { (_, _, newValue) =>
-                       emitter( ZIO.succeed( Chunk(newValue) ) )
-                     }
-                   }
-                   .foreach( Console.printLine(_) ).fork
-        _     <-  fiber.join
-      yield ()
+      ZStream
+        .async { emitter =>
+          textField.text.onChange { (_, _, newValue) =>
+            emitter( ZIO.succeed( Chunk(newValue) ) )
+          }
+        }
+        .foreach( Console.printLine(_) )
 
     stage.onShown = _ =>
       Future {
