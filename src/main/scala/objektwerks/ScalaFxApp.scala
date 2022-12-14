@@ -27,6 +27,7 @@ object ScalaFxApp extends JFXApp3:
       ZStream
         .async { emitter =>
           textField.text.onChange { (_, _, newValue) =>
+            shouldBeInFxThread("textField.onChange not in fx thread!")
             listView.getItems().add(newValue)
             emitter( ZIO.succeed( Chunk(newValue) ) )
           }
@@ -39,6 +40,7 @@ object ScalaFxApp extends JFXApp3:
 
     stage.onShown = _ =>
       Future {
+        shouldNotBeInFxThread("stage.onShown in future, in fx thread!")
         Unsafe.unsafe { implicit unsafe =>
           Runtime
             .default
