@@ -33,7 +33,7 @@ object ScalaFxApp extends JFXApp3:
                        emitter( ZIO.succeed( Chunk(newValue) ) )
                      }
                    }
-                   .foreach(Console.printLine(_)).fork // still doesn't print!
+                   .foreach( Console.printLine(_) ).fork // still doesn't print!
         _     <-  fiber.join
       yield ()
 
