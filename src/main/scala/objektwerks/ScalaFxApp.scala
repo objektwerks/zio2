@@ -27,7 +27,7 @@ object ScalaFxApp extends JFXApp3:
         .async { emitter =>
           textField.text.onChange { (_, _, newValue) =>
             shouldBeInFxThread("textField.onChange: Error! Not in fx thread!")
-            listView.getItems().add(newValue)
+            listView.items.value += newValue
             emitter( ZIO.succeed( Chunk(newValue) ) )
           }
         }
