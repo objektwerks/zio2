@@ -2,6 +2,8 @@ package objektwerks
 
 import scalafx.Includes._
 import scalafx.application.{JFXApp3, Platform}
+import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 import scalafx.scene.Scene
 import scalafx.scene.control.{ListView, TextField}
 import scalafx.scene.layout.VBox
@@ -15,12 +17,8 @@ object ScalaFxApp extends JFXApp3:
     val listView = new ListView[String]()
     val vbox = new VBox(textField, listView)
 
-    // ZStream can't replace ScalaFx observables!
-    var zioStream = ZStream[String]()
-
     textField.text.onChange { (_, _, newValue) =>
       listView.getItems().add(newValue)
-      zioStream.concat( ZStream( newValue ) )
     }
 
     stage = new JFXApp3.PrimaryStage {
@@ -30,16 +28,23 @@ object ScalaFxApp extends JFXApp3:
     }
 
     val zioApp =
-      ZIO.succeed {
-        for
-          text <- zioStream
-        yield text
-      }
+      for
+        _ <- ZStream
+               .async { emitter =>
+                 textField.text.onChange { (_, _, newValue) =>
+                   emitter( ZIO.succeed( Chunk(newValue) ) )
+                 }
+               }
+               .foreach(Console.printLine(_)).fork
+        _ <- ZIO.never
+      yield ()
 
     stage.onShown.onChange { (_, _, _) =>
-      Unsafe.unsafe { implicit unsafe =>
-        Runtime.default.unsafe
-          .run( zioApp )
-          .debug
+      Future {
+        Unsafe.unsafe { implicit unsafe =>
+          Runtime.default.unsafe
+            .run(zioApp)
+            .debug
+        }
       }
     }
