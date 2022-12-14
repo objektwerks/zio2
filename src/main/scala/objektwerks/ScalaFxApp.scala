@@ -20,14 +20,11 @@ object ScalaFxApp extends JFXApp3:
     val listView = new ListView[String]()
     val vbox = new VBox(textField, listView)
 
-    textField.text.onChange { (_, _, newValue) =>
-      listView.getItems().add(newValue)
-    }
-
     val zioTextFieldChangeListener: ZIO[Any, Any, Unit] =
       ZStream
         .async { emitter =>
           textField.text.onChange { (_, _, newValue) =>
+            listView.getItems().add(newValue)
             emitter( ZIO.succeed( Chunk(newValue) ) )
           }
         }
