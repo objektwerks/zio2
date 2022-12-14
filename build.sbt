@@ -4,7 +4,7 @@ version := "0.1-SNAPSHOT"
 scalaVersion := "3.2.1"
 libraryDependencies ++= {
   val zioVersion = "2.0.5"
-  val zioConfigVersion = "3.0.1"
+  val zioConfigVersion = "3.0.2"
   Seq(
     "dev.zio" %% "zio" % zioVersion,
     "dev.zio" %% "zio-http" % "0.0.3",
@@ -20,7 +20,7 @@ libraryDependencies ++= {
     "com.h2database" % "h2" % "2.1.214",
     "org.postgresql" % "postgresql" % "42.5.1",
     "org.scalafx" %% "scalafx" % "19.0.0-R30",
-    // Breaks ScalaFxApp! compilerPlugin("com.github.ghik" % "zerowaste" % "0.2.1" cross CrossVersion.full),
+    compilerPlugin("com.github.ghik" % "zerowaste" % "0.2.1" cross CrossVersion.full),
     "org.slf4j" % "slf4j-nop" % "2.0.5",
     "dev.zio" %% "zio-test" % zioVersion % Test,
     "dev.zio" %% "zio-test-sbt" % zioVersion % Test
