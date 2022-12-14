@@ -44,6 +44,6 @@ object ScalaFxApp extends JFXApp3:
             .default
             .unsafe
             .run(zioApp)
-            .getOrThrowFiberFailure()
+            .exitCode
         }
       }
