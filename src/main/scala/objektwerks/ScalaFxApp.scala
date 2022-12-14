@@ -24,10 +24,6 @@ object ScalaFxApp extends JFXApp3:
       listView.getItems().add(newValue)
     }
 
-    stage = new JFXApp3.PrimaryStage:
-      scene = new Scene:
-        content = vbox
-
     val zioApp: ZIO[Any, Any, Unit] =
       ZStream
         .async { emitter =>
@@ -36,6 +32,10 @@ object ScalaFxApp extends JFXApp3:
           }
         }
         .foreach( Console.printLine(_) )
+
+    stage = new JFXApp3.PrimaryStage:
+      scene = new Scene:
+        content = vbox
 
     stage.onShown = _ =>
       Future {
