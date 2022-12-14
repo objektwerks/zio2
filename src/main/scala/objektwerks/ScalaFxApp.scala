@@ -20,7 +20,7 @@ import zio.stream.ZStream
   * With standard ZIO code this is a good thing. With ScalaFx event listeners it's an annoyance.
   * 
   * The current solution is employ this approach:
-  * {{{ val _ = ZIO.succeed( ... ) }}}
+  * @example {{{ val _ = ZIO.succeed( ... ) }}}
   * See 2 examples below.
   */
 object ScalaFxApp extends JFXApp3:
