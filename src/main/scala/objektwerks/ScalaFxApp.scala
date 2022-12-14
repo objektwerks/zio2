@@ -47,4 +47,4 @@ object ScalaFxApp extends JFXApp3:
             .run(zioTextFieldChangeListener)
             .exitCode
         }
-      }
+      }.foreach( _ => () )
