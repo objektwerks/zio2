@@ -25,7 +25,7 @@ object ScalaFxApp extends JFXApp3:
       scene = new Scene:
         content = vbox
 
-    val zioApp =
+    val zioApp: ZIO[Any, Any, Unit] =
       for
         fiber <- ZStream
                    .async { emitter =>
