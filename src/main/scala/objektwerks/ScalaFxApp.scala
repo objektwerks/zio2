@@ -21,7 +21,6 @@ object ScalaFxApp extends JFXApp3:
   override def start(): Unit =
     val textField = new TextField()
     val listView = new ListView[String]()
-    val vbox = new VBox(textField, listView)
 
     val zioTextFieldChangeListener: ZIO[Any, Any, Unit] =
       ZStream
@@ -36,7 +35,7 @@ object ScalaFxApp extends JFXApp3:
 
     stage = new JFXApp3.PrimaryStage:
       scene = new Scene:
-        content = vbox
+        content = new VBox(textField, listView)
 
     stage.onShown = _ =>
       Future {
