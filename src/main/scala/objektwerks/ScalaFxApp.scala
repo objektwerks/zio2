@@ -39,7 +39,8 @@ object ScalaFxApp extends JFXApp3:
         content = new VBox(textField, listView)
 
     stage.onShown = _ =>
-      Future {
+      // val _ removes this error: discarded expression with non-Unit value
+      val _ = Future {
         shouldNotBeInFxThread("stage.onShown: Error! In fx thread!")
         Unsafe.unsafe { implicit unsafe =>
           Runtime
@@ -48,4 +49,4 @@ object ScalaFxApp extends JFXApp3:
             .run(zioTextFieldChangeListener)
             .exitCode
         }
-      }.foreach( _ => () )
+      }
