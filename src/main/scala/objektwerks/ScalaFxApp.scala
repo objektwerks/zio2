@@ -11,6 +11,9 @@ import scalafx.scene.layout.VBox
 import zio.{Chunk, Console, Runtime, Unsafe, ZIO}
 import zio.stream.ZStream
 
+/**
+  * See alternate implementation by Duran: https://pastebin.com/ErsB0rkc
+  */
 object ScalaFxApp extends JFXApp3:
   override def start(): Unit =
     val textField = new TextField()
