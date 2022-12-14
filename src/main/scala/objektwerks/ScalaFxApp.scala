@@ -26,7 +26,7 @@ object ScalaFxApp extends JFXApp3:
   def shouldNotBeInFxThread(message: String): Unit = require(!Platform.isFxApplicationThread, message)
 
   override def start(): Unit =
-    val textField = new TextField()
+    val textField = TextField()
     val listView = new ListView[String]()
 
     val zioTextFieldChangeListener: ZIO[Any, Any, Unit] =
@@ -43,7 +43,7 @@ object ScalaFxApp extends JFXApp3:
 
     stage = new JFXApp3.PrimaryStage:
       scene = new Scene:
-        content = new VBox(textField, listView)
+        content = VBox(textField, listView)
 
     stage.onShown = _ =>
       // val _ removes this error: discarded expression with non-Unit value
