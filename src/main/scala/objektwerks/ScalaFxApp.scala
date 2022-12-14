@@ -34,8 +34,10 @@ object ScalaFxApp extends JFXApp3:
         .async { emitter =>
           // val _ removes this error: discarded expression with non-Unit value
           val _ = textField.text.onChange { (_, _, newValue) =>
-            shouldBeInFxThread("textField.onChange: Error! Not in fx thread!")
-            listView.items.value += newValue
+            ZIO.succeed {
+              shouldBeInFxThread("textField.onChange: Error! Not in fx thread!")
+              listView.items.value += newValue
+            }
             emitter( ZIO.succeed( Chunk(newValue) ) )
           }
         }
