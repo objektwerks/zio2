@@ -37,7 +37,7 @@ object ScalaFxApp extends JFXApp3:
         _     <-  fiber.join
       yield ()
 
-    stage.onShown.onChange { (_, _, _) =>
+    stage.onShown = _ =>
       Future {
         Unsafe.unsafe { implicit unsafe =>
           Runtime
@@ -47,4 +47,3 @@ object ScalaFxApp extends JFXApp3:
             .getOrThrowFiberFailure()
         }
       }
-    }
