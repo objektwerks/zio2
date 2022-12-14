@@ -24,7 +24,7 @@ object ScalaFxApp extends JFXApp3:
       listView.getItems().add(newValue)
     }
 
-    val zioApp: ZIO[Any, Any, Unit] =
+    val textFieldChangeListener: ZIO[Any, Any, Unit] =
       ZStream
         .async { emitter =>
           textField.text.onChange { (_, _, newValue) =>
@@ -43,7 +43,7 @@ object ScalaFxApp extends JFXApp3:
           Runtime
             .default
             .unsafe
-            .run(zioApp)
+            .run(textFieldChangeListener)
             .exitCode
         }
       }
