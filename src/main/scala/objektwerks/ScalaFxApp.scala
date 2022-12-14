@@ -15,8 +15,8 @@ import zio.stream.ZStream
   * See alternate implementation by Duran: https://pastebin.com/ErsB0rkc
   */
 object ScalaFxApp extends JFXApp3:
-  val shouldBeInFxThread = (message: String) => require(Platform.isFxApplicationThread, message)
-  val shouldNotBeInFxThread = (message: String) => require(!Platform.isFxApplicationThread, message)
+  def shouldBeInFxThread(message: String): Unit = require(Platform.isFxApplicationThread, message)
+  def shouldNotBeInFxThread(message: String): Unit = require(!Platform.isFxApplicationThread, message)
 
   override def start(): Unit =
     val textField = new TextField()
