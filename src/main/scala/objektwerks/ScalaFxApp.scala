@@ -27,14 +27,14 @@ object ScalaFxApp extends JFXApp3:
 
     val zioApp =
       for
-        _ <- ZStream
-               .async { emitter =>
-                 textField.text.onChange { (_, _, newValue) =>
-                   emitter( ZIO.succeed( Chunk(newValue) ) )
-                 }
-               }
-               .foreach(Console.printLine(_)).fork
-        _ <- ZIO.never
+        fiber <- ZStream
+                   .async { emitter =>
+                     textField.text.onChange { (_, _, newValue) =>
+                       emitter( ZIO.succeed( Chunk(newValue) ) )
+                     }
+                   }
+                   .foreach(Console.printLine(_)).fork // still doesn't print!
+        _     <-  fiber.join
       yield ()
 
     stage.onShown.onChange { (_, _, _) =>
