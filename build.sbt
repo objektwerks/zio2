@@ -9,7 +9,7 @@ libraryDependencies ++= {
     "dev.zio" %% "zio" % zioVersion,
     "dev.zio" %% "zio-http" % "0.0.3",
     "dev.zio" %% "zio-streams" % zioVersion,
-    "dev.zio" %% "zio-json" % "0.3.0",
+    "dev.zio" %% "zio-json" % "0.4.2",
     "dev.zio" %% "zio-config" % zioConfigVersion,
     "dev.zio" %% "zio-config-typesafe" % zioConfigVersion,
     "dev.zio" %% "zio-config-magnolia" % zioConfigVersion,
