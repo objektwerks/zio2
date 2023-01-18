@@ -13,7 +13,7 @@ libraryDependencies ++= {
     "dev.zio" %% "zio-config" % zioConfigVersion,
     "dev.zio" %% "zio-config-typesafe" % zioConfigVersion,
     "dev.zio" %% "zio-config-magnolia" % zioConfigVersion,
-    "dev.zio" %% "zio-logging" % "2.1.5",
+    "dev.zio" %% "zio-logging" % "2.1.7",
     "dev.zio" %% "zio-cache" % "0.2.0",
     "dev.zio" % "zio-direct_3" % "1.0.0-RC1",
     "io.getquill" %% "quill-jdbc-zio" % "4.6.0",
