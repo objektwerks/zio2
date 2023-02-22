@@ -16,7 +16,7 @@ libraryDependencies ++= {
     "dev.zio" %% "zio-logging" % "2.1.8",
     "dev.zio" %% "zio-cache" % "0.2.2",
     "dev.zio" % "zio-direct_3" % "1.0.0-RC4",
-    "io.getquill" %% "quill-jdbc-zio" % "4.6.0",
+    "io.getquill" %% "quill-jdbc-zio" % "4.6.0.1",
     "com.h2database" % "h2" % "2.1.214",
     "org.postgresql" % "postgresql" % "42.5.3",
     "org.scalafx" %% "scalafx" % "19.0.0-R30",
