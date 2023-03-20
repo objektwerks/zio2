@@ -7,7 +7,7 @@ libraryDependencies ++= {
   val zioConfigVersion = "3.0.7"
   Seq(
     "dev.zio" %% "zio" % zioVersion,
-    "dev.zio" %% "zio-http" % "0.0.4",
+    "dev.zio" %% "zio-http" % "0.0.5",
     "dev.zio" %% "zio-streams" % zioVersion,
     "dev.zio" %% "zio-json" % "0.5.0",
     "dev.zio" %% "zio-config" % zioConfigVersion,
