@@ -15,7 +15,7 @@ libraryDependencies ++= {
     "dev.zio" %% "zio-config-magnolia" % zioConfigVersion,
     "dev.zio" %% "zio-logging" % "2.1.11",
     "dev.zio" %% "zio-cache" % "0.2.2",
-    "dev.zio" % "zio-direct_3" % "1.0.0-RC5",
+    "dev.zio" % "zio-direct_3" % "1.0.0-RC6",
     "io.getquill" %% "quill-jdbc-zio" % "4.6.0.1",
     "com.h2database" % "h2" % "2.1.214",
     "org.postgresql" % "postgresql" % "42.5.3",
