@@ -2,7 +2,7 @@ package objektwerks
 
 import zio.Chunk
 import zio.Console.printLine
-import zio.stream.{ZChannel, ZPipeline, ZSink, ZStream}
+import zio.stream.{ZPipeline, ZSink, ZStream}
 import zio.test.{assertTrue, ZIOSpecDefault}
 
 object StreamTest extends ZIOSpecDefault:
