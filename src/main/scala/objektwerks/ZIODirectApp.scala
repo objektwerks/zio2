@@ -1,6 +1,6 @@
 package objektwerks
 
-import zio.{Console, IO, Runtime, Scope, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
+import zio.{IO, Scope, ZIO, ZIOAppArgs, ZIOAppDefault}
 import zio.direct.*
 
 final case class DoubleError()
