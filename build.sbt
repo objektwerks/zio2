@@ -20,9 +20,12 @@ libraryDependencies ++= {
     "com.h2database" % "h2" % "2.1.214",
     "org.postgresql" % "postgresql" % "42.6.0",
     "org.scalafx" %% "scalafx" % "20.0.0-R31",
-    compilerPlugin("com.github.ghik" % "zerowaste" % "0.2.6" cross CrossVersion.full),
+    // Unavailable for latest Scala version. compilerPlugin("com.github.ghik" % "zerowaste" % "0.2.6" cross CrossVersion.full),
     "org.slf4j" % "slf4j-nop" % "2.0.7",
     "dev.zio" %% "zio-test" % zioVersion % Test,
     "dev.zio" %% "zio-test-sbt" % zioVersion % Test
   )
 }
+scalacOptions ++= Seq(
+  "-Wunused:all"
+)
