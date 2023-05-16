@@ -4,7 +4,7 @@ import com.typesafe.config.{Config, ConfigFactory}
 
 import java.io.IOException
 
-import scala.io.{BufferedSource, Codec, Source}
+import scala.io.{Codec, Source}
 
 import zio.{Scope, ZIO}
 import zio.config.ConfigSource
