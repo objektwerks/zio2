@@ -4,7 +4,7 @@ import java.io.IOException
 import java.nio.file.Path
 
 import zio.{Console, Runtime, Scope, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
-import zio.logging.{LogFormat, file}
+import zio.logging.file
 
 object ConsoleApp extends ZIOAppDefault:
   override val bootstrap: ZLayer[ZIOAppArgs, Any, Environment] =

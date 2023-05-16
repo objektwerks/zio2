@@ -1,7 +1,6 @@
 package objektwerks
 
 import zio.{Scope, UIO, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
-import java.io.IOException
 
 // Service Trait
 trait Logger:

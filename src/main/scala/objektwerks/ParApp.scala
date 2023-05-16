@@ -1,6 +1,6 @@
 package objektwerks
 
-import zio.{durationInt, Scope, ZIO, ZIOAppArgs, ZIOAppDefault}
+import zio.{Scope, ZIO, ZIOAppArgs, ZIOAppDefault}
 
 object ParApp extends ZIOAppDefault:
   val zios: Seq[ZIO[Any, Nothing, Int]] = (1 to 1_000_000).map(i => ZIO.succeed(i))

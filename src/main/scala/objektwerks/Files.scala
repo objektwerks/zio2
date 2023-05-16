@@ -2,7 +2,7 @@ package objektwerks
 
 import java.io.IOException
 
-import scala.io.{BufferedSource, Source}
+import scala.io.Source
 
 import zio.{Scope, ZIO}
 
