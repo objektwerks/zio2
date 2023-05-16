@@ -1,14 +1,12 @@
 package objektwerks
 
-import com.typesafe.config.Config
-
 import io.getquill.*
 import io.getquill.jdbczio.Quill.H2
 
 import java.io.IOException
 import java.sql.SQLException
 
-import zio.{Console, Runtime, Scope, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
+import zio.{Console, Scope, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
 
 final case class Todo(id: Int = 0, task: String)
 
