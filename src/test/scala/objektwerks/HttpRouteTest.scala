@@ -15,13 +15,13 @@ object HttpRouteTest extends ZIOSpecDefault:
     test("get") {
       val request = Request.get(URL(!! / "get"))
       for
-        response <- route(request).flatMap(response => response.body.asString)
+        response <- route.runZIO(request).flatMap(response => response.body.asString)
       yield assertTrue(response == "get")
     },
     test("post") {
       val request = Request.post(Body.fromString("post"), URL(!! / "post"))
       for
-        response <- route(request).flatMap(response => response.body.asString)
+        response <- route.runZIO(request).flatMap(response => response.body.asString)
       yield assertTrue(response == "post")
     }
   )
