@@ -1,6 +1,6 @@
 package objektwerks
 
-import zio.{Console, Duration, Runtime, Scope, UIO, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
+import zio.{Duration, Scope, UIO, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
 import zio.cache.{Cache, Lookup}
 
 case class IntCache(cache: Cache[Int, Nothing, Int]):
