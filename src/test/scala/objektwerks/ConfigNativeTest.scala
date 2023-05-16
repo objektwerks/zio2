@@ -1,7 +1,7 @@
 package objektwerks
 
-import zio.{Config, ZIO}
-import zio.test.{assertTrue, assertZIO, ZIOSpecDefault}
+import zio.Config
+import zio.test.{assertTrue, ZIOSpecDefault}
 import zio.test.Assertion.*
 
 case class JavaHome(value: String)
