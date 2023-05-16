@@ -13,7 +13,7 @@ import Command.given
 import Event.given
 
 object HttpServer extends ZIOAppDefault:
-  val router: Http[Any, Throwable, Request, Response] = Http.collectZIO[Request] {
+  val route: Http[Any, Throwable, Request, Response] = Http.collectZIO[Request] {
     case Method.GET -> !! / "now" => ZIO.succeed( Response.text(Instant.now.toString()) )
     case request @ Method.POST -> !! / "greeting" => request.body.asString.map { name => Response.text(s"\nGreetings, $name!\n") }
     case request @ Method.POST -> !! / "command" => request.body.asString.map { json =>
@@ -35,7 +35,7 @@ object HttpServer extends ZIOAppDefault:
       config =  ServerConfig.default.port(port)
       _      <- ZIO.log(s"HttpServer running at http://localhost:$port")
       server <- Server
-                  .serve(router)
+                  .serve(route.withDefaultErrorResponse)
                   .provide(ServerConfig.live(config), Server.live)
                   .exitCode
     yield server
