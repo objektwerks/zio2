@@ -17,7 +17,7 @@ libraryDependencies ++= {
     "dev.zio" %% "zio-cache" % "0.2.3",
     "dev.zio" %% "zio-direct" % "1.0.0-RC7",
     "io.getquill" %% "quill-jdbc-zio" % "4.6.1",
-    "com.h2database" % "h2" % "2.1.214",
+    "com.h2database" % "h2" % "2.1.220",
     "org.postgresql" % "postgresql" % "42.6.0",
     "org.scalafx" %% "scalafx" % "20.0.0-R31",
     // Unavailable for latest Scala version. compilerPlugin("com.github.ghik" % "zerowaste" % "0.2.6" cross CrossVersion.full),
