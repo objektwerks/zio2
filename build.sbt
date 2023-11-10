@@ -20,7 +20,7 @@ libraryDependencies ++= {
     "com.h2database" % "h2" % "2.2.224",
     "org.postgresql" % "postgresql" % "42.6.0",
     "org.scalafx" %% "scalafx" % "20.0.0-R31",
-    // Unavailable for latest Scala version. compilerPlugin("com.github.ghik" % "zerowaste" % "0.2.6" cross CrossVersion.full),
+    compilerPlugin("com.github.ghik" % "zerowaste" % "0.2.15" cross CrossVersion.full),
     "org.slf4j" % "slf4j-nop" % "2.0.7",
     "dev.zio" %% "zio-test" % zioVersion % Test,
     "dev.zio" %% "zio-test-sbt" % zioVersion % Test
