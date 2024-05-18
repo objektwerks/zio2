@@ -20,7 +20,7 @@ libraryDependencies ++= {
     "com.h2database" % "h2" % "2.2.224",
     "org.postgresql" % "postgresql" % "42.7.3",
     "org.scalafx" %% "scalafx" % "22.0.0-R33",
-    compilerPlugin("com.github.ghik" % "zerowaste" % "0.2.19" cross CrossVersion.full),
+    compilerPlugin("com.github.ghik" % "zerowaste" % "0.2.20" cross CrossVersion.full),
     "org.slf4j" % "slf4j-nop" % "2.0.12",
     "dev.zio" %% "zio-test" % zioVersion % Test,
     "dev.zio" %% "zio-test-sbt" % zioVersion % Test
