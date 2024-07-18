@@ -17,7 +17,7 @@ libraryDependencies ++= {
     "dev.zio" %% "zio-cache" % "0.2.3",
     "dev.zio" %% "zio-direct" % "1.0.0-RC7",
     "io.getquill" %% "quill-jdbc-zio" % "4.8.5",
-    "com.h2database" % "h2" % "2.2.224",
+    "com.h2database" % "h2" % "2.3.230",
     "org.postgresql" % "postgresql" % "42.7.3",
     "org.scalafx" %% "scalafx" % "22.0.0-R33",
     compilerPlugin("com.github.ghik" % "zerowaste" % "0.2.21" cross CrossVersion.full),
