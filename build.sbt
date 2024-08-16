@@ -21,7 +21,7 @@ libraryDependencies ++= {
     "org.postgresql" % "postgresql" % "42.7.3",
     "org.scalafx" %% "scalafx" % "22.0.0-R33",
     compilerPlugin("com.github.ghik" % "zerowaste" % "0.2.21" cross CrossVersion.full),
-    "org.slf4j" % "slf4j-nop" % "2.0.15",
+    "org.slf4j" % "slf4j-nop" % "2.0.16",
     "dev.zio" %% "zio-test" % zioVersion % Test,
     "dev.zio" %% "zio-test-sbt" % zioVersion % Test
   )
