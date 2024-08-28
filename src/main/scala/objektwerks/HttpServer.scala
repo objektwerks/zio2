@@ -4,19 +4,15 @@ import java.nio.file.Path
 import java.time.Instant
 
 import zio.{Runtime, Scope, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
-import zio.http.{Charsets, handler, Method, Request, Response, Routes, Server}
+import zio.http.{Charsets, handler, Handler, Method, Request, Response, Routes, Server}
 import zio.json.{DecoderOps, EncoderOps}
 
 import Command.given
 import Event.given
 
 object HttpServer extends ZIOAppDefault:
-  val routes = Routes(
-    Method.GET / "now" -> handler: (request: Request) => ZIO.succeed( Response.text(Instant.now.toString()) ),
-
-    Method.POST / "greeting" -> handler: (request: Request) => request.body.map { name => Response.text(s"\nGreetings, $name!\n") },
-
-    Method.POST / "command" -> handler: (request: Request) => request.body.map { json =>
+  val routes: Routes[String, Response] = Routes(
+    Method.POST / "command" -> handler: (request: Request) => request.body.asString.map { json =>
       json.fromJson[Command] match
         case Right(command) => command match
           case Add(x, y) => Response.json( Added( x + y ).toJson )
