@@ -1,9 +1,8 @@
 package objektwerks
 
 import java.io.IOException
-import java.nio.file.Path
 
-import zio.{Console, Runtime, Scope, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
+import zio.{Console, Scope, ZIO, ZIOAppArgs, ZIOAppDefault}
 
 object ConsoleApp extends ZIOAppDefault:
   def app: ZIO[Any, IOException, Unit] =

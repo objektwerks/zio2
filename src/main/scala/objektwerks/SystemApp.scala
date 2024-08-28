@@ -1,6 +1,6 @@
 package objektwerks
 
-import zio.{Console, Runtime, Scope, System, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
+import zio.{Console, Scope, System, ZIO, ZIOAppArgs, ZIOAppDefault}
 
 /**
   * System.env("JAVA_HOME") fails in a ZIO test. Why?
