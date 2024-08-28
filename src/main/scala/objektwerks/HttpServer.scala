@@ -4,10 +4,8 @@ import java.nio.file.Path
 import java.time.Instant
 
 import zio.{Runtime, Scope, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
-import zio.http.{!!, /, ->, Http, Request, Response, Server, ServerConfig}
-import zio.http.model.Method
+import zio.http.{Request, Response, Server}
 import zio.json.{DecoderOps, EncoderOps}
-import zio.logging.file
 
 import Command.given
 import Event.given
@@ -24,9 +22,6 @@ object HttpServer extends ZIOAppDefault:
         case Left(error) => Response.json( Fault( error ).toJson )
     }
   }
-
-  override val bootstrap: ZLayer[ZIOAppArgs, Any, Environment] =
-    Runtime.removeDefaultLoggers >>> file(Path.of("./target/http-server.log"))
 
   override def run: ZIO[Environment & (ZIOAppArgs & Scope ), Any, Any] =
     for
