@@ -1,7 +1,7 @@
 name := "zio2"
 organization := "objektwerks"
 version := "0.1-SNAPSHOT"
-scalaVersion := "3.6.4" // Scala 3.7.1-RC1 breaks ScalaFx!
+scalaVersion := "3.6.4" // Scala 3.7.1-RC2 breaks ScalaFx!
 libraryDependencies ++= {
   val zioVersion = "2.1.18"
   val zioConfigVersion = "4.0.4"
