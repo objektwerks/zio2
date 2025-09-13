@@ -20,7 +20,7 @@ libraryDependencies ++= {
     "com.h2database" % "h2" % "2.3.232",
     "org.postgresql" % "postgresql" % "42.7.7",
     "org.scalafx" %% "scalafx" % "24.0.2-R36",
-    "org.slf4j" % "slf4j-nop" % "2.0.16",
+    "org.slf4j" % "slf4j-nop" % "2.0.17",
     "dev.zio" %% "zio-test" % zioVersion % Test,
     "dev.zio" %% "zio-test-sbt" % zioVersion % Test
   )
