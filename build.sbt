@@ -14,7 +14,7 @@ libraryDependencies ++= {
     "dev.zio" %% "zio-config-typesafe" % zioConfigVersion,
     "dev.zio" %% "zio-config-magnolia" % zioConfigVersion,
     "dev.zio" %% "zio-logging" % "2.5.2",
-    "dev.zio" %% "zio-cache" % "0.2.5",
+    "dev.zio" %% "zio-cache" % "0.2.6",
     "dev.zio" %% "zio-direct" % "1.0.0-RC7",
     "io.getquill" %% "quill-jdbc-zio" % "4.8.6",
     "com.h2database" % "h2" % "2.4.240",
